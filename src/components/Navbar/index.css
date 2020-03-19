@@ -1,6 +1,6 @@
 /* The sidenav */
 .sidenav {
-  height: 100vh;
+  height: 100%;
   width: 50px;
   position: fixed;
   z-index: 20;
