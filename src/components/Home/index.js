@@ -1,5 +1,4 @@
 import React from 'react'
-import Zabo from 'zabo-sdk-js'
 import feathers from '@feathersjs/client'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
@@ -21,33 +20,6 @@ let state = observable({
   id: 'null',
   tree: {},
 })
-
-let getZaboAccount = async () => {
-  const zabo = await Zabo.init({
-    clientId: 'z3rtFH7DsU2UeLwjyBfs2aHMCNNssykj2N7VmC9n0KXdbUUKGSghDVtBS8IpgLxW',
-    env: 'sandbox'
-  })
-
-  zabo.connect().onConnection(account => {
-    state.id = account.id
-    state.tree.mutate(['root', 'id'], { data: { value: state.id } })
-    state.tree.refresh(['root', 'id'])
-
-    // send account to server
-    var app = feathers();
-    var restClient = feathers.rest('https://api.zabo.site')
-    app.configure(restClient.fetch(window.fetch));
-     
-    account.balances.map(balance => {
-      balance.id = account.id
-      console.log(balance)
-      app.service('accounts').create(balance)
-    })
-  }).onError(error => {
-    console.error('account connection error:', error.message)
-  })
-}
-getZaboAccount()
 
 let types = exampleTypes
           

@@ -7,7 +7,6 @@ const service = async (dsl) => {
   app.configure(restClient.fetch(window.fetch))
 
   const service = app.service('service')
-  console.log(dsl)
   return service.create(dsl, {})
 }
 
