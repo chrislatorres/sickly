@@ -21,7 +21,7 @@ let Home = () =>
               <img src={about}/>
               <h1>Welcome to Sickly</h1>
               <p>
-                 Hi I am <b>Christopher</b>, a Software Engineer out of Dallas, Texas.<br/>
+                 Hi I am <b>Christopher</b>, a freelance Software Engineer out of Dallas, Texas.<br/>
                  I created Sickly to help people face the data on COVID-19 cases.<br/>
                  Sickly texts your phone when there is a new case near you.<br/>
                  <a href="https://github.com/sponsors/ltchris">You can support the project here.</a><br/>

@@ -5,28 +5,17 @@ hr {
   opacity: 20%;
   margin: 35px 0px;
 }
-.grid {
-  margin: -8px 25% 0;
-}
 .box {
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 8px 20px 0 rgba(0,0,0,.08);
   padding: 15px;
+  margin: 0px 15%;
 }
-.heroContainer {
-  box-sizing: border-box;
+.container {
   text-align: center;
-  position: relative;
 }
-.heroContainer img {
+.cntainer img {
   width: 50%;
   border-radius: 50%;
-}
-.heroInnerContainer {
-  box-sizing: border-box;
-  padding: 0 16px;
-  margin-left: -20px;
-  margin-right: -20px;
-  width: calc(100% + 40px);
 }
