@@ -1,6 +1,10 @@
 body {
   background-color: #f4f5f8;
 }
+hr {
+  opacity: 20%;
+  margin: 35px 0px;
+}
 .grid {
   margin: -8px 25% 0;
 }
@@ -16,7 +20,7 @@ body {
   position: relative;
 }
 .heroContainer img {
-  max-width: 300px;
+  width: 50%;
   border-radius: 50%;
 }
 .heroInnerContainer {

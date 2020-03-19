@@ -29,6 +29,7 @@
   transition: opacity 1s  ease-in-out;
   margin-left: 35px;
   opacity: 1;
+  border-radius: 0;
 }
 
 

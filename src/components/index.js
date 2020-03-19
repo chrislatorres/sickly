@@ -2,8 +2,9 @@ import React from 'react'
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import { ThemeProvider, greyVest } from 'contexture-react'
 
-import Home from './Home'
 import Navbar from './Navbar'
+import Home from './Home'
+import Data from './Data'
 import About from './About'
 
 import s from './index.css'
@@ -20,6 +21,7 @@ const App = () => {
           <div className={s.container}>
             <div className={s.row}>
               <Switch>
+                <Route path='/data' component={Data} />
                 <Route path='/about' component={About} />
 
                 <Route path='/' component={Home} />

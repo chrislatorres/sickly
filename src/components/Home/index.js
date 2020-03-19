@@ -1,5 +1,4 @@
 import React from 'react'
-import feathers from '@feathersjs/client'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import {
@@ -70,41 +69,42 @@ let Search = observer(() => {
         className={s.grid}
        >
 	<GridItem area="left">
-	  <Box className={s.box}>
-	      <FilterList
-		tree={tree}
-		path={['root', 'criteria']}
-		mapNodeToProps={componentForType(TypeMap)}
-		fields={{
-		  balance: { label: 'Balance' },
-		  currency: { label: 'Currency' },
-		  type: { label: 'Type' },
-		  decimals: { label: 'Decimals' },
-		  fiat_currency: { label: 'Fiat Currency' },
-		  fiat_value: { label: 'Fiat Value' },
-		  updated_at: { label: 'Updated At' },
-		  resource_type: { label: 'Resource Type' },
-		}}
-	      />
-	  </Box>
-	</GridItem>
-	<GridItem area="main">
-	  <Box className={s.box}> 
-	      <div>
-		<PagedResultTable path={['root', 'results']} 
-		  fields={{
-		    balance: { label: 'Balance' },
-		    currency: { label: 'Currency' },
-		    type: { label: 'Type' },
-		    decimals: { label: 'Decimals' },
-		    fiat_currency: { label: 'Fiat Currency' },
-		    fiat_value: { label: 'Fiat Value' },
-		    updated_at: { label: 'Updated At' },
-		    resource_type: { label: 'Resource Type' },
-		  }} tree={tree}/>
-	      </div>
-	  </Box>
-	</GridItem>
+          <Box className={s.box}>
+            <FilterList
+              tree={tree}
+              path={['root', 'criteria']}
+              mapNodeToProps={componentForType(TypeMap)}
+              fields={{
+                balance: { label: 'Balance' },
+                currency: { label: 'Currency' },
+                type: { label: 'Type' },
+                decimals: { label: 'Decimals' },
+                fiat_currency: { label: 'Fiat Currency' },
+                fiat_value: { label: 'Fiat Value' },
+                updated_at: { label: 'Updated At' },
+                resource_type: { label: 'Resource Type' },
+              }}
+            />
+          </Box>
+        </GridItem>
+        <GridItem area="main">
+          <Box className={s.box}> 
+            <div>
+              <PagedResultTable path={['root', 'results']} 
+                fields={{
+                balance: { label: 'Balance' },
+                currency: { label: 'Currency' },
+                type: { label: 'Type' },
+                decimals: { label: 'Decimals' },
+                fiat_currency: { label: 'Fiat Currency' },
+                fiat_value: { label: 'Fiat Value' },
+                updated_at: { label: 'Updated At' },
+                resource_type: { label: 'Resource Type' },
+                }} 
+                tree={tree}/>
+            </div>
+          </Box>
+        </GridItem>
       </Grid>
     </div>
   )

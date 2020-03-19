@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import SearchIcon from '@material-ui/icons/SearchOutlined'
-import SavedIcon from '@material-ui/icons/SaveOutlined'
+import CodeIcon from '@material-ui/icons/Code'
 import WhatsNewIcon from '@material-ui/icons/VolumeDownOutlined'
 import HelpIcon from '@material-ui/icons/HelpOutlineOutlined'
 import PersonIcon from '@material-ui/icons/PersonOutlined'
@@ -42,7 +42,7 @@ const App = () =>
         </li>
 
         <li>
-          <Link to="/data"><SavedIcon/>Access Data</Link>
+          <Link to="/data"><CodeIcon/>Developers</Link>
         </li>
         <li>
           <Link to="/about"><FavoriteIcon/>About</Link>
