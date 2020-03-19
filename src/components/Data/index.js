@@ -16,9 +16,9 @@ let Data = () =>
       <div key={api.title} className={s.apiSection}>
         <h1 className={s.apiTitle}>{api.title}</h1>
         <p className={s.apiDescription}>{api.description}</p>
-        <code className={s.apiCode}>
+        <b className={s.apiCode}>
           {api.url}
-        </code> 
+        </b> 
         <hr/>
       </div>
       )}

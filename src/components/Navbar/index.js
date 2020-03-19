@@ -38,11 +38,7 @@ const App = () =>
     <div className={s.sidenavBottom}>
       <ul>
         <li>
-          <Link to="/help"><HelpIcon/>Help Center</Link>
-        </li>
-
-        <li>
-          <Link to="/data"><CodeIcon/>Developers</Link>
+          <Link to="/data"><CodeIcon/>API</Link>
         </li>
         <li>
           <Link to="/about"><FavoriteIcon/>About</Link>

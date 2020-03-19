@@ -1,19 +1,61 @@
 import React from 'react'
-import { Grid, GridItem, Box } from 'grey-vest'
+import F from 'futil'
+import { 
+  Form,
+  FormHeader,
+  FormContent,
+  FormFooter,
+  FormField,
+  TextInput,
+  Button,
+  Grid, 
+  GridItem, 
+  Box 
+} from 'grey-vest'
 import s from '../../assets/css/page.css'
-import about from '../../assets/images/about.jpg'
 
 let Notify = () => 
   <Box className={s.box}> 
     <div className={s.container}>
-        <h1>Get Notified Of New Cases</h1>
+        <h1>Be Notified Of New Cases</h1>
         <p>
-  	 Hi I am <b>Christopher</b>, a freelance Software Engineer out of Dallas, Texas.<br/>
-  	 I created Sickly to help people face the data on COVID-19 cases.<br/>
-  	 Sickly texts your phone when there is a new case near you.<br/>
-  	 <a href="https://github.com/sponsors/ltchris">You can support the project here.</a><br/>
-  	 <a href="mailto:sickly@hideaddress.net">You can contact me here.</a><br/>
+  	 Sickly sends a text and email when there is a new Coronavirus case near you.<br/>
         </p>
+        <Form className={s.form}>
+           <FormContent columns={2}>
+             <FormField
+               label="Name"
+               placeholder="Enter name..."
+               error="This is an error message that extends to the next line"
+               component={TextInput}
+             />
+             <FormField
+               width={1}
+               required
+               label="Phone Number"
+               placeholder="(xxx)-xxx-xxxx"
+               tooltip="Sickly will send a text when there are new cases."
+             />
+             <FormField
+               width={1}
+               required
+               label="Email"
+               placeholder="email@example.com"
+               tooltip="Sickly will send an email when there are new cases."
+             />
+             <FormField
+               width={1}
+               required
+               label="Location"
+               placeholder="Miami, Florida"
+               tooltip="Sickly will notify you of cases near your location."
+             />
+
+           </FormContent>
+           <FormFooter>
+             <Button primary>Submit</Button>
+           </FormFooter>
+         </Form>
     </div>
   </Box>
 

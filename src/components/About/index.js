@@ -1,12 +1,10 @@
 import React from 'react'
 import { Grid, GridItem, Box } from 'grey-vest'
 import s from '../../assets/css/page.css'
-import about from '../../assets/images/about.jpg'
 
 let About = () => 
   <Box className={s.box}> 
     <div className={s.container}>
-        <img src={about}/>
         <h1>Welcome to Sickly</h1>
         <p>
   	 Hi I am <b>Christopher</b>, a freelance Software Engineer out of Dallas, Texas.<br/>
