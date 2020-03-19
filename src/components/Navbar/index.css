@@ -1,0 +1,131 @@
+/* The sidenav */
+.sidenav {
+  height: 100vh;
+  width: 50px;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  background-color: black;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: width .1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidenav:hover {
+  width: 170px;
+}
+
+.sidenav:hover .sidenavLogo {
+  margin-left: 60px;
+  transition: opacity .1s;
+  opacity: 0;
+}
+
+.sidenav:hover .sidenavLogoBg {
+  transition: opacity 1s  ease-in-out;
+  margin-left: 35px;
+  opacity: 1;
+}
+
+
+.sidenav .sidenavTop {
+  justify-content: flex-end;
+}
+
+.sidenav .sidenavBottom {
+  justify-content: flex-start;
+}
+
+.sidenavSpace {
+  margin-bottom: 40px;
+}
+
+.sidenav ul {
+ top: auto;
+ bottom: auto;
+ left: 0;
+ /*right: 0;*/
+ margin: auto;
+ height: auto;
+ max-width: 100%;
+ padding: 5px;
+ display:flex;
+ flex-direction:row;
+ flex-wrap:wrap;
+ overflow-x: hidden;
+}
+
+.sidenav ul li {
+  display:block;
+  width:100%;
+  height: auto;
+  white-space: nowrap;
+}
+
+.sidenav .sidenavTop ul li {
+  margin-bottom: 20px;
+}
+
+.sidenav .sidenavBottom ul li {
+  margin-top: 20px;
+}
+
+.sidenav ul li svg {
+  font-size: 25px;
+  margin-left: 9px;
+  margin-right: 9px;
+  margin-bottom: -5px;
+}
+
+.sidenav .sidenavLogo {
+  position: absolute;
+  max-width: 25px;
+  max-height: 25px;
+  display: block;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: all .1s ease-in-out;
+  margin-left: 8px;
+}
+
+.sidenav .sidenavLogoBg {
+  position: absolute;
+  max-width: 100%;
+  max-height: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: opacity 0s;
+  opacity: 0;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  text-decoration: none;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  align-items: center;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}

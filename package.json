@@ -1,0 +1,72 @@
+{
+  "name": "asickly-app",
+  "version": "0.00.1",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^2.1.1",
+    "danger": "^9.2.10",
+    "duti": "latest",
+    "eslint": "^6.8.0",
+    "eslint-config-smartprocure": "^1.2.1",
+    "file-loader": "^5.1.0",
+    "gh-pages": "^2.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^25.1.0",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.8.4",
+    "@feathersjs/client": "^4.5.2",
+    "@material-ui/core": "^4.9.3",
+    "@material-ui/icons": "^4.9.1",
+    "contexture": "^0.5.1",
+    "contexture-client": "^2.26.4",
+    "contexture-elasticsearch": "^0.18.2",
+    "contexture-react": "3.0.0-alpha.0",
+    "elasticsearch-browser": "^14.2.2",
+    "futil": "^1.66.2",
+    "futil-js": "^1.66.2",
+    "grey-vest": "^2.13.1",
+    "lodash": "^4.17.15",
+    "mobx": "^4.3.1",
+    "mobx-react": "^6.1.1",
+    "mobx-utils": "^5.0.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-router-dom": "^4.0.0-beta.8",
+    "react-router-ga": "^1.2.2",
+    "react-select": "^2.0.0",
+    "recompose": "^0.30.0",
+    "zabo-sdk-js": "^0.8.1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot --port 8081",
+    "prebuild": "webpack --mode production",
+    "build": "npm run prebuild && cp CNAME ./dist/ && cp dist/index.html dist/404.html",
+    "deploy": "npm run build && gh-pages -d dist",
+    "danger": "duti",
+    "lint": "eslint './src/**/*.js'",
+    "lint:ci": "npm run lint -- -o lint-results.json -f json",
+    "lint-fix": "eslint './src/**/*.js' --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "smartprocure",
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "env": {
+      "jest": true
+    }
+  }
+}

@@ -1,0 +1,30 @@
+name: deploy
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1.1.0
+      with: 
+        version: 13.7.0
+    - run: npm install
+    - run: npm install --only=dev
+    - run: npm run lint:ci 
+    - run: git config user.email "decrapifier@govsum.com" && git config user.name "Decrapifier" && git config push.default upstream 
+    - run: npm run danger 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+    - run: npm run build
+    - uses: crazy-max/ghaction-github-pages@v1.2.5
+      with:
+        build_dir: dist/
+        commit_message: GitHub pages push deploy action
+      env:
+        GITHUB_PAT: ${{ secrets.GH_PAT }}
+

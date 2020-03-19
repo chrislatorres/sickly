@@ -1,0 +1,8 @@
+.container {
+  margin-left: 42px;
+  margin-top: -8px;
+  width: 100% - 42px;
+}
+body {
+  background: #f6f6f6;
+}
