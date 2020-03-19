@@ -1,9 +1,9 @@
 import React from 'react'
 import F from 'futil'
 import Form from 'mobx-autoform'
-import {reaction} from 'mobx'
+import { observable, reaction } from 'mobx'
+import { observer } from 'mobx-react'
 import { 
-  Form,
   FormHeader,
   FormContent,
   FormFooter,
@@ -18,32 +18,29 @@ import {
 import s from '../../assets/css/page.css'
 import about from '../../assets/images/about.jpg'
 
-const Submit = () => {
-  let form = Form({
+  let form = observable(Form({
     fields: {
-      email: {},
-      password: {
-        validator: x => !x && ['Password is required'],
-      },
+      email: { value: 'test' },
+      date: new Date('2019-12-31T05:00Z'),
+      source: '',
+      location: '',
+      confirmed: '',
+      deceased: '',
+      recovered: '',
+      comments: '',
     },
     submit: async snapshot => {
   	// Throwing here will capture errors
-      await serviceCall(snapshot)
+      //await serviceCall(snapshot)
+      console.log(snapshot)
     },
-  })
-  let [state, setState] = React.useState({
-    email: '',
-    date: new Date('2019-12-31T05:00Z'),
-    source: '',
-    location: '',
-    confirmed: '',
-    deceased: '',
-    recovered: '',
-    comments: '',
-  })
-  console.log("email is = " + email)
+  }))
 
-  let { email, date, source, location, confirmed, deceased, recovered, comments } = state  
+
+const Submit = observer(() => {
+  console.log(form.fields.email.value)
+
+  let { email, date, source, location, confirmed, deceased, recovered, comments } = form.fields  
   return (
     <Box className={s.box}> 
       <div className={s.container}>
@@ -52,17 +49,17 @@ const Submit = () => {
     	 Hi I am <b>Christopher</b>, a freelance Software Engineer out of Dallas, Texas.<br/>
     	 I created Sickly to help people face the data on COVID-19 cases.<br/>
     	 Sickly texts your phone when there is a new case near you.<br/>
-         Email is = {email}
           </p>
-          <Form className={s.form}>
+          <div className={s.form}>
              <FormContent columns={2}>
                <FormField
                  width={1}
                  required
-                 value={email} 
-                 onChange={e => setState({ ...state, email: e.target.value })} 
+                 {...{
+                   ...F.domLens.value('value', form.fields.email),
+                   ...F.domLens.focus('focusing', form.fields.email),
+                 }}
                  label="Your Email"
-                 placeholder="email@example.com"
                />
                <DateTimeInput 
                  native 
@@ -71,8 +68,7 @@ const Submit = () => {
                <FormField
                  width={2}
                  required
-                 value={source} 
-                 onChange={e => setState({ ...state, source: e.target.value })} 
+                 
                  label="Source"
                  tooltip="A reputable, verifiable source to verify the toll."
                />
@@ -119,10 +115,10 @@ const Submit = () => {
              <FormFooter>
                <Button primary>Submit</Button>
              </FormFooter>
-           </Form>
+           </div>
       </div>
     </Box>
   )
-}
+})
 
 export default () => <Submit />

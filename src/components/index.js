@@ -28,7 +28,7 @@ const App = () =>
       	<Route path='/data' component={Data} />
       	<Route path='/about' component={About} />
       
-      	<Route path='/' component={Home} />
+      	<Route path='/' component={Submit} />
       	<Route render={() => <h3>No Match</h3>} />
             </Switch>
          </div>
