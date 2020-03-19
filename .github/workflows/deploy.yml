@@ -1,6 +1,9 @@
 name: deploy
 
 on:
+  push: 
+    branches:
+      - master
   pull_request:
     branches:
       - master
@@ -16,7 +19,6 @@ jobs:
     - run: npm install
     - run: npm install --only=dev
     - run: npm run lint:ci 
-    - run: git config user.email "decrapifier@govsum.com" && git config user.name "Decrapifier" && git config push.default upstream 
     - run: npm run danger 
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
