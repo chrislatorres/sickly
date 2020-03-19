@@ -4,6 +4,7 @@ import { ThemeProvider, greyVest } from 'contexture-react'
 
 import Home from './Home'
 import Navbar from './Navbar'
+import About from './About'
 
 import s from './index.css'
 
@@ -19,6 +20,8 @@ const App = () => {
           <div className={s.container}>
             <div className={s.row}>
               <Switch>
+                <Route path='/about' component={About} />
+
                 <Route path='/' component={Home} />
                 <Route render={() => <h3>No Match</h3>} />
               </Switch>

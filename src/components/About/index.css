@@ -1,0 +1,27 @@
+body {
+  background-color: #f4f5f8;
+}
+img {
+  width: 50%;
+}
+.grid {
+  margin: -8px 12% 0;
+}
+.box {
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 8px 20px 0 rgba(0,0,0,.08);
+  padding: 15px;
+}
+.heroContainer {
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+}
+.heroInnerContainer {
+  box-sizing: border-box;
+  padding: 0 16px;
+  margin-left: -20px;
+  margin-right: -20px;
+  width: calc(100% + 40px);
+}

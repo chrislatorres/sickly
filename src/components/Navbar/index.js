@@ -6,6 +6,7 @@ import SavedIcon from '@material-ui/icons/SaveOutlined'
 import WhatsNewIcon from '@material-ui/icons/VolumeDownOutlined'
 import HelpIcon from '@material-ui/icons/HelpOutlineOutlined'
 import PersonIcon from '@material-ui/icons/PersonOutlined'
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
 
 import logoIcon from '../../assets/images/logoIcon.png'
 import logo from '../../assets/images/logo.png'
@@ -24,23 +25,27 @@ const App = () =>
           <div className={s.sidenavSpace}/>
         </li>
         <li>
-          <Link to="/"><SearchIcon/>Search</Link>
+          <Link to="/search"><SearchIcon/>Search</Link>
         </li>
         <li>
-          <Link to="/"><WhatsNewIcon/>Notify Me</Link>
+          <Link to="/notify"><WhatsNewIcon/>Notify Me</Link>
         </li>
         <li>
-          <a href="/"><HelpIcon/>Help Center</a>
-        </li>
-        <li>
-          <Link to="/"><PersonIcon/>Submit Case</Link>
+          <Link to="/submit"><PersonIcon/>Submit Case</Link>
         </li>
       </ul>
     </div>
     <div className={s.sidenavBottom}>
       <ul>
         <li>
-          <Link to="/"><SavedIcon/>Access Data</Link>
+          <Link to="/help"><HelpIcon/>Help Center</Link>
+        </li>
+
+        <li>
+          <Link to="/data"><SavedIcon/>Access Data</Link>
+        </li>
+        <li>
+          <Link to="/about"><FavoriteIcon/>About</Link>
         </li>
       </ul>
     </div>
