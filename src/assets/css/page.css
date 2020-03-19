@@ -15,7 +15,7 @@ hr {
 .container {
   text-align: center;
 }
-.cntainer img {
-  width: 50%;
+.container img {
+  max-width: 20%;
   border-radius: 50%;
 }

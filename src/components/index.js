@@ -4,34 +4,37 @@ import { ThemeProvider, greyVest } from 'contexture-react'
 
 import Navbar from './Navbar'
 import Home from './Home'
+import Search from './Search'
+import Notify from './Notify'
+import Submit from './Submit'
+import Help from './Help'
 import Data from './Data'
 import About from './About'
 
-import s from './index.css'
+import s from '../assets/css/app.css'
 
-const App = () => {
-  let state = {
-    loading: false,
-  }
-  return state.loading === true ? <h1>Loading</h1> : (
-    <ThemeProvider theme={ greyVest }>
-      <BrowserRouter>
-	<div className={s.main}>
-          <Navbar />
-          <div className={s.container}>
-            <div className={s.row}>
-              <Switch>
-                <Route path='/data' component={Data} />
-                <Route path='/about' component={About} />
-
-                <Route path='/' component={Home} />
-                <Route render={() => <h3>No Match</h3>} />
-              </Switch>
-           </div>
+const App = () => 
+  <ThemeProvider theme={ greyVest }>
+    <BrowserRouter>
+      <div className={s.main}>
+        <Navbar />
+        <div className={s.container}>
+          <div className={s.row}>
+            <Switch>
+      	<Route path='/search' component={Search} />
+      	<Route path='/notify' component={Notify} />
+      	<Route path='/submit' component={Submit} />
+      	<Route path='/help' component={Help} />
+      	<Route path='/data' component={Data} />
+      	<Route path='/about' component={About} />
+      
+      	<Route path='/' component={Home} />
+      	<Route render={() => <h3>No Match</h3>} />
+            </Switch>
          </div>
        </div>
-      </BrowserRouter>
-    </ThemeProvider>
-  );
-}
+      </div>
+    </BrowserRouter>
+  </ThemeProvider>
+
 export default App

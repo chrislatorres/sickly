@@ -3,10 +3,10 @@ import { Box } from 'grey-vest'
 import s from '../../assets/css/page.css'
 import apiList from './data.js'
 
-let Data = () => 
+let Help = () => 
   <Box className={s.box}> 
     <div className={s.container}>
-      <h1>Data API</h1>
+      <h1>Help</h1>
       <p>
         Sickly uses <a href="https://covid19api.com/">the COVID-19 API</a>, the API allows you to access COVID-19 data sourced from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins CSSE</a>.<br/>
       </p>
@@ -25,4 +25,4 @@ let Data = () =>
     </div>
   </Box>
 
-export default () => <Data />
+export default () => <Help />

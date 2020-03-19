@@ -10,7 +10,7 @@ import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
 
 import logoIcon from '../../assets/images/logoIcon.png'
 import logo from '../../assets/images/logo.png'
-import s from './index.css'
+import s from '../../assets/css/navbar.css'
 
 
 
@@ -25,7 +25,7 @@ const App = () =>
           <div className={s.sidenavSpace}/>
         </li>
         <li>
-          <Link to="/search"><SearchIcon/>Search</Link>
+          <Link to="/search"><SearchIcon/>Search Cases</Link>
         </li>
         <li>
           <Link to="/notify"><WhatsNewIcon/>Notify Me</Link>
