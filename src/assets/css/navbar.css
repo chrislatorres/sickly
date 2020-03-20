@@ -17,7 +17,7 @@ and (max-device-width: 1024px) {
   }
   /* The sidenav */
   .sidenav {
-    height: 6.5vh;
+    height: auto;
     width: 100%;
     position: fixed;
     z-index: 99999;
