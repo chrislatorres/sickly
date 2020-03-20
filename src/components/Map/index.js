@@ -11,10 +11,24 @@ let state = observable({
   loading: false,
   sent: false,
   numSent: 0,
+  geo: null,
+  locating: false,
   lat: 32.9483,
   lng: -96.7299,
   zoom: 5,
 })
+
+if (!navigator.geolocation) {
+  state.geo = false
+} else {
+  state.locating = true
+  navigator.geolocation.getCurrentPosition(position => {
+    state.locating = false
+    state.lat = position.coords.latitude
+    state.lng = position.coords.longitude
+  });
+}
+
 
 const StatusBanner = observer(() => state.sent ? (
   <Banner className={s.banner}>
