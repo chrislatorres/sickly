@@ -12,6 +12,8 @@ import {
   Banner
 } from 'grey-vest'
 import MoonLoader from "react-spinners/MoonLoader"
+import { Icon } from 'leaflet'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import s from '../../assets/css/page.css'
 import { Input } from './input.js'
 
@@ -19,6 +21,9 @@ let state = observable({
   loading: false,
   sent: false,
   numSent: 0,
+  lat: 51.505,
+  lng: -0.09,
+  zoom: 13,
 })
 
 const submit = async (snapshot) => {
@@ -53,36 +58,17 @@ const StatusBanner = observer(() => state.sent ? (
   </Banner>
 ) : null )
 
+const position = [state.lat, state.lng]
 
 const Submit = observer(() => 
   <>
     <StatusBanner /> 
-    <Box className={s.box}> 
-      <div className={s.container}>
-          <h1>Submit A New Case</h1>
-          <p>
-           You can submit a new COVID-19 case to Sickly here.<br/>
-           <b>NOTE:</b> Please only report cases found from reputable, verifiable sources.<br/>
-          </p>
-          <div className={s.form}>
-             <FormContent columns={2}>
-               {_.map(form.fields, (field) =>
-                 <Input
-                   field={field}
-                 />
-               )}
-             </FormContent>
-             <FormFooter>
-               <Button primary onClick={form.submit}>Submit</Button>
-               <MoonLoader
-                 size={20}
-                 color={"#0076de"}
-                 loading={state.loading}
-               />  
-             </FormFooter>
-           </div>
-      </div>
-    </Box>
+        <Map center={[45.4, -75.7]} zoom={12} className={s.leafletContainer}>
+          <TileLayer
+            url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          />
+        </Map>
   </>
 )
 

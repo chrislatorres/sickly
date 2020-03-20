@@ -4,6 +4,7 @@ import { ThemeProvider, greyVest } from 'contexture-react'
 
 import Navbar from './Navbar'
 //import Home from './Home'
+import Map from './Map'
 import Search from './Search'
 import Notify from './Notify'
 import Submit from './Submit'
@@ -26,7 +27,7 @@ const App = () =>
               <Route path='/data' component={Data} />
               <Route path='/about' component={About} />
               
-              <Route path='/' component={Submit} />
+              <Route path='/' component={Map} />
               <Route render={() => <h3>No Match</h3>} />
             </Switch>
          </div>

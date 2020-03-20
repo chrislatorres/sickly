@@ -37,7 +37,7 @@ const App = () =>
     <div className={s.sidenavBottom}>
       <ul>
         <li>
-          <Link to="/data"><CodeIcon/>API</Link>
+          <Link to="/data"><CodeIcon/>Developers</Link>
         </li>
         <li>
           <Link to="/about"><FavoriteIcon/>About</Link>
