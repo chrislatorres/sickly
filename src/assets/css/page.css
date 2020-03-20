@@ -37,9 +37,8 @@ and (min-device-width: 320px)
 and (max-device-width: 1024px) 
 and (orientation: portrait) {
   div .box {
-    margin: 0;
+    margin: 0 0 0 0;
     box-shadow: none;
-    max-width: 75vw;
   }
 
 }
