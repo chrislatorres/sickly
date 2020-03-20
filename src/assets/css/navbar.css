@@ -16,6 +16,13 @@ and (max-device-width: 1024px) {
     box-shadow: 0 2px 10px 0 rgba(45, 45, 45, 0.5);
     display: flex;
     justify-content: space-between;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                         supported by Chrome, Opera and Firefox */
   }
   .sidenav ul {
     padding: 0 10px;
