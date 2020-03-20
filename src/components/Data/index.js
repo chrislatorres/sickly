@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Divider } from 'grey-vest'
+import { Box } from 'grey-vest'
 import s from '../../assets/css/page.css'
 
 let Data = () => 
