@@ -65,7 +65,7 @@ const Submit = observer(() =>
            <b>NOTE:</b> Please only report cases found from reputable, verifiable sources.<br/>
           </p>
           <div className={s.form}>
-             <FormContent columns={2}>
+             <FormContent columns={1}>
                {_.map(form.fields, (field) =>
                  <Input
                    field={field}
