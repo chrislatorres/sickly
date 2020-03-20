@@ -36,12 +36,10 @@ const StatusBanner = observer(() => state.sent ? (
   </Banner>
 ) : null )
 
-const position = [state.lat, state.lng]
-
 const Submit = observer(() => 
   <>
     <StatusBanner /> 
-        <Map center={position} zoom={state.zoom} zoomControl={false} className={s.leafletContainer}>
+        <Map center={[state.lat, state.lng]} zoom={state.zoom} zoomControl={false} className={s.leafletContainer}>
           <TileLayer
             url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
             attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'

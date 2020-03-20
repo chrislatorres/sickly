@@ -7,9 +7,9 @@ let About = () =>
     <div className={s.container}>
         <h1>Welcome to Sickly</h1>
         <p>
-         Sickly was built by <b>2</b> Software Engineers out of <b>Dallas, Texas</b>.<br/>
-         We created Sickly to help people <b>face the data</b> on COVID-19 cases.<br/>
-         Sickly helps you keep up to date with cases <i>near you</i>.<br/>
+         Sickly was built by <b>2</b> humans from <b>Dallas, TX</b>.<br/>
+         We created Sickly to help people <b>see the data</b>.<br/>
+         Sickly helps you keep up to date with COVID-19 <i>in your community</i>.<br/>
          <a href="mailto:sickly@hideaddress.net?subject=Sickly&body=Hi">Click here to email us.</a><br/>
         </p>
     </div>
