@@ -1,5 +1,5 @@
 # Sickly Application 
-<img src="https://user-images.githubusercontent.com/29695350/77021437-aa169f00-6954-11ea-9fc4-bc4cf1136b39.png" width="200" height="200" align="right">
+<img src="https://user-images.githubusercontent.com/29695350/77191664-4a7dd800-6aa9-11ea-9368-9dad0ab6b494.png" width="200" height="200" align="right">
 
 
 
