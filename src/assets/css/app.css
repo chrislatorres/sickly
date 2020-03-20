@@ -1,5 +1,5 @@
 body {
-  background: #f6f6f6;
+  background: #ffffff;
   margin: 0;
 }
 .container {
@@ -15,10 +15,3 @@ and (max-device-width: 1024px)
 and (orientation: portrait) {
 }
 
-/* landscape */
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 1024px) 
-and (orientation: landscape) {
-    /* styles here */
-}

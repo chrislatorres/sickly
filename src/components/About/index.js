@@ -6,7 +6,6 @@ import logo from '../../assets/images/logoIcon.png'
 let About = () => 
   <Box className={s.box}> 
     <div className={s.container}>
-        <img src={logo} />
         <h1>Welcome to Sickly</h1>
         <p>
          Hi I am <b>Christopher</b>, a freelance Software Engineer out of Dallas, Texas.<br/>

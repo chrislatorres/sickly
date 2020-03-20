@@ -13,7 +13,7 @@ let state = observable({
   numSent: 0,
   lat: 32.9483,
   lng: -96.7299,
-  zoom: 13,
+  zoom: 5,
 })
 
 const StatusBanner = observer(() => state.sent ? (
@@ -29,8 +29,8 @@ const Submit = observer(() =>
     <StatusBanner /> 
         <Map center={position} zoom={state.zoom} zoomControl={false} className={s.leafletContainer}>
           <TileLayer
-            url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
           />
         </Map>
   </>
