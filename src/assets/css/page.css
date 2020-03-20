@@ -21,4 +21,10 @@ hr {
 }
 .form {
   margin: auto;
+  max-width: 750px;
+}
+.awaiter {
+  display: block-inline;
+  margin-right: 50px;
+  margin-bottom: 50px;
 }
