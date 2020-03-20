@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from 'grey-vest'
+import { Box, Divider } from 'grey-vest'
 import s from '../../assets/css/page.css'
 import apiList from './data.js'
 
@@ -10,7 +10,7 @@ let Data = () =>
       <p>
         Sickly uses <a href="https://covid19api.com/">the COVID-19 API</a>, the API allows you to access COVID-19 data sourced from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins CSSE</a>.<br/>
       </p>
-      <hr/>
+      <Divider />
       
       {apiList.map(api => 
       <div key={api.title} className={s.apiSection}>
@@ -19,7 +19,7 @@ let Data = () =>
         <b className={s.apiCode}>
           {api.url}
         </b> 
-        <hr/>
+        <Divider />
       </div>
       )}
     </div>

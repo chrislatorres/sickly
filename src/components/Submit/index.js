@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import F from 'futil'
 import _ from 'lodash'
 import Form from 'mobx-autoform'
+import feathers from "@feathersjs/client"
 import { observable, reaction } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
@@ -10,27 +12,27 @@ import {
   FormFooter,
   FormField,
   DateTimeInput,
-  NestedPicker
   TextInput,
   Button,
   Grid, 
   GridItem, 
-  Box 
+  Box,
+  Banner
 } from 'grey-vest'
-import RingLoader from "react-spinners/RingLoader"
+import MoonLoader from "react-spinners/MoonLoader"
 import s from '../../assets/css/page.css'
-import about from '../../assets/images/about.jpg'
 import { Input } from './input.js'
 
 let state = observable({
   loading: false,
   sent: false,
+  numSent: 0,
 })
 
 let form = observable(Form({
   fields: {
     email: { props: { label: 'Email', required: false }, value: '' },
-    date: { props: { label: 'Date', type: 'date', required: true, placeholder: '01/15/2020'}, value: '' },
+    date: { props: { label: 'Date (Month-Day)', type: 'number', required: true, placeholder: '03-15'}, value: '' },
     source: { props: { label: 'Source', required: true }, value: '' },
     location: { props: { label: 'Location', required: true }, value: '' },
     confirmed: { props: { label: 'Confirmed', type: 'number', required: true }, value: '' },
@@ -39,29 +41,32 @@ let form = observable(Form({
     comments: { props: { label: 'Comments', type: 'textarea', width: 2, required: false }, value: '' },
   },
   submit: async snapshot => {
-    console.log(snapshot)
     state.loading = true
-    //await serviceCall(snapshot)
-    console.log(snapshot)
+
+    const app = feathers();
+    const restClient = feathers.rest('https://api.asickly.com')
+    app.configure(restClient.fetch(window.fetch));
+    const submit = app.service('submit'); 
+    
+    submit.create(snapshot)
+    .then(res => {
+      state.loading = false
+      state.sent = true
+      state.numSent++
+    })
   },
 }))
 
-const Submit = observer(() => 
-  state.loading === true ? 
-    <Box className={s.box}> 
-      <div className={s.container}>
-        <h1>Loading...</h1>  
-        <RingLoader
-          size={150}
-          color={"#0076de"}
-          loading={state.loading}
-          css={"display: inline-block; margin-right: 50px; margin-bottom: 50px"}
-        />
-      </div>
-    </Box>
-    : 
-    state.sent ? <h1>Sent!</h1> :
+const StatusBanner = observer(() => state.sent ? (
+  <Banner className={s.banner}>
+    You have successfuly submitted {state.numSent} cases.
+  </Banner>
+) : null )
 
+
+const Submit = observer(() => 
+  <>
+    <StatusBanner /> 
     <Box className={s.box}> 
       <div className={s.container}>
           <h1>Submit A New Case</h1>
@@ -79,10 +84,16 @@ const Submit = observer(() =>
              </FormContent>
              <FormFooter>
                <Button primary onClick={form.submit}>Submit</Button>
+               <MoonLoader
+                 size={20}
+                 color={"#0076de"}
+                 loading={state.loading}
+               />  
              </FormFooter>
            </div>
       </div>
     </Box>
+  </>
 )
 
 export default () => <Submit />

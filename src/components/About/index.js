@@ -9,7 +9,7 @@ let About = () =>
         <p>
   	 Hi I am <b>Christopher</b>, a freelance Software Engineer out of Dallas, Texas.<br/>
   	 I created Sickly to help people face the data on COVID-19 cases.<br/>
-  	 Sickly texts your phone when there is a new case near you.<br/>
+  	 Sickly helps you keep up to date with cases near you.<br/>
   	 <a href="https://github.com/sponsors/ltchris">You can support the project here.</a><br/>
   	 <a href="mailto:sickly@hideaddress.net">You can contact me here.</a><br/>
         </p>

@@ -1,10 +1,6 @@
 body {
-  background-color: #f4f5f8;
-}
-hr {
-  opacity: 20%;
-  margin: 35px 0px;
-}
+  background-color: #f6f6f6;
+ }
 .box {
   border-radius: 4px;
   background-color: #fff;
@@ -27,4 +23,30 @@ hr {
   display: block-inline;
   margin-right: 50px;
   margin-bottom: 50px;
+}
+.banner {
+  max-width: 100%;
+  margin-top: 0;
+}
+
+/* portrait */
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 1024px) 
+and (orientation: portrait) {
+  div .box {
+    margin: 0;
+    background-color: #f6f6f6;
+    box-shadow: none;
+    max-width: 75vw;
+  }
+
+}
+
+/* landscape */
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 1024px) 
+and (orientation: landscape) {
+    /* styles here */
 }

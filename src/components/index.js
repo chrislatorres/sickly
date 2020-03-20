@@ -7,7 +7,6 @@ import Home from './Home'
 import Search from './Search'
 import Notify from './Notify'
 import Submit from './Submit'
-import Help from './Help'
 import Data from './Data'
 import About from './About'
 
@@ -21,15 +20,14 @@ const App = () =>
         <div className={s.container}>
           <div className={s.row}>
             <Switch>
-      	<Route path='/search' component={Search} />
-      	<Route path='/notify' component={Notify} />
-      	<Route path='/submit' component={Submit} />
-      	<Route path='/help' component={Help} />
-      	<Route path='/data' component={Data} />
-      	<Route path='/about' component={About} />
-      
-      	<Route path='/' component={Submit} />
-      	<Route render={() => <h3>No Match</h3>} />
+              <Route path='/search' component={Search} />
+              <Route path='/notify' component={Notify} />
+              <Route path='/submit' component={Submit} />
+              <Route path='/data' component={Data} />
+              <Route path='/about' component={About} />
+              
+              <Route path='/' component={Submit} />
+              <Route render={() => <h3>No Match</h3>} />
             </Switch>
          </div>
        </div>
