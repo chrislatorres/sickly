@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import LocationIcon from '@material-ui/icons/LocationOn'
 import SearchIcon from '@material-ui/icons/SearchOutlined'
 import CodeIcon from '@material-ui/icons/Code'
 import WhatsNewIcon from '@material-ui/icons/VolumeDownOutlined'
@@ -11,17 +12,16 @@ import logoIcon from '../../assets/images/logoIcon.png'
 import logo from '../../assets/images/logo.png'
 import s from '../../assets/css/navbar.css'
 
-
-
 const App = () =>  
-  <div id="mySidenav" className={s.sidenav}>
+<div className={s.sidenavContainer}>
+  <Link to="/">
+    <img className={s.sidenavHamburger} src={logoIcon}/>
+  </Link>
+  <div className={s.sidenav}>
     <div className={s.sidenavTop}>
       <ul>
         <li>
-          <Link to="/">
-            <img className={s.sidenavLogo} src={logoIcon}/><img className={s.sidenavLogoBg} src={logo}/>
-          </Link>
-          <div className={s.sidenavSpace}/>
+          <Link to="/"><LocationIcon/>Map</Link>
         </li>
         <li>
           <Link to="/search"><SearchIcon/>Search Cases</Link>
@@ -32,10 +32,6 @@ const App = () =>
         <li>
           <Link to="/submit"><PersonIcon/>Submit Case</Link>
         </li>
-      </ul>
-    </div>
-    <div className={s.sidenavBottom}>
-      <ul>
         <li>
           <Link to="/data"><CodeIcon/>Developers</Link>
         </li>
@@ -45,5 +41,6 @@ const App = () =>
       </ul>
     </div>
   </div>
+</div>
 
 export default App

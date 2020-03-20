@@ -3,7 +3,6 @@ body {
   margin: 0;
 }
 .container {
-  padding-left: 42px;
   overflow-x: hidden;
   overflow-y: auto;
   max-width: 100vw;

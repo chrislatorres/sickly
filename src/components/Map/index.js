@@ -63,7 +63,7 @@ const position = [state.lat, state.lng]
 const Submit = observer(() => 
   <>
     <StatusBanner /> 
-        <Map center={[45.4, -75.7]} zoom={12} className={s.leafletContainer}>
+        <Map center={[45.4, -75.7]} zoom={12} zoomControl={false} className={s.leafletContainer}>
           <TileLayer
             url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

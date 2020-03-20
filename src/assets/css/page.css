@@ -1,11 +1,12 @@
 body {
   background-color: #f6f6f6;
- }
+}
 .box {
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 8px 20px 0 rgba(0,0,0,.08);
   padding: 15px;
+  padding-left: 42px;
   margin: 0px 15%;
 }
 .container {
