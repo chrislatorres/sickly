@@ -15,7 +15,7 @@ let state = observable({
   locating: false,
   lat: 32.9483,
   lng: -96.7299,
-  zoom: 5,
+  zoom: 17,
 })
 
 if (!navigator.geolocation) {
