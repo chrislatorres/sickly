@@ -17,8 +17,7 @@ let Notify = () =>
         <p>
           Sickly sends a text and email when there is a new Coronavirus case near you.<br/>
         </p>
-        <Form className={s.form}>
-           <FormContent columns={2}>
+           <FormContent columns={1}>
              <FormField
                label="Name"
                placeholder="Enter name..."
@@ -51,7 +50,6 @@ let Notify = () =>
            <FormFooter>
              <Button primary>Submit</Button>
            </FormFooter>
-         </Form>
     </div>
   </Box>
 
