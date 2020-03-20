@@ -1,15 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
-import {
-  FilterList,
-  componentForType,
-} from 'contexture-react'
-import {
-  PagedResultTable,
-  TypeMap,
-} from 'contexture-react/dist/exampleTypes'
-import { Grid, GridItem, Box } from 'grey-vest'
+import { Box } from 'grey-vest'
 import { exampleTypes } from 'contexture-client'
 import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
@@ -56,10 +48,7 @@ state.tree = Client({
 
 
 
-let Search = observer(() => {
-  let { tree } = state
-
-  return(
+let Search = observer(() => 
     <div className={s.search}>
       <Box className={s.box}> 
         <h1>Case Name</h1>
@@ -68,7 +57,6 @@ let Search = observer(() => {
         <p>Case Description</p>
       </Box>
     </div>
-  )
-})
+)
 
 export default () => <Search />
