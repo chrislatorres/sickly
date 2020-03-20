@@ -1,21 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import F from 'futil'
 import _ from 'lodash'
 import Form from 'mobx-autoform'
 import feathers from "@feathersjs/client"
-import { observable, reaction } from 'mobx'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
-  FormHeader,
   FormContent,
   FormFooter,
-  FormField,
-  DateTimeInput,
-  TextInput,
   Button,
-  Grid, 
-  GridItem, 
   Box,
   Banner
 } from 'grey-vest'
@@ -29,6 +21,22 @@ let state = observable({
   numSent: 0,
 })
 
+const submit = async (snapshot) => {
+  state.loading = true
+
+  const app = feathers();
+  const restClient = feathers.rest('https://api.asickly.com')
+  app.configure(restClient.fetch(window.fetch));
+  const submit = app.service('submit'); 
+  
+  submit.create(snapshot)
+  .then(() => {
+    state.loading = false
+    state.sent = true
+    state.numSent++
+  })
+}
+
 let form = observable(Form({
   fields: {
     email: { props: { label: 'Email', required: false }, value: '' },
@@ -40,21 +48,7 @@ let form = observable(Form({
     recovered: { props: { label: 'Recovered', type: 'number', required: true }, value: '' },
     comments: { props: { label: 'Comments', type: 'textarea', width: 2, required: false }, value: '' },
   },
-  submit: async snapshot => {
-    state.loading = true
-
-    const app = feathers();
-    const restClient = feathers.rest('https://api.asickly.com')
-    app.configure(restClient.fetch(window.fetch));
-    const submit = app.service('submit'); 
-    
-    submit.create(snapshot)
-    .then(res => {
-      state.loading = false
-      state.sent = true
-      state.numSent++
-    })
-  },
+  submit
 }))
 
 const StatusBanner = observer(() => state.sent ? (
@@ -71,12 +65,12 @@ const Submit = observer(() =>
       <div className={s.container}>
           <h1>Submit A New Case</h1>
           <p>
-            You can submit a new COVID-19 case to Sickly here.<br/>
-    	   <b>NOTE:</b> Please only report cases found from reputable, verifiable sources.<br/>
+           You can submit a new COVID-19 case to Sickly here.<br/>
+           <b>NOTE:</b> Please only report cases found from reputable, verifiable sources.<br/>
           </p>
           <div className={s.form}>
              <FormContent columns={2}>
-               {_.map(form.fields, (field, values) =>
+               {_.map(form.fields, (field) =>
                  <Input
                    field={field}
                  />

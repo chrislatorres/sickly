@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import SearchIcon from '@material-ui/icons/SearchOutlined'
 import CodeIcon from '@material-ui/icons/Code'
 import WhatsNewIcon from '@material-ui/icons/VolumeDownOutlined'
-import HelpIcon from '@material-ui/icons/HelpOutlineOutlined'
 import PersonIcon from '@material-ui/icons/PersonOutlined'
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
 

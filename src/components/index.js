@@ -3,7 +3,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import { ThemeProvider, greyVest } from 'contexture-react'
 
 import Navbar from './Navbar'
-import Home from './Home'
+//import Home from './Home'
 import Search from './Search'
 import Notify from './Notify'
 import Submit from './Submit'
