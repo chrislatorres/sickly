@@ -7,10 +7,10 @@ let About = () =>
     <div className={s.container}>
         <h1>Welcome to Sickly</h1>
         <p>
-         Hi I am <b>Christopher</b>, a Software Engineer out of Dallas, Texas.<br/>
-         I created Sickly to help people face the data on COVID-19 cases.<br/>
-         Sickly helps you keep up to date with cases near you.<br/>
-         <a href="mailto:sickly@hideaddress.net">Click here to email me.</a><br/>
+         Sickly was built by <b>2</b> Software Engineers out of <b>Dallas, Texas</b>.<br/>
+         We created Sickly to help people <b>face the data</b> on COVID-19 cases.<br/>
+         Sickly helps you keep up to date with cases <i>near you</i>.<br/>
+         <a href="mailto:sickly@hideaddress.net?subject=Sickly&body=Hi">Click here to email us.</a><br/>
         </p>
     </div>
   </Box>
