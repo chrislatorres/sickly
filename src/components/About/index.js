@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from 'grey-vest'
 import s from '../../assets/css/page.css'
-import logo from '../../assets/images/logoIcon.png'
 
 let About = () => 
   <Box className={s.box}> 
