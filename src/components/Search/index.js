@@ -54,58 +54,19 @@ state.tree = Client({
 })
 
 
+
+
 let Search = observer(() => {
   let { tree } = state
 
   return(
     <div className={s.search}>
-      <Grid 
-        gap="24px" 
-        areas={[
-         'left main',
-        ]}
-        rows="6fr"
-        columns="320px minmax(0px, 1fr)"
-        className={s.grid}
-       >
-	<GridItem area="left">
-          <Box className={s.box}>
-            <FilterList
-              tree={tree}
-              path={['root', 'criteria']}
-              mapNodeToProps={componentForType(TypeMap)}
-              fields={{
-                balance: { label: 'Balance' },
-                currency: { label: 'Currency' },
-                type: { label: 'Type' },
-                decimals: { label: 'Decimals' },
-                fiat_currency: { label: 'Fiat Currency' },
-                fiat_value: { label: 'Fiat Value' },
-                updated_at: { label: 'Updated At' },
-                resource_type: { label: 'Resource Type' },
-              }}
-            />
-          </Box>
-        </GridItem>
-        <GridItem area="main">
-          <Box className={s.box}> 
-            <div>
-              <PagedResultTable path={['root', 'results']} 
-                fields={{
-                balance: { label: 'Balance' },
-                currency: { label: 'Currency' },
-                type: { label: 'Type' },
-                decimals: { label: 'Decimals' },
-                fiat_currency: { label: 'Fiat Currency' },
-                fiat_value: { label: 'Fiat Value' },
-                updated_at: { label: 'Updated At' },
-                resource_type: { label: 'Resource Type' },
-                }} 
-                tree={tree}/>
-            </div>
-          </Box>
-        </GridItem>
-      </Grid>
+      <Box className={s.box}> 
+        <h1>Case Name</h1>
+        <small>Number of Cases: </small><b>42</b><br />
+        <small>Location of Cases: </small><b>Dallas, Texas</b>
+        <p>Case Description</p>
+      </Box>
     </div>
   )
 })
