@@ -25,7 +25,6 @@ if (!navigator.geolocation) {
   state.locating = true
   navigator.geolocation.getCurrentPosition(position => {
     state.locating = false
-    state.viewport.center = [position.coords.longitude, position.coords.latitude]
   });
 }
 
