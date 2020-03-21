@@ -6,6 +6,7 @@ import { exampleTypes } from 'contexture-client'
 import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
 import s from '../../assets/css/page.css'
+import data from './data.js'
 
 let state = observable({
   id: 'null',
@@ -48,21 +49,24 @@ state.tree = Client({
 })
 
 
+const Cards = () => data.map(card => 
+      <div className={s.cases}>
+        <Box className={s.card}> 
+          <h1>{card.title}</h1>
+          <p><a href={card.url}>{card.url}</a></p>
+          <img src={card.images[0]} />
+          <p>There are currently {state.numOfCases} cases in {state.viewport.center}.</p>
+        </Box>
+      </div>
+    )
 
 
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
   
   return(
-    <div className={s.cases}>
-      <Box className={s.card}> 
-        <h1>COVID-19</h1>
-        <small>Number of Cases: </small><b>{state.numOfCases}</b><br />
-        <small>Location of Cases: </small><b>{state.viewport.center}</b>
-        <p>There are currently {state.numOfCases} cases in {state.viewport.center}.</p>
-      </Box>
-    </div>
-)
+    <Cards />
+  )
 })
 
 export default Cases
