@@ -30,6 +30,8 @@ const submit = async (snapshot) => {
   const restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
   const notify = app.service('notify'); 
+
+  state.geo ? snapshot.location = state.location : null 
   
   notify.create(snapshot)
   .then(() => {
@@ -54,7 +56,7 @@ let form = observable(Form({
   fields: {
     location: { props: { label: state.geo ? null : 'Your Location', hidden: state.geo, required: !state.geo }, value: state.location },
     email: { props: { label: 'Email' }, value: '' },
-    phone: { props: { label: 'Phone Number', type: 'number' }, value: '' },
+    phone: { props: { label: 'Phone Number' }, value: '' },
   },
   submit
 }))
