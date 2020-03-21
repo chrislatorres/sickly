@@ -69,12 +69,12 @@ const Cards = observer(() => state.data.reverse().map((card, i) =>
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
       Feeling sickly in <b>{
-        Object.keys(card.locationName.address).map((key, i) => {
+        Object.keys(card.locationName.address).map((key) => {
           if(key && ['city','town','county','state','country'].includes(key)) {
             if(key === 'country') {
               return card.locationName.address[key] 
             } else {
-              return card.locationName.address[key] + ', ' 
+              return `${card.locationName.address[key]}, ` 
             }
           }
        })}</b>.<br/>
