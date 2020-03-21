@@ -25,7 +25,7 @@ const App = observer(() =>
   <ThemeProvider theme={ greyVest }>
     <BrowserRouter>
       <div className={s.main}>
-        <Navbar />
+        <Navbar viewport={state.viewport} />
         <div className={s.container}>
           <div className={s.row}>
             <Switch>
