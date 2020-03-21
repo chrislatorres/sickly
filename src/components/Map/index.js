@@ -1,4 +1,5 @@
 import React from 'react'
+import feathers from '@feathersjs/client'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
@@ -19,14 +20,34 @@ let state = observable({
   locating: false,
 })
 
-if (!navigator.geolocation) {
-  state.geo = false
-} else {
-  state.locating = true
-  navigator.geolocation.getCurrentPosition(position => {
-    state.locating = false
-  });
+const getLocation = async () => {
+  if (!navigator.geolocation) {
+    state.geo = false
+    const app = feathers();
+    const restClient = feathers.rest('http://ip-api.com')
+    app.configure(restClient.fetch(window.fetch));
+    const ip = app.service('json').find()
+
+    state.viewport.center = [ip.lat, ip.lon]
+  } else {
+    state.locating = true
+    navigator.geolocation.getCurrentPosition(position => {
+      state.geo = true
+      state.locating = false
+    }, async () => {
+      const app = feathers();
+      const restClient = feathers.rest('http://ip-api.com')
+      app.configure(restClient.fetch(window.fetch));
+      const ip = await app.service('json').find()
+
+      state.viewport.center = [ip.lat, ip.lon]
+
+      state.geo = true
+      state.locating = false
+    })
+  }
 }
+getLocation()
 
 
 const StatusBanner = observer(() => state.sent ? (

@@ -23,13 +23,13 @@ const Navbar = () =>
           <Link to="/cases"><PersonIcon/>Cases</Link>
         </li>
         <li>
-          <Link to="/about"><FavoriteIcon/>About</Link>
-        </li>
-        <li>
-          <Link to="/contribute"><AddCircleIcon/>Contribute</Link>
+          <Link to="/contribute"><AddCircleIcon/>I{"'"}m Sick</Link>
         </li>
         <li>
           <Link to="/notify"><NotificationsIcon/>Updates</Link>
+        </li>
+        <li>
+          <Link to="/about"><FavoriteIcon/>About</Link>
         </li>
       </ul>
     </div>
