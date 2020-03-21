@@ -63,7 +63,7 @@ let form = observable(Form({
 
 const StatusBanner = observer(() => state.sent ? (
   <Banner className={s.banner}>
-    You have successfuly submitted, Sickly will now be sending you notifications.
+    Sickly will now be sending you notifications.
   </Banner>
 ) : null )
 
