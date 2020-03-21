@@ -19,7 +19,7 @@
   position: fixed;
   z-index: 99998;
   top: 80px;
-  right: 5px;
+  right: 7px;
   background-color: white;
   box-shadow: 0 2px 10px 0 rgba(45, 45, 45, 0.5);
   height: 35px;
@@ -36,7 +36,7 @@
   position: fixed;
   z-index: 99998;
   bottom: 60px;
-  right: 5px;
+  right: 7px;
   background-color: white;
   box-shadow: 0 2px 10px 0 rgba(45, 45, 45, 0.5);
   height: 50px;
