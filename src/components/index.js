@@ -14,7 +14,7 @@ import About from './About'
 import s from '../assets/css/app.css'
 
 let state = observable({
-  viewport: { center: [32.9483, -96.7299], zoom: 0 }
+  viewport: { center: [32.9483, -96.7299], zoom: 10 }
 })
 
 const updateViewport = (viewport) => {
