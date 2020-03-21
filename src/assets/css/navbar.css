@@ -41,6 +41,7 @@ and (max-device-width: 999999999px) {
   }
   .sidenav li {
     display: inline-flex;
+    margin-bottom: 2.5px;
   }
   .sidenav li * {
     width: 100%;
