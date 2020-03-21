@@ -33,6 +33,7 @@ const getLocation = async () => {
     state.locating = true
     navigator.geolocation.getCurrentPosition(position => {
       state.geo = true
+      state.viewport.center = [position.coords.latitude, position.coords.longitude]
       state.locating = false
     }, async () => {
       const app = feathers();
