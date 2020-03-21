@@ -73,7 +73,7 @@ const Cards = observer(() => state.data.map((card, i) =>
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
       Feeling sickly in <b>{card.location}</b>.<br/>
-      <small className={s.date}><ReactTimeAgo date={Date.now() - 48 * 60 * 60 * 1000}/></small>
+      <small className={s.date}><ReactTimeAgo date={card.date}/></small>
     </Box>
   </div>
 ))
@@ -83,10 +83,10 @@ let Cases = observer((props) => {
   
   return(
     <ReactPullToRefresh
+      className={s.refresh}
       onRefresh={handleRefresh}>
       <h3>Pull down to refresh</h3>
       <Cards />
-      <div>etc.</div>
     </ReactPullToRefresh>
   )
 })
