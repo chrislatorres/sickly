@@ -72,7 +72,7 @@ const Cards = observer(() => state.data.map((card, i) =>
   </div>
 ))
 
-const ptr = PullToRefresh.init({
+PullToRefresh.init({
   mainElement: 'body',
   onRefresh() {
     getData()
