@@ -64,9 +64,7 @@ state.tree = Client({
 })
 
 const handleRefresh = (resolve, reject) => {
-  console.log("refreshing")
   getData().then(() => resolve()).catch(() => reject()) 
-  console.log("refreshed")
 }
 
 const Cards = observer(() => state.data.map((card, i) => 
