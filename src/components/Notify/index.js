@@ -16,53 +16,64 @@ import s from '../../assets/css/page.css'
 import { Input } from './input.js'
 
 let state = observable({
+  location: '',
+  geo: false,
+  locating: false,
   loading: false,
   sent: false,
-  numSent: 0,
 })
 
 const submit = async (snapshot) => {
   state.loading = true
 
   const app = feathers();
-  const restClient = feathers.rest('https://api.asickly.com')
+  const restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
-  const submit = app.service('submit'); 
+  const notify = app.service('notify'); 
   
-  submit.create(snapshot)
+  notify.create(snapshot)
   .then(() => {
     state.loading = false
     state.sent = true
-    state.numSent++
   })
+}
+
+if (!navigator.geolocation) {
+  state.geo = false
+} else {
+  state.locating = true
+
+  navigator.geolocation.getCurrentPosition(position => {
+    state.geo = true
+    state.locating = false
+    state.location = [position.coords.latitude, position.coords.longitude]
+  }) 
 }
 
 let form = observable(Form({
   fields: {
-    date: { props: { label: 'Date (Month-Day)', type: 'number', required: true, placeholder: '03-15'}, value: '' },
-    source: { props: { label: 'URL To Verifiable Source', required: true }, value: '' },
-    location: { props: { label: 'Location of Case(s)', required: true }, value: '' },
-    confirmed: { props: { label: 'Number of Confirmed Cases', type: 'number', required: true }, value: '' },
+    location: { props: { label: state.geo ? null : 'Your Location', hidden: state.geo, required: !state.geo }, value: state.location },
+    email: { props: { label: 'Email' }, value: '' },
+    phone: { props: { label: 'Phone Number', type: 'number' }, value: '' },
   },
   submit
 }))
 
 const StatusBanner = observer(() => state.sent ? (
   <Banner className={s.banner}>
-    You have successfuly submitted {state.numSent} cases.
+    You have successfuly submitted, Sickly will now be sending you notifications.
   </Banner>
 ) : null )
 
 
-const Submit = observer(() => 
+const Notify = observer(() => 
   <>
     <StatusBanner /> 
     <Box className={s.box}> 
       <div className={s.container}>
-          <h1>Submit A New Case</h1>
+          <h1>Be Notified</h1>
           <p>
-           You can submit a new COVID-19 case to Sickly here.<br/>
-           <b>NOTE:</b> Please only report cases found from reputable, verifiable sources.<br/>
+           Sickly keeps you updated on new COVID-19 developments in your community.<br/>
           </p>
           <div className={s.form}>
              <FormContent columns={1}>
@@ -86,4 +97,4 @@ const Submit = observer(() =>
   </>
 )
 
-export default () => <Submit />
+export default () => <Notify />

@@ -25,7 +25,7 @@ const submit = async (snapshot) => {
   state.loading = true
 
   const app = feathers();
-  const restClient = feathers.rest('https://api.asickly.com')
+  const restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
   const submit = app.service('submit'); 
   
