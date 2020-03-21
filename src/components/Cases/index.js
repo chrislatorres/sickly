@@ -53,14 +53,13 @@ state.tree = Client({
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
   
-  let coordinates = state.viewport.center[0] + ', ' + state.viewport.center[1]
   return(
     <div className={s.cases}>
       <Box className={s.card}> 
         <h1>COVID-19</h1>
         <small>Number of Cases: </small><b>{state.numOfCases}</b><br />
-        <small>Location of Cases: </small><b>{coordinates}</b>
-        <p>There are currently {state.numOfCases} cases in {coordinates}.</p>
+        <small>Location of Cases: </small><b>{state.viewport.center}</b>
+        <p>There are currently {state.numOfCases} cases in {state.viewport.center}.</p>
       </Box>
     </div>
 )
