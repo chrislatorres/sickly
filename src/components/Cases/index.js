@@ -10,6 +10,8 @@ import s from '../../assets/css/page.css'
 let state = observable({
   id: 'null',
   tree: {},
+  numOfCases: 0,
+  viewport: {} 
 })
 
 let types = exampleTypes
@@ -48,15 +50,20 @@ state.tree = Client({
 
 
 
-let Cases = observer(() => 
+let Cases = observer((props) => { 
+  state.viewport = props.viewport 
+  
+  let coordinates = state.viewport.center[0] + ', ' + state.viewport.center[1]
+  return(
     <div className={s.cases}>
       <Box className={s.card}> 
-        <h1>Case Name</h1>
-        <small>Number of Cases: </small><b>42</b><br />
-        <small>Location of Cases: </small><b>Dallas, Texas</b>
-        <p>Case Description</p>
+        <h1>COVID-19</h1>
+        <small>Number of Cases: </small><b>{state.numOfCases}</b><br />
+        <small>Location of Cases: </small><b>{coordinates}</b>
+        <p>There are currently {state.numOfCases} cases in {coordinates}.</p>
       </Box>
     </div>
 )
+})
 
-export default () => <Cases />
+export default Cases
