@@ -48,14 +48,11 @@ state.tree = Client({
       type: 'group', 
       join: 'and', 
       children: [
-        { key: 'balance', type: 'text', field: 'balance', },
+        { key: 'city', type: 'text', field: 'city', },
         { key: 'currency', type: 'text', field: 'currency', },
         { key: 'type', type: 'text', field: 'type', },
-        { key: 'decimals', type: 'number', field: 'decimals', },
         { key: 'fiat_currency', type: 'text', field: 'fiat_currency', },
         { key: 'fiat_value', type: 'text', field: 'fiat_value', },
-        { key: 'updated_at', type: 'number', field: 'updated_at', },
-        { key: 'resource_type', type: 'text', field: 'resource_type', },
       ], 
     },
     { key: 'id', type: 'text', field: 'id', data: { operator: 'is', value: state.id } },
@@ -68,23 +65,25 @@ state.tree = Client({
 const Cards = observer(() => state.data.reverse().map((card, i) => 
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
-      Feeling sickly in <b>{
-        Object.keys(card.locationName.address).map((key) => {
-          if(key && ['city','town','county','state','country'].includes(key)) {
-            if(key === 'country') {
-              return card.locationName.address[key] 
-            } else {
-              return `${card.locationName.address[key]}, ` 
+      Feeling sickly in <b>
+        {
+          Object.keys(card.locationName.address).map((key) => {
+            if(key && ['city','town','county','state','country'].includes(key)) {
+              if(key === 'country') {
+                return card.locationName.address[key] 
+              } else {
+                return `${card.locationName.address[key]}, ` 
+              }
             }
-          }
-       })}</b>.<br/>
+          })
+        }
+      </b>.<br/>
       <small className={s.date}><ReactTimeAgo date={card.date}/></small>
     </Box>
   </div>
 ))
 
 PullToRefresh.init({
-  mainElement: 'body',
   onRefresh() {
     getData()
   }
@@ -94,11 +93,9 @@ PullToRefresh.init({
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
   
-  return(
-    <>
-      <Cards />
-    </>
-  )
+  React.useEffect(() => () => PullToRefresh.destroyAll()) 
+
+  return <Cards />
 })
 
 export default Cases
