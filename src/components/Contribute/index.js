@@ -39,7 +39,7 @@ const submit = async (snapshot) => {
 
 let form = observable(Form({
   fields: {
-    date: { props: { label: 'Date (Month-Day)', type: 'number', required: true, placeholder: '03-15'}, value: '' },
+    date: { props: { label: 'Date (Month-Day)', required: true, placeholder: '03-15'}, value: '' },
     source: { props: { label: 'URL To Verifiable Source', required: true }, value: '' },
     location: { props: { label: 'Location of Case(s)', required: true }, value: '' },
     confirmed: { props: { label: 'Number of Confirmed Cases', type: 'number', required: true }, value: '' },
