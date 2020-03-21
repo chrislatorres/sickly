@@ -1,8 +1,4 @@
 import React from 'react'
-import feathers from '@feathersjs/client'
-import JavascriptTimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
-import ReactTimeAgo from 'react-time-ago'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { Box } from 'grey-vest'
@@ -10,24 +6,14 @@ import { exampleTypes } from 'contexture-client'
 import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
 import s from '../../assets/css/page.css'
-
-JavascriptTimeAgo.locale(en)
+import data from './data.js'
 
 let state = observable({
-  data: {},
   id: 'null',
   tree: {},
   numOfCases: 0,
   viewport: {} 
 })
-
-const getData = async () => {
-  var app = feathers();
-  var restClient = feathers.rest('https://api.sickly.app')
-  app.configure(restClient.fetch(window.fetch));
-  state.data = await app.service('submit').find()
-}
-getData()
 
 let types = exampleTypes
           
@@ -63,17 +49,19 @@ state.tree = Client({
 })
 
 
-const Cards = () => state.data.map((card, i) => 
-  <div key={i} className={s.cases}>
-    <Box className={s.card}> 
-      Feeling sickly in <b>{card.location}</b>.<br/>
-      <small className={s.date}><ReactTimeAgo date={Date.now() - 48 * 60 * 60 * 1000}/></small>
-    </Box>
-  </div>
-)
+const Cards = () => data.map(card => 
+      <div className={s.cases}>
+        <Box className={s.card}> 
+          <h1>{card.title}</h1>
+          <p><a href={card.url}>{card.url}</a></p>
+          <img src={card.images[0]} />
+          <p>There are currently {state.numOfCases} cases in {state.viewport.center}.</p>
+        </Box>
+      </div>
+    )
 
 
-let Cases = observer((props) => { 
+let Updates = observer((props) => { 
   state.viewport = props.viewport 
   
   return(
@@ -81,4 +69,4 @@ let Cases = observer((props) => {
   )
 })
 
-export default Cases
+export default Updates 

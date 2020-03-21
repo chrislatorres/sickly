@@ -49,6 +49,7 @@
     "react-router-ga": "^1.2.2",
     "react-select": "^2.0.0",
     "react-spinners": "^0.8.1",
+    "react-time-ago": "^5.0.7",
     "recompose": "^0.30.0"
   },
   "scripts": {

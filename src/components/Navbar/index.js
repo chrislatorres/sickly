@@ -16,7 +16,7 @@ const Navbar = () =>
           <Link to="/"><LocationIcon/>Explore</Link>
         </li>
         <li>
-          <Link to="/cases"><NotificationsIcon/>Updates</Link>
+          <Link to="/updates"><NotificationsIcon/>Updates</Link>
         </li>
         <li>
           <a onClick={() => alert("Your sick?")}><AddCircleIcon/>I{"'"}m Sick</a>

@@ -6,9 +6,9 @@ import { observer } from 'mobx-react'
 
 import Navbar from './Navbar'
 import Map from './Map'
-import Cases from './Cases'
-import Notify from './Notify'
+import Updates from './Updates'
 import Contribute from './Contribute'
+import Cases from './Cases'
 import About from './About'
 
 import s from '../assets/css/app.css'
@@ -29,8 +29,8 @@ const App = observer(() =>
         <div className={s.container}>
           <div className={s.row}>
             <Switch>
+              <Route path='/updates' component={() => <Updates viewport={state.viewport} />} />
               <Route path='/cases' component={() => <Cases viewport={state.viewport} />} />
-              <Route path='/notify' component={Notify} />
               <Route path='/contribute' component={Contribute} />
               <Route path='/about' component={About} />
               
