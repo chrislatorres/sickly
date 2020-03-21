@@ -23,7 +23,6 @@ and (max-device-width: 999999999px) {
   }
   /* The sidenav */
   .sidenav {
-    height: auto;
     width: 100%;
     position: fixed;
     z-index: 99999;
@@ -41,13 +40,13 @@ and (max-device-width: 999999999px) {
     text-align: center;
   }
   .sidenav li {
-    display: inline;
+    display: inline-flex;
   }
   .sidenav li * {
     width: 100%;
   }
   .sidenav li svg {
-    margin-bottom: -15px;
+    margin-bottom: -10px;
   }
   /* The navigation menu links */
   .sidenav a {
