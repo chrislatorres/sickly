@@ -1,4 +1,9 @@
 import React from 'react'
+import feathers from '@feathersjs/client'
+import JavascriptTimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+import ReactTimeAgo from 'react-time-ago'
+import PullToRefresh from 'pulltorefreshjs'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { Box } from 'grey-vest'
@@ -6,14 +11,24 @@ import { exampleTypes } from 'contexture-client'
 import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
 import s from '../../assets/css/page.css'
-import data from './data.js'
+
+JavascriptTimeAgo.locale(en)
 
 let state = observable({
+  data: {},
   id: 'null',
   tree: {},
   numOfCases: 0,
   viewport: {} 
 })
+
+const getData = async () => {
+  var app = feathers();
+  var restClient = feathers.rest('https://api.sickly.app')
+  app.configure(restClient.fetch(window.fetch));
+  state.data = await app.service('cases').find()
+}
+getData()
 
 let types = exampleTypes
           
@@ -33,14 +48,11 @@ state.tree = Client({
       type: 'group', 
       join: 'and', 
       children: [
-        { key: 'balance', type: 'text', field: 'balance', },
+        { key: 'city', type: 'text', field: 'city', },
         { key: 'currency', type: 'text', field: 'currency', },
         { key: 'type', type: 'text', field: 'type', },
-        { key: 'decimals', type: 'number', field: 'decimals', },
         { key: 'fiat_currency', type: 'text', field: 'fiat_currency', },
         { key: 'fiat_value', type: 'text', field: 'fiat_value', },
-        { key: 'updated_at', type: 'number', field: 'updated_at', },
-        { key: 'resource_type', type: 'text', field: 'resource_type', },
       ], 
     },
     { key: 'id', type: 'text', field: 'id', data: { operator: 'is', value: state.id } },
@@ -49,24 +61,42 @@ state.tree = Client({
 })
 
 
-const Cards = () => data.map(card => 
-      <div className={s.cases}>
-        <Box className={s.card}> 
-          <h1>{card.title}</h1>
-          <p><a href={card.url}>{card.url}</a></p>
-          <img src={card.images[0]} />
-          <p>There are currently {state.numOfCases} cases in {state.viewport.center}.</p>
-        </Box>
-      </div>
-    )
 
+const Cards = observer(() => state.data.reverse().map((card, i) => 
+  <div key={i} className={s.cases}>
+    <Box className={s.card}> 
+      Feeling sickly in <b>
+        {
+          Object.keys(card.locationName.address).map((key) => {
+            if(key && ['city','town','county','state','country'].includes(key)) {
+              if(key === 'country') {
+                return card.locationName.address[key] 
+              } else {
+                return `${card.locationName.address[key]}, ` 
+              }
+            }
+          })
+        }
+      </b>.<br/>
+      <small className={s.date}><ReactTimeAgo date={card.date}/></small>
+    </Box>
+  </div>
+))
 
-let Updates = observer((props) => { 
+let Cases = observer((props) => { 
   state.viewport = props.viewport 
   
-  return(
-    <Cards />
-  )
+  React.useEffect(() => {
+    PullToRefresh.init({
+      onRefresh() {
+        getData()
+      }
+    })
+
+    return () => PullToRefresh.destroyAll()
+  }, []) 
+
+  return <Cards />
 })
 
-export default Updates 
+export default Cases

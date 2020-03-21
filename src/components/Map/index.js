@@ -16,28 +16,35 @@ let state = observable({
   loading: false,
   sent: false,
   numSent: 0,
-  geo: null,
+  geo: { 
+    center: [0, 0], 
+    zoom: 0 
+  },
   viewport: { 
-    center: [32.9483, -96.7299], 
-    zoom: 10 
+    center: [0, 0], 
+    zoom: 0 
   },
   locating: false,
 })
 
-const getLocation = async (zoom) => {
+const setViewport = () => getMyLocation(17).then(() => state.viewport = state.geo) 
+
+const getMyLocation = async (zoom) => {
   if (!navigator.geolocation) {
-    state.geo = false
     const app = feathers();
     const restClient = feathers.rest('http://ip-api.com')
     app.configure(restClient.fetch(window.fetch));
     const ip = app.service('json').find()
 
-    state.viewport.center = [ip.lat, ip.lon]
+    state.geo.center = [ip.lat, ip.lon]
+
+    if (zoom) {
+      state.geo.zoom = zoom 
+    }
   } else {
     state.locating = true
     navigator.geolocation.getCurrentPosition(position => {
-      state.geo = true
-      state.viewport.center = [position.coords.latitude, position.coords.longitude]
+      state.geo.center = [position.coords.latitude, position.coords.longitude]
       state.locating = false
     }, async () => {
       const app = feathers();
@@ -45,16 +52,14 @@ const getLocation = async (zoom) => {
       app.configure(restClient.fetch(window.fetch));
       const ip = await app.service('json').find()
 
-      state.viewport.center = [ip.lat, ip.lon]
-      state.viewport.zoom = zoom 
-
-      state.geo = true
+      state.geo.center = [ip.lat, ip.lon]
+      if (zoom) {
+        state.geo.zoom = zoom 
+      }
       state.locating = false
     })
   }
 }
-getLocation(2.5)
-
 
 const StatusBanner = observer(() => state.sent ? (
   <Banner className={s.banner}>
@@ -62,14 +67,18 @@ const StatusBanner = observer(() => state.sent ? (
   </Banner>
 ) : null )
 
-const updateViewport = (viewport) => {
-  state.updateParentViewport(viewport)
-  state.viewport = viewport
-}
+const updateParentViewport = (updateViewport, viewport) => updateViewport(viewport)
+
 
 const MapPage = observer((props) => {
-  props.updateViewport(state.viewport)
-  state.updateParentViewport = props.updateViewport
+  
+  React.useEffect(() => {
+    if(!state.geo.zoom) {
+      setViewport()
+    }
+
+    return () => getMyLocation().then(props.updateViewport(state.geo))
+  }, [])
 
   return (
   <div className={m.map}>
@@ -81,11 +90,11 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <div className={m.myLocationCircle}>
-      <a onClick={() => getLocation(17)}>
+      <a onClick={() => setViewport()}>
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>
-    <Map onViewportChanged={ updateViewport } viewport={toJS(state.viewport)} zoomControl={false} className={s.leafletContainer}>
+    <Map onViewportChanged={(viewport) => state.viewport = viewport } viewport={ toJS(state.viewport) } zoomControl={false} className={s.leafletContainer}>
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'

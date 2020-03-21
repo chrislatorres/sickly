@@ -7,14 +7,13 @@ import { observer } from 'mobx-react'
 import Navbar from './Navbar'
 import Map from './Map'
 import Updates from './Updates'
-import Contribute from './Contribute'
 import Cases from './Cases'
 import About from './About'
 
 import s from '../assets/css/app.css'
 
 let state = observable({
-  viewport: { center: [32.9483, -96.7299], zoom: 10 }
+  viewport: {}
 })
 
 const updateViewport = (viewport) => {
@@ -31,7 +30,6 @@ const App = observer(() =>
             <Switch>
               <Route path='/updates' component={() => <Updates viewport={state.viewport} />} />
               <Route path='/cases' component={() => <Cases viewport={state.viewport} />} />
-              <Route path='/contribute' component={Contribute} />
               <Route path='/about' component={About} />
               
               <Route path='/' component={() => <Map updateViewport={updateViewport} />} />

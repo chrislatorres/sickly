@@ -83,17 +83,18 @@ const Cards = observer(() => state.data.reverse().map((card, i) =>
   </div>
 ))
 
-PullToRefresh.init({
-  onRefresh() {
-    getData()
-  }
-});
-
-
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
   
-  React.useEffect(() => () => PullToRefresh.destroyAll()) 
+  React.useEffect(() => {
+    PullToRefresh.init({
+      onRefresh() {
+        getData()
+      }
+    })
+
+    return () => PullToRefresh.destroyAll()
+  }, []) 
 
   return <Cards />
 })
