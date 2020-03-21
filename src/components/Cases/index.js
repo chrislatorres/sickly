@@ -3,6 +3,7 @@ import feathers from '@feathersjs/client'
 import JavascriptTimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import ReactTimeAgo from 'react-time-ago'
+import ReactPullToRefresh from 'react-pull-to-refresh'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { Box } from 'grey-vest'
@@ -62,22 +63,31 @@ state.tree = Client({
   ],
 })
 
+const handleRefresh = (resolve, reject) => {
+  console.log("refreshing")
+  getData().then(() => resolve()).catch(() => reject()) 
+  console.log("refreshed")
+}
 
-const Cards = () => state.data.map((card, i) => 
+const Cards = observer(() => state.data.map((card, i) => 
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
       Feeling sickly in <b>{card.location}</b>.<br/>
       <small className={s.date}><ReactTimeAgo date={Date.now() - 48 * 60 * 60 * 1000}/></small>
     </Box>
   </div>
-)
-
+))
 
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
   
   return(
-    <Cards />
+    <ReactPullToRefresh
+      onRefresh={handleRefresh}>
+      <h3>Pull down to refresh</h3>
+      <Cards />
+      <div>etc.</div>
+    </ReactPullToRefresh>
   )
 })
 
