@@ -5,7 +5,7 @@ import { Box } from 'grey-vest'
 import { exampleTypes } from 'contexture-client'
 import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
-import s from './index.css'
+import s from '../../assets/css/page.css'
 
 let state = observable({
   id: 'null',
@@ -48,9 +48,9 @@ state.tree = Client({
 
 
 
-let Search = observer(() => 
-    <div className={s.search}>
-      <Box className={s.box}> 
+let Cases = observer(() => 
+    <div className={s.cases}>
+      <Box className={s.card}> 
         <h1>Case Name</h1>
         <small>Number of Cases: </small><b>42</b><br />
         <small>Location of Cases: </small><b>Dallas, Texas</b>
@@ -59,4 +59,4 @@ let Search = observer(() =>
     </div>
 )
 
-export default () => <Search />
+export default () => <Cases />

@@ -20,13 +20,13 @@ const Navbar = () =>
           <Link to="/"><LocationIcon/>Explore</Link>
         </li>
         <li>
-          <Link to="/search"><PersonIcon/>Cases</Link>
+          <Link to="/cases"><PersonIcon/>Cases</Link>
         </li>
         <li>
           <Link to="/about"><FavoriteIcon/>About</Link>
         </li>
         <li>
-          <Link to="/submit"><AddCircleIcon/>Contribute</Link>
+          <Link to="/contribute"><AddCircleIcon/>Contribute</Link>
         </li>
         <li>
           <Link to="/notify"><NotificationsIcon/>Updates</Link>

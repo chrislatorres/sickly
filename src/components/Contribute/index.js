@@ -54,7 +54,7 @@ const StatusBanner = observer(() => state.sent ? (
 ) : null )
 
 
-const Submit = observer(() => 
+const Contribute = observer(() => 
   <>
     <StatusBanner /> 
     <Box className={s.box}> 
@@ -86,4 +86,4 @@ const Submit = observer(() =>
   </>
 )
 
-export default () => <Submit />
+export default () => <Contribute />
