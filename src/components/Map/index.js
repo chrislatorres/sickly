@@ -1,6 +1,7 @@
 import React from 'react'
 import feathers from '@feathersjs/client'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
+import LayersIcon from '@material-ui/icons/LayersOutlined'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
@@ -52,7 +53,7 @@ const getLocation = async (zoom) => {
     })
   }
 }
-getLocation(2)
+getLocation(2.5)
 
 
 const StatusBanner = observer(() => state.sent ? (
@@ -74,17 +75,22 @@ const MapPage = observer((props) => {
   <div className={m.map}>
     <StatusBanner /> 
     <img src={sickly} className={m.logo} />
+   <div className={m.layersCircle}>
+      <a onClick={() => alert('layers')}>
+        <LayersIcon className={m.layersIcon} />
+      </a>
+    </div>
     <div className={m.myLocationCircle}>
       <a onClick={() => getLocation(17)}>
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>
-        <Map onViewportChanged={ updateViewport } viewport={toJS(state.viewport)} zoomControl={false} className={s.leafletContainer}>
-          <TileLayer
-            url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-            attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-          />
-        </Map>
+    <Map onViewportChanged={ updateViewport } viewport={toJS(state.viewport)} zoomControl={false} className={s.leafletContainer}>
+      <TileLayer
+        url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+        attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+      />
+    </Map>
   </div>
   )
 })
