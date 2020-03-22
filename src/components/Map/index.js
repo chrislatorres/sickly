@@ -8,7 +8,7 @@ import { observer } from 'mobx-react'
 import { 
   Banner
 } from 'grey-vest'
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
 import sickly from '../../assets/images/logo.png'
@@ -71,13 +71,18 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
     const { latitude, longitude } = search.geo
     position = [latitude, longitude]
   } else {
-    position = [42, 42]
+    return 
   }
   return (
     <div key={i} className={s.markerDiv}>
-      <Marker position={position}>
-        <Popup>{mark.Country}: {mark.TotalConfirmed}.</Popup>
-      </Marker>
+      <CircleMarker radius={mark.TotalConfirmed/250} center={position}>
+        <Tooltip>
+          <h2><b>{mark.Country}</b></h2>
+          <p>Total Confirmed Cases: {mark.TotalConfirmed}</p>
+          <p>Total Deaths: {mark.TotalDeaths}</p>
+          <p>Total Recovered: {mark.TotalRecovered}</p>
+        </Tooltip>
+      </CircleMarker>
     </div>
   )
 }))
