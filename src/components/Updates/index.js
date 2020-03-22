@@ -17,7 +17,7 @@ TouchEmulator()
 JavascriptTimeAgo.locale(en)
 
 let state = observable({
-  data: {},
+  data: null,
   id: 'null',
   tree: {},
   numOfCases: 0,
@@ -94,7 +94,7 @@ let Cases = observer((props) => {
     return () => PullToRefresh.destroyAll()
   }, []) 
 
-  return ( state.data ? <Cards /> : null )
+  return ( state.data ? <Cards /> : <h1>Loading...</h1> )
 })
 
 export default Cases
