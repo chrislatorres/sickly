@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import createHistory from 'history/createBrowserHistory'
+import { Route, Router } from 'react-router-dom'
 import { ThemeProvider, greyVest } from 'contexture-react'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
@@ -13,8 +14,12 @@ import About from './About'
 
 import s from '../assets/css/app.css'
 
-ReactGA.initialize('UA-161402140-1')
-ReactGA.pageview(window.location.pathname + window.location.search);
+const history = createHistory()
+
+history.listen((location, action) => {
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
+});
 
 let state = observable({
   viewport: {}
@@ -25,25 +30,21 @@ const updateViewport = (viewport) => {
 }
 
 const App = observer(() => 
+<Router history={history}>
   <ThemeProvider theme={ greyVest }>
-    <BrowserRouter>
       <div className={s.main}>
         <Navbar />
         <div className={s.container}>
           <div className={s.row}>
-            <Switch>
-              <Route path='/updates' component={() => <Updates viewport={state.viewport} />} />
-              <Route path='/cases' component={() => <Cases viewport={state.viewport} />} />
-              <Route path='/about' component={About} />
-              
-              <Route path='/' component={() => <Map updateViewport={updateViewport} />} />
-              <Route render={() => <h3>No Match</h3>} />
-            </Switch>
+            <Route path='/updates' component={() => <Updates viewport={state.viewport} />} />
+            <Route path='/cases' component={() => <Cases viewport={state.viewport} />} />
+            <Route path='/about' component={() => <About />} />
+            <Route exact path='/' component={() => <Map updateViewport={updateViewport} />} />
          </div>
        </div>
       </div>
-    </BrowserRouter>
   </ThemeProvider>
+</Router>
 )
 
 export default App
