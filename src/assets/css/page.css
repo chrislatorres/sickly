@@ -1,84 +1,83 @@
-.box {
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 8px 20px 0 rgba(0,0,0,.08);
-  padding: 15px;
-  padding-left: 42px;
-  margin: 0px 15%;
+/* desktop navbar */
+@media (min-width: 0px) {
+  .box {
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,.08);
+    padding: 15px;
+    padding-left: 42px;
+    margin: 0px 15%;
+  }
+  .card {
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 15px;
+    margin: 0 0 10px 0; 
+  }
+  .card .cardImg {
+    height: 80vw;
+    width: 100vw;
+    margin-left: -16px; 
+  }
+  .card .favicon {
+    height: 24px;
+    width: 24px;
+    margin-bottom: -7px;
+    padding-right: 10px;
+    border-radius: 50%;
+  }
+  .card .cardTitle {
+    font-size: 2em;
+    margin: 0;
+  }
+  .card a {
+    color: inherit;
+    text-decoration: none;
+  } 
+  .container {
+    text-align: center;
+  }
+  .container .logoImg {
+    max-width: 20%;
+    border-radius: 50%;
+  }
+  .form {
+    margin: auto;
+    max-width: 750px;
+  }
+  .awaiter {
+    display: block-inline;
+    margin-right: 50px;
+    margin-bottom: 50px;
+  }
+  .banner {
+    max-width: 100%;
+    margin-top: 0;
+  }
+  .leafletContainer {
+    width: 100%;
+    height: 100vh;
+  }
+  .date {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #aaaaaa; 
+  }
 }
-.card {
-  border-radius: 4px;
-  background-color: #fff;
-  padding: 15px;
-  margin: 0 0 10px 0; 
-}
-.card .cardImg {
-  height: 80vw;
-  width: 100vw;
-  margin-left: -16px; 
-}
-.card .favicon {
-  height: 24px;
-  width: 24px;
-  margin-bottom: -7px;
-  padding-right: 10px;
-  border-radius: 50%;
-}
-.card .cardTitle {
-  font-size: 2em;
-  margin: 0;
-}
-.card a {
-  color: inherit;
-  text-decoration: none;
-} 
-.container {
-  text-align: center;
-}
-.container .logoImg {
-  max-width: 20%;
-  border-radius: 50%;
-}
-.form {
-  margin: auto;
-  max-width: 750px;
-}
-.awaiter {
-  display: block-inline;
-  margin-right: 50px;
-  margin-bottom: 50px;
-}
-.banner {
-  max-width: 100%;
-  margin-top: 0;
-}
-.leafletContainer {
-  width: 100%;
-  height: 100vh;
-}
-.date {
-  text-transform: uppercase;
-  font-size: 10px;
-  color: #aaaaaa; 
-}
-.refresh {
-}
+
 /* portrait */
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 1024px) 
-and (orientation: portrait) {
+@media (min-width: 641px) {
   div .box {
     margin: 0 0 0 0;
     box-shadow: none;
   }
+  .card {
+    margin: 0 20% 10px 20%; 
+  }
+  .card .cardImg {
+    height: auto;
+    width: 100%;
+    margin-left: -16px; 
+  }
 
-}
-
-/* landscape */
-@media only screen 
-and (min-device-width: 320px) 
-and (max-device-width: 1024px) 
-and (orientation: landscape) {
-    /* styles here */
 }

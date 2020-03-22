@@ -15,13 +15,21 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
-/* portrait */
-@media only screen 
-and (max-device-width: 999999999px) {
-  .sidenavHamburger {
-    display: none;
-  }
-  /* The sidenav */
+/* The navigation menu links */
+.sidenav a {
+  text-decoration: none;
+  color: #454545;
+  transition: 0.3s;
+  font-size: 12px;
+}
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover,
+.sidenav a:focus {
+  color: #0076de;
+}
+
+/* mobile navbar */
+@media (min-width: 0px) {
   .sidenav {
     width: 100%;
     position: fixed;
@@ -49,18 +57,14 @@ and (max-device-width: 999999999px) {
   .sidenav li svg {
     margin-bottom: -10px;
   }
-  /* The navigation menu links */
-  .sidenav a {
-    text-decoration: none;
-    color: #454545;
-    transition: 0.3s;
-    font-size: 12px;
+}
+
+/* desktop navbar */
+@media (min-width: 641px) {
+  .sidenav {
   }
-  
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover,
-  .sidenav a:focus {
-    color: #0076de;
+  .sidenav ul {
+    padding: 0 25%;
   }
 }
 
