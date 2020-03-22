@@ -29,7 +29,7 @@ const getData = async () => {
   var app = feathers();
   var restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
-  state.data = await app.service('cases').find()
+  state.data = await app.service('updates').find()
 }
 getData()
 
@@ -68,20 +68,11 @@ state.tree = Client({
 const Cards = observer(() => state.data.reverse().map((card, i) => 
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
-      Feeling sickly in <b>
-        {
-          Object.keys(card.locationName.address).map((key) => {
-            if(key && ['city','town','county','state','country'].includes(key)) {
-              if(key === 'country') {
-                return card.locationName.address[key] 
-              } else {
-                return `${card.locationName.address[key]}, ` 
-              }
-            }
-          })
-        }
-      </b>.<br/>
-      <small className={s.date}><ReactTimeAgo date={card.date}/></small>
+      <h3>{card.title}</h3>
+      <a href={card.url}>
+        <small className={s.date}>{new URL(card.url).hostname.replace('www.','')}</small>
+      </a>
+      <img src={card.images[0]} />
     </Box>
   </div>
 ))
