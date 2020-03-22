@@ -16,7 +16,7 @@ import s from '../assets/css/app.css'
 
 const history = createHistory()
 
-history.listen((location, action) => {
+history.listen((location) => {
   ReactGA.set({ page: location.pathname });
   ReactGA.pageview(location.pathname);
 });
