@@ -1,17 +1,12 @@
 /* desktop navbar */
 @media (min-width: 0px) {
-  .box {
+  .card {
     border-radius: 4px;
     background-color: #fff;
     box-shadow: 0 8px 20px 0 rgba(0,0,0,.08);
     padding: 15px;
-    padding-left: 42px;
-    margin: 0px 15%;
-  }
-  .card {
     border-radius: 4px;
     background-color: #fff;
-    padding: 15px;
     margin: 0 0 10px 0; 
   }
   .card .cardImg {
@@ -27,7 +22,7 @@
     border-radius: 50%;
   }
   .card .cardTitle {
-    font-size: 2em;
+    font-size: 1.7em;
     margin: 0;
   }
   .card a {
@@ -35,7 +30,7 @@
     text-decoration: none;
   } 
   .container {
-    text-align: center;
+    text-align: left;
   }
   .container .logoImg {
     max-width: 20%;
@@ -67,17 +62,25 @@
 
 /* portrait */
 @media (min-width: 641px) {
-  div .box {
-    margin: 0 0 0 0;
-    box-shadow: none;
+/* desktop navbar */
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
   }
   .card {
-    margin: 0 20% 10px 20%; 
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    margin-bottom: 0.5vh;
   }
   .card .cardImg {
+    max-width: 100%;
     height: auto;
-    width: 100%;
-    margin-left: -16px; 
   }
-
+  .url {
+    font-size: 10px;
+  }
 }

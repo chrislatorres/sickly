@@ -62,14 +62,20 @@ state.tree = Client({
 
 
 const Cards = observer(() => state.data.reverse().map((card, i) => 
-  <Box key={i} className={s.card}> 
-    <a href={card.url}>
-      <img className={s.favicon} src={`https://s2.googleusercontent.com/s2/favicons?domain=${card.url}`} />
-      <small className={s.date}>{new URL(card.url).hostname.replace('www.','')}</small>
-      <p className={s.cardTitle}>{card.title}</p>
-    </a>
-    <img src={card.images[0]} className={s.cardImg} />
-  </Box>
+  ['coronavirus', 'covid'].some(v => card.firstComment.includes(v)) ?
+    <div key={i} className={s.card}> 
+      <a href={card.url}>
+        <img className={s.favicon} src={`https://s2.googleusercontent.com/s2/favicons?domain=${card.url}`} />
+        <span className={s.url}>{card.ownerUsername}</span>
+      </a>
+      <img src={card.imageUrl} className={s.cardImg} />
+      <span className={s.url}>{card.ownerUsername}</span>
+      {'  '}
+      <span>
+        {card.firstComment}
+      </span>
+    </div>
+  : null
 ))
 
 let Cases = observer((props) => { 
@@ -91,7 +97,7 @@ let Cases = observer((props) => {
     return () => PullToRefresh.destroyAll()
   }, []) 
 
-  return ( state.data ? <Cards /> : <h1>Loading...</h1> )
+  return ( state.data ? <div className={s.container}><Cards /></div> : <h1>Loading...</h1> )
 })
 
 export default Cases

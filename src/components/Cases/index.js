@@ -93,7 +93,7 @@ let Cases = observer((props) => {
     return () => PullToRefresh.destroyAll()
   }, []) 
 
-  return ( state.data ? <Cards /> : <h1>Loading...</h1> )
+  return ( state.data ? <div className={s.container}><Cards /></div> : <h1>Loading...</h1> )
 })
 
 export default Cases
