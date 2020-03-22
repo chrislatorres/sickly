@@ -95,7 +95,7 @@ const MapPage = observer((props) => {
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>
-    <Map onViewportChanged={(viewport) => { state.viewport = viewport } } viewport={ toJS(state.viewport) } zoomControl={false} className={s.leafletContainer}>
+    <Map onViewportChanged={(viewport) => { state.viewport = viewport } } viewport={ toJS(state.viewport) } boxZoom={true} dragging={true} tap={true} zoomControl={false} className={s.leafletContainer}>
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'

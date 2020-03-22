@@ -12,6 +12,7 @@ import About from './About'
 
 import s from '../assets/css/app.css'
 
+
 let state = observable({
   viewport: {}
 })
