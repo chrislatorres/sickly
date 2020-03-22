@@ -15,7 +15,7 @@ import s from '../../assets/css/page.css'
 JavascriptTimeAgo.locale(en)
 
 let state = observable({
-  data: null,
+  data: {},
   id: 'null',
   tree: {},
   numOfCases: 0,
@@ -63,6 +63,7 @@ state.tree = Client({
 
 
 const Cards = observer(() => state.data.reverse().map((card, i) => 
+  card.locationName ? 
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
       Feeling sickly in <b>
@@ -81,6 +82,7 @@ const Cards = observer(() => state.data.reverse().map((card, i) =>
       <small className={s.date}><ReactTimeAgo date={card.date}/></small>
     </Box>
   </div>
+  : null
 ))
 
 let Cases = observer((props) => { 
