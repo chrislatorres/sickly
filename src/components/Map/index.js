@@ -38,7 +38,7 @@ const getMyLocation = async (zoom) => {
   const app = feathers();
   const restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
-  const my = await app.service('locate').create({})
+  const my = await app.service('locate').create({}).then()
 
   state.geo.center = [my.location.ll[0], my.location.ll[1]]
 
@@ -74,7 +74,7 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <div className={m.myLocationCircle}>
-      <a onClick={() => setViewport(15)}>
+      <a onClick={() => setViewport(12)}>
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>
