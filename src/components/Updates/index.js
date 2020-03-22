@@ -3,7 +3,6 @@ import feathers from '@feathersjs/client'
 import JavascriptTimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import PullToRefresh from 'pulltorefreshjs'
-import TouchEmulator from 'hammer-touchemulator'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { Box } from 'grey-vest'
@@ -11,8 +10,6 @@ import { exampleTypes } from 'contexture-client'
 import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
 import s from '../../assets/css/page.css'
-
-TouchEmulator()
 
 JavascriptTimeAgo.locale(en)
 
