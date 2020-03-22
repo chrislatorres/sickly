@@ -63,8 +63,8 @@ state.tree = Client({
 
 const Cards = observer(() => state.data.reverse().map((card, i) => 
   <Box key={i} className={s.card}> 
-    <img className={s.favicon} src={`https://s2.googleusercontent.com/s2/favicons?domain=${card.url}`} />
     <a href={card.url}>
+      <img className={s.favicon} src={`https://s2.googleusercontent.com/s2/favicons?domain=${card.url}`} />
       <small className={s.date}>{new URL(card.url).hostname.replace('www.','')}</small>
       <p className={s.cardTitle}>{card.title}</p>
     </a>
