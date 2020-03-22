@@ -39,6 +39,9 @@
   display: flex;
   align-items: center;
 }
+.map .myLocationCircle a:active {
+  color: #0076de;
+}
 .map .myLocationIcon {
   display: block;
   margin: 12.5px;
