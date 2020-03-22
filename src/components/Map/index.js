@@ -1,5 +1,6 @@
 import React from 'react'
 import feathers from '@feathersjs/client'
+import n from 'country-js'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
 import LayersIcon from '@material-ui/icons/LayersOutlined'
 import { toJS, observable } from 'mobx'
@@ -7,12 +8,13 @@ import { observer } from 'mobx-react'
 import { 
   Banner
 } from 'grey-vest'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
 import sickly from '../../assets/images/logo.png'
 
 let state = observable({
+  data: null,
   loading: false,
   sent: false,
   numSent: 0,
@@ -27,6 +29,14 @@ let state = observable({
   },
   locating: false,
 })
+
+const getData = async () => { 
+  var app = feathers(); 
+  var restClient = feathers.rest('https://api.sickly.app') 
+  app.configure(restClient.fetch(window.fetch)); 
+  state.data = await app.service('data').find() 
+}
+getData()
 
 const setViewport = (zoom) => { 
   getMyLocation(zoom)
@@ -52,6 +62,25 @@ const StatusBanner = observer(() => state.sent ? (
     You have successfuly submitted {state.numSent} cases.
   </Banner>
 ) : null )
+
+const Markers = observer(() => state.data[0].Countries.map((mark, i) => { 
+  const search = n.search(mark.Country)[0]
+  let position
+
+  if (search) {
+    const { latitude, longitude } = search.geo
+    position = [latitude, longitude]
+  } else {
+    position = [42, 42]
+  }
+  return (
+    <div key={i} className={s.markerDiv}>
+      <Marker position={position}>
+        <Popup>{mark.Country}: {mark.TotalConfirmed}.</Popup>
+      </Marker>
+    </div>
+  )
+}))
 
 const MapPage = observer((props) => {
   
@@ -83,6 +112,7 @@ const MapPage = observer((props) => {
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
       />
+      { state.data ? <Markers /> : null }
     </Map>
   </div>
   )
