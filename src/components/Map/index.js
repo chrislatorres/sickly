@@ -39,7 +39,6 @@ const getMyLocation = async (zoom) => {
   const restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
   const my = await app.service('locate').create({})
-  console.log(my)
 
   state.geo.center = [my.location.ll[0], my.location.ll[1]]
 
