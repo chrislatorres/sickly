@@ -3,6 +3,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import { ThemeProvider, greyVest } from 'contexture-react'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
+import ReactGA from 'react-ga'
 
 import Navbar from './Navbar'
 import Map from './Map'
@@ -12,6 +13,7 @@ import About from './About'
 
 import s from '../assets/css/app.css'
 
+ReactGA.initialize('UA-161402140-1', { standardImplementation: true })
 
 let state = observable({
   viewport: {}
