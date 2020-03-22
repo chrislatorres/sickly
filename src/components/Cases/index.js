@@ -105,7 +105,7 @@ let Cases = observer((props) => {
     return () => PullToRefresh.destroyAll()
   }, []) 
 
-  return <Cards />
+  return ( state.data ? <Cards /> : null )
 })
 
 export default Cases
