@@ -63,22 +63,11 @@ state.tree = Client({
 
 
 const Cards = observer(() => state.data.reverse().map((card, i) => 
-  card.locationName ? 
+  card.geo && card.date ? 
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
-      Feeling sickly in <b>
-        {
-          Object.keys(card.locationName.address).map((key) => {
-            if(key && ['city','town','county','state','country'].includes(key)) {
-              if(key === 'country') {
-                return card.locationName.address[key] 
-              } else {
-                return `${card.locationName.address[key]}, ` 
-              }
-            }
-          })
-        }
-      </b>.<br/>
+      Feeling sickly in 
+      <b> {card.geo.city}, {card.geo.region}, {card.geo.country}</b>.<br/>
       <small className={s.date}><ReactTimeAgo date={card.date}/></small>
     </Box>
   </div>
