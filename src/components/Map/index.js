@@ -73,9 +73,12 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
   } else {
     return 
   }
+  
+  const radius = Math.sqrt(mark.TotalConfirmed) * .6 
+
   return (
     <div key={i} className={s.markerDiv}>
-      <CircleMarker radius={mark.TotalConfirmed/250} center={position}>
+      <CircleMarker radius={radius} center={position}>
         <Tooltip>
           <h2><b>{mark.Country}</b></h2>
           <p>Total Confirmed Cases: <b>{mark.TotalConfirmed}</b></p>
