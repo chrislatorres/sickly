@@ -78,9 +78,9 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
       <CircleMarker radius={mark.TotalConfirmed/250} center={position}>
         <Tooltip>
           <h2><b>{mark.Country}</b></h2>
-          <p>Total Confirmed Cases: {mark.TotalConfirmed}</p>
-          <p>Total Deaths: {mark.TotalDeaths}</p>
-          <p>Total Recovered: {mark.TotalRecovered}</p>
+          <p>Total Confirmed Cases: <b>{mark.TotalConfirmed}</b></p>
+          <p>Total Deaths: <b>{mark.TotalDeaths}</b></p>
+          <p>Total Recovered: <b>{mark.TotalRecovered}</b></p>
         </Tooltip>
       </CircleMarker>
     </div>
