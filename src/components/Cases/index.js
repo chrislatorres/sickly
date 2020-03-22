@@ -15,7 +15,7 @@ import s from '../../assets/css/page.css'
 JavascriptTimeAgo.locale(en)
 
 let state = observable({
-  data: {},
+  data: null, 
   id: 'null',
   tree: {},
   numOfCases: 0,
