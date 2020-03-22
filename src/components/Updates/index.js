@@ -65,15 +65,14 @@ state.tree = Client({
 
 
 const Cards = observer(() => state.data.reverse().map((card, i) => 
-  <div key={i} className={s.cases}>
-    <Box className={s.card}> 
-      <h3>{card.title}</h3>
-      <a href={card.url}>
-        <small className={s.date}>{new URL(card.url).hostname.replace('www.','')}</small>
-      </a>
-      <img src={card.images[0]} />
-    </Box>
-  </div>
+  <Box key={i} className={s.card}> 
+    <img className={s.favicon} src={`https://s2.googleusercontent.com/s2/favicons?domain=${card.url}`} />
+    <a href={card.url}>
+      <small className={s.date}>{new URL(card.url).hostname.replace('www.','')}</small>
+      <p className={s.cardTitle}>{card.title}</p>
+    </a>
+    <img src={card.images[0]} className={s.cardImg} />
+  </Box>
 ))
 
 let Cases = observer((props) => { 

@@ -6,16 +6,31 @@
   padding-left: 42px;
   margin: 0px 15%;
 }
-.cases .card {
+.card {
   border-radius: 4px;
   background-color: #fff;
   padding: 15px;
   margin: 0 0 10px 0; 
 }
-.cases .card img {
-  max-height: 250px;
-  width: 100%;
+.card .cardImg {
+  height: 80vw;
+  width: 100vw;
+  margin-left: -16px; 
 }
+.card .favicon {
+  height: 24px;
+  width: 24px;
+  margin-bottom: -7px;
+  padding-right: 10px;
+}
+.card .cardTitle {
+  font-size: 2em;
+  margin: 0;
+}
+.card a {
+  color: inherit;
+  text-decoration: none;
+} 
 .container {
   text-align: center;
 }
