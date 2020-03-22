@@ -59,12 +59,15 @@
   }
 }
 
-/* desktop navbar */
+/* tablet+ navbar */
 @media (min-width: 641px) {
-  .sidenav {
-  }
   .sidenav ul {
     padding: 0 25%;
+  }
+}
+/* laptop+ navbar */
+@media (min-width: 1024px) {
+  .sidenav {
   }
 }
 

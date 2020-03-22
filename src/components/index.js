@@ -13,7 +13,8 @@ import About from './About'
 
 import s from '../assets/css/app.css'
 
-ReactGA.initialize('UA-161402140-1', { standardImplementation: true })
+ReactGA.initialize('UA-161402140-1')
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 let state = observable({
   viewport: {}
