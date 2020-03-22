@@ -18,50 +18,33 @@ let state = observable({
   numSent: 0,
   geo: { 
     center: [0, 0], 
-    zoom: 0 
+    zoom: 2,
+    set: null
   },
   viewport: { 
     center: [0, 0], 
-    zoom: 0 
+    zoom: 2 
   },
   locating: false,
 })
 
-const setViewport = () => { 
-  getMyLocation(17)
+const setViewport = (zoom) => { 
+  getMyLocation(zoom)
   state.viewport = state.geo
 }
 
 
 const getMyLocation = async (zoom) => {
-  if (!navigator.geolocation) {
-    const app = feathers();
-    const restClient = feathers.rest('http://ip-api.com')
-    app.configure(restClient.fetch(window.fetch));
-    const ip = app.service('json').find()
+  const app = feathers();
+  const restClient = feathers.rest('https://api.sickly.app')
+  app.configure(restClient.fetch(window.fetch));
+  const my = await app.service('locate').create({})
+  console.log(my)
 
-    state.geo.center = [ip.lat, ip.lon]
+  state.geo.center = [my.location.ll[0], my.location.ll[1]]
 
-    if (zoom) {
-      state.geo.zoom = zoom 
-    }
-  } else {
-    state.locating = true
-    navigator.geolocation.getCurrentPosition(position => {
-      state.geo.center = [position.coords.latitude, position.coords.longitude]
-      state.locating = false
-    }, async () => {
-      const app = feathers();
-      const restClient = feathers.rest('http://ip-api.com')
-      app.configure(restClient.fetch(window.fetch));
-      const ip = await app.service('json').find()
-
-      state.geo.center = [ip.lat, ip.lon]
-      if (zoom) {
-        state.geo.zoom = zoom 
-      }
-      state.locating = false
-    })
+  if (zoom) {
+    state.geo.zoom = zoom 
   }
 }
 
@@ -74,8 +57,9 @@ const StatusBanner = observer(() => state.sent ? (
 const MapPage = observer((props) => {
   
   React.useEffect(() => {
-    if(!state.geo.zoom) {
-      setViewport()
+    if(!state.geo.set) {
+      state.geo.set = true
+      setViewport(3)
     }
 
     return () => getMyLocation().then(props.updateViewport(state.geo))
@@ -91,7 +75,7 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <div className={m.myLocationCircle}>
-      <a onClick={() => setViewport()}>
+      <a onClick={() => setViewport(15)}>
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>

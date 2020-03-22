@@ -12,7 +12,7 @@ const submitCase = async (viewport) => {
   var app = feathers();
   var restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
-  app.service('cases').create({ date: Date.now(), location: viewport.center })
+  app.service('cases').create()
 }
 
 const Navbar = (props) => 
