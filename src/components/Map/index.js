@@ -1,6 +1,5 @@
 import React from 'react'
 import feathers from '@feathersjs/client'
-import n from 'country-js'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
 import LayersIcon from '@material-ui/icons/LayersOutlined'
 import { toJS, observable } from 'mobx'
