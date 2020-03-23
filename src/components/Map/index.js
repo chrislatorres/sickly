@@ -119,7 +119,7 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <div className={m.myLocationCircle}>
-      <a onClick={() => setViewport(12)}>
+      <a onClick={() => setViewport(10)}>
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>
