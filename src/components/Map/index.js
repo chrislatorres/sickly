@@ -9,6 +9,7 @@ import {
   Banner
 } from 'grey-vest'
 import { Map, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
+import L from 'leaflet' 
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
 import sickly from '../../assets/images/logo.png'
@@ -21,12 +22,12 @@ let state = observable({
   numSent: 0,
   geo: { 
     center: [0, 0], 
-    zoom: 2,
+    zoom: 3,
     set: null
   },
   viewport: { 
     center: [0, 0], 
-    zoom: 2 
+    zoom: 3 
   },
   locating: false,
 })
@@ -98,6 +99,8 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
 }))
 
 const MapPage = observer((props) => {
+  let southWest = L.latLng(-90, -180);
+  let northEast = L.latLng(90, 180); 
   
   React.useEffect(() => {
     if(!state.geo.set) {
@@ -122,7 +125,16 @@ const MapPage = observer((props) => {
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>
-    <Map onViewportChanged={(viewport) => { state.viewport = viewport } } viewport={ toJS(state.viewport) } boxZoom={true} dragging={true} tap={true} zoomControl={false} className={s.leafletContainer}>
+    <Map 
+      onViewportChanged={(viewport) => { state.viewport = viewport } } 
+      viewport={ toJS(state.viewport) } 
+      minZoom={3} 
+      maxZoom={20} 
+      maxBounds={L.latLngBounds(southWest, northEast)}
+      maxBoundsViscosity={1}
+      zoomControl={false} 
+      className={s.leafletContainer}
+    >
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
