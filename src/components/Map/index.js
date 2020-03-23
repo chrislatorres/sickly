@@ -124,7 +124,7 @@ const MapPage = observer((props) => {
       maxZoom={20} 
       maxBounds={L.latLngBounds(southWest, northEast)}
       maxBoundsViscosity={1}
-      zoomControl={false} 
+      zoomControl={L.Browser.mobile ? false : true}
       className={s.leafletContainer}
     >
       <TileLayer
