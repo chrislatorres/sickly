@@ -82,7 +82,7 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
   }
 
   const scale = Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) 
-  const scaledRadius = 100 * ( Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) )
+  const scaledRadius = 35 * ( Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) )
   const radius = state.radius ? scaledRadius : 15 
   const color = `rgba(0, 0, 255, ${scale})`
  
