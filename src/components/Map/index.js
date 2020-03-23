@@ -17,6 +17,7 @@ import sickly from '../../assets/images/logo.png'
 let state = observable({
   data: null,
   maxNumCases: null,
+  radius: true,
   loading: false,
   sent: false,
   numSent: 0,
@@ -81,7 +82,8 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
   }
 
   const scale = Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) 
-  const radius = 100 * ( Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) )
+  const scaledRadius = 100 * ( Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) )
+  const radius = state.radius ? scaledRadius : 15 
   const color = `rgba(0, 0, 255, ${scale})`
  
   return (
@@ -116,7 +118,7 @@ const MapPage = observer((props) => {
     <StatusBanner /> 
     <img src={sickly} className={m.logo} />
    <div className={m.layersCircle}>
-      <a onClick={() => alert('layers')}>
+      <a onClick={() => state.radius = !state.radius}>
         <LayersIcon className={m.layersIcon} />
       </a>
     </div>
