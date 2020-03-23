@@ -15,6 +15,7 @@ import sickly from '../../assets/images/logo.png'
 
 let state = observable({
   data: null,
+  maxNumCases: null,
   loading: false,
   sent: false,
   numSent: 0,
@@ -31,10 +32,14 @@ let state = observable({
 })
 
 const getData = async () => { 
-  var app = feathers(); 
-  var restClient = feathers.rest('https://api.sickly.app') 
+  let app = feathers(); 
+  let restClient = feathers.rest('https://api.sickly.app') 
   app.configure(restClient.fetch(window.fetch)); 
-  state.data = await app.service('data').find() 
+  let data = await app.service('data').find() 
+
+  state.data = data 
+  let numCases = await data[0].Countries.map((country) => country.TotalConfirmed) 
+  state.maxNumCases = Math.max(...numCases) 
 }
 getData()
 
@@ -73,12 +78,14 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
   } else {
     return 
   }
-  
-  const radius = Math.sqrt(mark.TotalConfirmed) * .6 
 
+  const scale = Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) 
+  const radius = 100 * ( Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) )
+  const color = `rgba(0, 0, 255, ${scale})`
+ 
   return (
     <div key={i} className={s.markerDiv}>
-      <CircleMarker radius={radius} center={position}>
+      <CircleMarker radius={radius} center={position} color={color} >
         <Tooltip>
           <h2><b>{mark.Country}</b></h2>
           <p>Total Confirmed Cases: <b>{mark.TotalConfirmed}</b></p>
