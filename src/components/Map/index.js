@@ -40,7 +40,7 @@ const getData = async () => {
   let data = await app.service('data').find() 
 
   state.data = data 
-  let numCases = await data[0].Countries.map((country) => country.TotalConfirmed) 
+  let numCases = await data.map(location => location.Confirmed) 
   state.maxNumCases = Math.max(...numCases) 
 }
 getData()
@@ -70,19 +70,11 @@ const StatusBanner = observer(() => state.sent ? (
   </Banner>
 ) : null )
 
-const Markers = observer(() => state.data[0].Countries.map((mark, i) => { 
-  const search = n.search(mark.Country)[0]
-  let position
+const Markers = observer(() => state.data.map((mark, i) => { 
+  const position = [mark.Latitude, mark.Longitude]
 
-  if (search) {
-    const { latitude, longitude } = search.geo
-    position = [latitude, longitude]
-  } else {
-    return 
-  }
-
-  const scale = Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) 
-  const scaledRadius = 35 * ( Math.log10(mark.TotalConfirmed) / Math.log10(state.maxNumCases) )
+  const scale = Math.log10(mark.Confirmed) / Math.log10(state.maxNumCases) 
+  const scaledRadius = 35 * ( Math.log10(mark.Confirmed) / Math.log10(state.maxNumCases) )
   const radius = state.radius ? scaledRadius : 15 
   const color = `rgba(0, 0, 255, ${scale})`
  
@@ -90,10 +82,9 @@ const Markers = observer(() => state.data[0].Countries.map((mark, i) => {
     <div key={i} className={s.markerDiv}>
       <CircleMarker radius={radius} center={position} color={color} >
         <Tooltip>
-          <h2><b>{mark.Country}</b></h2>
-          <p>Total Confirmed Cases: <b>{mark.TotalConfirmed}</b></p>
-          <p>Total Deaths: <b>{mark.TotalDeaths}</b></p>
-          <p>Total Recovered: <b>{mark.TotalRecovered}</b></p>
+          <h2><b>{mark.RegionName ? `${mark.RegionName}, ` : null}{mark.CountryName}</b></h2>
+          <p>Total Confirmed Cases: <b>{mark.Confirmed}</b></p>
+          <p>Total Deaths: <b>{mark.Deaths}</b></p>
         </Tooltip>
       </CircleMarker>
     </div>
