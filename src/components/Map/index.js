@@ -118,7 +118,7 @@ const MapPage = observer((props) => {
     <StatusBanner /> 
     <img src={sickly} className={m.logo} />
    <div className={m.layersCircle}>
-      <a onClick={() => state.radius = !state.radius}>
+      <a onClick={() => { state.radius = !state.radius }}>
         <LayersIcon className={m.layersIcon} />
       </a>
     </div>
