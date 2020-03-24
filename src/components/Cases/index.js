@@ -3,6 +3,7 @@ import feathers from '@feathersjs/client'
 import JavascriptTimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import ReactTimeAgo from 'react-time-ago'
+import MoonLoader from 'react-spinners/MoonLoader'
 import PullToRefresh from 'pulltorefreshjs'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
@@ -93,7 +94,15 @@ let Cases = observer((props) => {
     return () => PullToRefresh.destroyAll()
   }, []) 
 
-  return ( state.data ? <div className={s.container}><Cards /></div> : <h1>Loading...</h1> )
+  return ( state.data ? 
+             <div className={s.container}><Cards /></div> 
+           :   
+             <div className={s.container}>
+               <div className={s.loader}>
+                 <MoonLoader size={50}/>
+               </div> 
+             </div> 
+         )
 })
 
 export default Cases

@@ -45,6 +45,10 @@
     margin-right: 50px;
     margin-bottom: 50px;
   }
+  .loader {
+    margin: auto;
+    margin-top: 20px;
+  }
   .banner {
     max-width: 100%;
     margin-top: 0;
