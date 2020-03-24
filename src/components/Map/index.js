@@ -49,8 +49,12 @@ const getMyLocation = async () => {
 
   state.viewport.center = [my.location.ll[0], my.location.ll[1]]
   state.location = my.location
+  console.log("getting location")
 
-  if (state.viewport.zoom < 5) {
+  if (!state.set) {
+    state.set = true
+  }
+  else if (state.viewport.zoom < 5) {
     state.viewport.zoom = 7 
   } else if (state.viewport.zoom >= 5 && state.viewport.zoom < 10) {
     state.viewport.zoom = 11 
@@ -106,13 +110,10 @@ const MapPage = observer((props) => {
   
   React.useEffect(() => {
     if(!state.set) {
-      state.set = true
-      getMyLocation()
+      getMyLocation().then(() => {
+        props.updateLocation(state.location)
+      })
     }
-
-    getMyLocation().then(() => {
-      props.updateLocation(state.location)
-    })
   }, [])
 
   return (
@@ -130,6 +131,7 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <Map 
+      preferCanvas={true}
       onViewportChanged={(viewport) => { state.viewport = viewport } } 
       viewport={ toJS(state.viewport) } 
       minZoom={3} 

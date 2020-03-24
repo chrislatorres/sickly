@@ -1,6 +1,7 @@
 import React from 'react'
 import feathers from '@feathersjs/client'
 import JavascriptTimeAgo from 'javascript-time-ago'
+import ShowMoreText from 'react-show-more-text'
 import en from 'javascript-time-ago/locale/en'
 import PullToRefresh from 'pulltorefreshjs'
 import { observer } from 'mobx-react'
@@ -67,10 +68,19 @@ const Cards = observer(() => state.data.reverse().map((card, i) =>
       <img className={s.favicon} src={logo} />
       <span className={s.url}>{card.ownerUsername}</span>
       <img src={card.imageUrl} className={s.cardImg} />
-      <span className={s.url}>{card.ownerUsername}</span>
-      {'  '}
       <span>
-        {card.firstComment}
+        <ShowMoreText
+          /* Default options */
+          lines={3}
+          more='more'
+          less=''
+          anchorClass=''
+          expanded={false}
+          width={280}
+        >
+          <span className={s.url}>{card.ownerUsername} {'   '}</span>
+          {card.firstComment}
+        </ShowMoreText>
       </span>
     </div>
   : null
