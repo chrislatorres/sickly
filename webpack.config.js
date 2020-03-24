@@ -56,7 +56,7 @@ module.exports = {
         "short_name": "Sickly",
         "start_url": "/",
         "icons": [{
-                "src": "https://www.materialui.co/materialIcons/action/android_black_192x192.png",
+                "src": "./public/logo192.png",
                 "sizes": "192x192"
             }, 
         ],
