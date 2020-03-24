@@ -1,9 +1,10 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: "./src/assets/public/index.html",
+  template: "./public/index.html",
   filename: "./index.html",
-  favicon: "./src/assets/public/favicon.ico"
+  favicon: "./public/favicon.ico",
 });
 
 
@@ -42,5 +43,10 @@ module.exports = {
       }
     ],
   },
-  plugins: [htmlPlugin]
-};
+  plugins: [
+    htmlPlugin,
+    new ManifestPlugin({
+      fileName: 'manifest.json',
+    })
+  ]
+}
