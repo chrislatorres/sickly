@@ -42,7 +42,6 @@ const submit = async (snapshot) => {
     state.sent = true
     state.numSent++
   })
-  console.log(snapshot)
 }
 
 const form = Form({
