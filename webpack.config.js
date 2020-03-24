@@ -46,9 +46,6 @@ module.exports = {
   plugins: [
     htmlPlugin,
     new ManifestPlugin({
-      fileName: 'manifest.json',
-    })
-    new ManifestPlugin({
       seed: {
         "name": "Sickly",
         "short_name": "Sickly",
