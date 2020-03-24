@@ -89,7 +89,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
             {mark.country}
           </b></h2>
           <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
-          <p>Total Deaths: <b>{mark.deaths}</b></p>
+          { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
         </Tooltip>
       </CircleMarker>
     </div>
