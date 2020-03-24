@@ -8,13 +8,6 @@ import AddCircleIcon from '@material-ui/icons/ControlPoint'
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
 import s from '../../assets/css/navbar.css'
 
-const submitCase = async () => {
-  var app = feathers();
-  var restClient = feathers.rest('https://api.sickly.app')
-  app.configure(restClient.fetch(window.fetch));
-  await app.service('cases').create({})
-}
-
 const Navbar = () => 
     <div className={s.sidenavContainer}>
       <div className={s.sidenav}>
