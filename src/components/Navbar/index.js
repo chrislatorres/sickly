@@ -14,9 +14,7 @@ let state = observable({
   open: false
 }) 
 
-const Navbar = observer((props) => {
-
-  return (
+const Navbar = observer((props) => 
     <>
     { state.open ? <Sick location={props.location}/> : null }
     <div className={s.sidenavContainer}>
@@ -43,6 +41,5 @@ const Navbar = observer((props) => {
       </div>
     </div>
     </>
-  )
-})
+)
 export default Navbar 
