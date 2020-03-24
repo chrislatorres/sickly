@@ -16,6 +16,7 @@ import s from '../../assets/css/page.css'
 import { Input } from './input.js'
 
 let state = observable({
+  viewport: {},
   loading: false,
   sent: false,
   numSent: 0,
@@ -54,7 +55,10 @@ const StatusBanner = observer(() => state.sent ? (
 ) : null )
 
 
-const Sick = observer(() => 
+const Sick = observer((props) => {
+  state.viewport = props.viewport
+
+  return(
     <>
       <StatusBanner /> 
       <Box className={s.box}> 
@@ -84,6 +88,7 @@ const Sick = observer(() =>
         </div>
       </Box>
     </>
-)
+  )
+})
 
 export default Sick

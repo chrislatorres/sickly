@@ -27,7 +27,7 @@ const Navbar = () =>
               <Link to="/updates"><NotificationsIcon/>Updates</Link>
             </li>
             <li>
-              <a onClick={() => submitCase()}><AddCircleIcon/>I{"'"}m Sick</a>
+              <Link to="/sick"><AddCircleIcon/>I{"'"}m Sick</Link>
             </li>
             <li>
               <Link to="/cases"><PersonIcon/>Cases</Link>

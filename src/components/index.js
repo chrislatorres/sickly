@@ -9,6 +9,7 @@ import ReactGA from 'react-ga'
 import Navbar from './Navbar'
 import Map from './Map'
 import Updates from './Updates'
+import Sick from './Sick'
 import Cases from './Cases'
 import About from './About'
 
@@ -37,6 +38,7 @@ const App = observer(() =>
         <div className={s.container}>
           <div className={s.row}>
             <Route path='/updates' component={() => <Updates viewport={state.viewport} />} />
+            <Route path='/sick' component={() => <Sick viewport={state.viewport} />} />
             <Route path='/cases' component={() => <Cases viewport={state.viewport} />} />
             <Route path='/about' component={() => <About />} />
             <Route exact path='/' component={() => <Map updateViewport={updateViewport} />} />
