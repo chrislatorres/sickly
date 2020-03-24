@@ -26,7 +26,7 @@ let state = observable({
   location: {},
 })
 
-const updateLocation = (location) => { console.log(location); state.location = location }
+const updateLocation = (location) => { state.location = location }
 
 const App = observer(() => 
 <Router history={history}>

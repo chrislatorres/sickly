@@ -58,7 +58,6 @@ const StatusBanner = observer(() => state.sent ? (
 const Sick = observer((props) => {
   state.viewport = props.viewport
   state.location = props.location
-  console.log(toJS(state.location))
 
   return(
     <>
