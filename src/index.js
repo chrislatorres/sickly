@@ -9,5 +9,3 @@ ReactDOM.render(
   <App/>,
   document.getElementById('root')
 )
-
-serviceWorker.register()
