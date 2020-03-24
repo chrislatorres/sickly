@@ -55,8 +55,6 @@ const getMyLocation = async () => {
   } else if (state.viewport.zoom >= 10) {
     state.viewport.zoom = 3 
   }
-
-  console.log(state.viewport.zoom)
 }
 
 const StatusBanner = observer(() => state.sent ? (
@@ -132,7 +130,7 @@ const MapPage = observer((props) => {
       viewport={ toJS(state.viewport) } 
       minZoom={3} 
       maxZoom={20} 
-      onZoomEnd={(e) => state.viewport.zoom = e.target.getZoom()}
+      onZoomEnd={(e) => { state.viewport.zoom = e.target.getZoom() }}
       maxBounds={L.latLngBounds(southWest, northEast)}
       maxBoundsViscosity={1}
       zoomControl={!L.Browser.mobile ? true : null}
