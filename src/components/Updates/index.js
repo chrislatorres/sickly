@@ -82,9 +82,7 @@ const Cards = observer(() => state.data.map((card, i) =>
             lines={3}
             more='more'
             less=''
-            anchorClass=''
             expanded={false}
-            width={280}
           >
             <span className={s.url}>{card.ownerUsername} {'   '}</span>
             {card.firstComment}
