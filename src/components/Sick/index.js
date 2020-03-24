@@ -60,42 +60,37 @@ const Sick = observer((props) => {
   state.location = props.location
 
   return(
-    <>
+    <div className={s.sickPopup}>
       <StatusBanner /> 
       <Box className={s.box}> 
-        <div className={s.container}>
-            <h1>Sick 😷</h1>
-            <p>
-             Self-report feeling sick here.<br/>
-            </p>
-            <p>
-              <b>Location: </b> 
-                {state.location.city ? `${state.location.city}, ` : null}
-                {state.location.region ? `${state.location.region}, ` : null}
-                {state.location.country ? `${state.location.country}.` : null}
-            <br/>
-            </p>
-            <div className={s.form}>
-               <FormContent columns={1}>
-                 {_.map(form.fields, (field, i) =>
-                   <Input
-                     key={i}
-                     field={field}
-                   />
-                 )}
-               </FormContent>
-               <FormFooter>
-                 <Button primary onClick={form.submit}>Submit</Button>
-                 <MoonLoader
-                   size={20}
-                   color={"#0076de"}
-                   loading={state.loading}
-                 />  
-               </FormFooter>
-             </div>
+        <h1>I{"'"}m Sick 😷</h1>
+        <p>
+          <b>Location:</b><br/>
+            {state.location.city ? `${state.location.city}, ` : null}
+            {state.location.region ? `${state.location.region}, ` : null}
+            {state.location.country ? `${state.location.country}.` : null}
+        <br/>
+        </p>
+        <div className={s.form}>
+          <FormContent columns={1}>
+            {_.map(form.fields, (field, i) =>
+              <Input
+                key={i}
+                field={field}
+              />
+            )}
+            </FormContent>
+            <FormFooter>
+            <Button primary onClick={form.submit}>Submit</Button>
+            <MoonLoader
+              size={20}
+              color={"#0076de"}
+              loading={state.loading}
+            />  
+          </FormFooter>
         </div>
       </Box>
-    </>
+    </div>
   )
 })
 

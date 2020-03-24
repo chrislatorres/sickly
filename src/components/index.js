@@ -9,7 +9,6 @@ import ReactGA from 'react-ga'
 import Navbar from './Navbar'
 import Map from './Map'
 import Updates from './Updates'
-import Sick from './Sick'
 import Cases from './Cases'
 import About from './About'
 
@@ -32,11 +31,10 @@ const App = observer(() =>
 <Router history={history}>
   <ThemeProvider theme={ greyVest }>
       <div className={s.main}>
-        <Navbar />
+        <Navbar location={state.location} />
         <div className={s.container}>
           <div className={s.row}>
             <Route path='/updates' component={() => <Updates location={state.location} />} />
-            <Route path='/sick' component={() => <Sick location={state.location} />} />
             <Route path='/cases' component={() => <Cases location={state.location} />} />
             <Route path='/about' component={() => <About />} />
             <Route exact path='/' component={() => <Map updateLocation={updateLocation} />} />

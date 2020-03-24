@@ -36,8 +36,16 @@
     max-width: 20%;
     border-radius: 50%;
   }
+  .sickPopup {
+    z-index: 999999;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .form {
-    margin: auto;
     max-width: 750px;
   }
   .awaiter {
@@ -92,5 +100,8 @@
   .card .cardImg {
     max-width: 100%;
     height: auto;
+  }
+  .sickPopup {
+    width: 350px;
   }
 }

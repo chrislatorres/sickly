@@ -5,9 +5,20 @@ import PersonIcon from '@material-ui/icons/Person'
 import NotificationsIcon from '@material-ui/icons/NotificationsNone'
 import AddCircleIcon from '@material-ui/icons/ControlPoint'
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
+import { observer } from 'mobx-react'
+import { observable } from 'mobx'
 import s from '../../assets/css/navbar.css'
+import Sick from '../Sick'
 
-const Navbar = () => 
+let state = observable({
+  open: false
+}) 
+
+const Navbar = observer((props) => {
+
+  return (
+    <>
+    { state.open ? <Sick location={props.location}/> : null }
     <div className={s.sidenavContainer}>
       <div className={s.sidenav}>
         <div className={s.sidenavTop}>
@@ -19,7 +30,7 @@ const Navbar = () =>
               <Link to="/updates"><NotificationsIcon/>Updates</Link>
             </li>
             <li>
-              <Link to="/sick"><AddCircleIcon/>I{"'"}m Sick</Link>
+              <a onClick={() => { state.open = !state.open } }><AddCircleIcon/>I{"'"}m Sick</a>
             </li>
             <li>
               <Link to="/cases"><PersonIcon/>Cases</Link>
@@ -31,5 +42,7 @@ const Navbar = () =>
         </div>
       </div>
     </div>
-
+    </>
+  )
+})
 export default Navbar 
