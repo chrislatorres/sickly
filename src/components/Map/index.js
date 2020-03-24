@@ -21,6 +21,7 @@ let state = observable({
   sent: false,
   numSent: 0,
   set: null,
+  location,
   viewport: { 
     center: [0, 0], 
     zoom: 3 
@@ -47,6 +48,7 @@ const getMyLocation = async () => {
   const my = await app.service('locate').create({}).then()
 
   state.viewport.center = [my.location.ll[0], my.location.ll[1]]
+  state.location = my.location
 
   if (state.viewport.zoom < 5) {
     state.viewport.zoom = 7 
@@ -108,7 +110,9 @@ const MapPage = observer((props) => {
       getMyLocation()
     }
 
-    return () => getMyLocation().then(props.updateViewport(state.viewport))
+    getMyLocation().then(() => {
+      props.updateLocation(state.location)
+    })
   }, [])
 
   return (

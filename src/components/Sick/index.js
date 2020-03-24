@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import Form from 'mobx-autoform'
 import feathers from "@feathersjs/client"
-import { observable } from 'mobx'
+import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
   FormContent,
@@ -16,6 +16,7 @@ import s from '../../assets/css/page.css'
 import { Input } from './input.js'
 
 let state = observable({
+  location: 0,
   viewport: {},
   loading: false,
   sent: false,
@@ -38,15 +39,15 @@ const submit = async (snapshot) => {
   })
 }
 
-let form = observable(Form({
+const form = Form({
   fields: {
-    date: { props: { label: 'Date of Case(s) Confirmation', required: true, placeholder: 'MONTH-DAY'}, value: '' },
-    source: { props: { label: 'URL To Verifiable Source', required: true, placeholder: 'https://verifiablesource.com/coronaCase' }, value: '' },
-    location: { props: { label: 'Location of Case(s)', required: true, placeholder: 'Dallas, Texas' }, value: '' },
-    confirmed: { props: { label: 'Number of Confirmed Cases', type: 'number', required: true }, value: '' },
+    confirmed: { 
+      props: { label: 'Days Of Feeling Sick', type: 'number', required: true }, 
+      value: '' 
+    },
   },
   submit
-}))
+})
 
 const StatusBanner = observer(() => state.sent ? (
   <Banner className={s.banner}>
@@ -54,24 +55,32 @@ const StatusBanner = observer(() => state.sent ? (
   </Banner>
 ) : null )
 
-
 const Sick = observer((props) => {
   state.viewport = props.viewport
+  state.location = props.location
+  console.log(toJS(state.location))
 
   return(
     <>
       <StatusBanner /> 
       <Box className={s.box}> 
         <div className={s.container}>
-            <h1>Submit A New Case</h1>
+            <h1>Sick 😷</h1>
             <p>
-             You can submit a new COVID-19 case to Sickly here.<br/>
-             <b>NOTE:</b> Please only report cases found from reputable, verifiable sources.<br/>
+             Self-report feeling sick to Sickly here.<br/>
+            </p>
+            <p>
+              <b>Location: </b> 
+                {state.location.city ? `${state.location.city}, ` : null}
+                {state.location.region ? `${state.location.region}, ` : null}
+                {state.location.country ? `${state.location.country}.` : null}
+            <br/>
             </p>
             <div className={s.form}>
                <FormContent columns={1}>
-                 {_.map(form.fields, (field) =>
+                 {_.map(form.fields, (field, i) =>
                    <Input
+                     key={i}
                      field={field}
                    />
                  )}

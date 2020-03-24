@@ -23,12 +23,10 @@ history.listen((location) => {
 });
 
 let state = observable({
-  viewport: {}
+  location: {},
 })
 
-const updateViewport = (viewport) => {
-  state.viewport = viewport
-}
+const updateLocation = (location) => { console.log(location); state.location = location }
 
 const App = observer(() => 
 <Router history={history}>
@@ -37,11 +35,11 @@ const App = observer(() =>
         <Navbar />
         <div className={s.container}>
           <div className={s.row}>
-            <Route path='/updates' component={() => <Updates viewport={state.viewport} />} />
-            <Route path='/sick' component={() => <Sick viewport={state.viewport} />} />
-            <Route path='/cases' component={() => <Cases viewport={state.viewport} />} />
+            <Route path='/updates' component={() => <Updates location={state.location} />} />
+            <Route path='/sick' component={() => <Sick location={state.location} />} />
+            <Route path='/cases' component={() => <Cases location={state.location} />} />
             <Route path='/about' component={() => <About />} />
-            <Route exact path='/' component={() => <Map updateViewport={updateViewport} />} />
+            <Route exact path='/' component={() => <Map updateLocation={updateLocation} />} />
          </div>
        </div>
       </div>
