@@ -48,5 +48,15 @@ module.exports = {
     new ManifestPlugin({
       fileName: 'manifest.json',
     })
+    new ManifestPlugin({
+      seed: {
+        "name": "Sickly",
+        "short_name": "Sickly",
+        "start_url": "/",
+        "background_color": "#000000",
+        "display": "fullscreen",
+        "theme_color": "#000000"
+      }
+    })
   ]
 }
