@@ -20,11 +20,7 @@ let state = observable({
   loading: false,
   sent: false,
   numSent: 0,
-  geo: { 
-    center: [0, 0], 
-    zoom: 3,
-    set: null
-  },
+  set: null,
   viewport: { 
     center: [0, 0], 
     zoom: 3 
@@ -44,23 +40,23 @@ const getData = async () => {
 }
 getData()
 
-const setViewport = (zoom) => { 
-  getMyLocation(zoom)
-  state.viewport = state.geo
-}
-
-
-const getMyLocation = async (zoom) => {
+const getMyLocation = async () => {
   const app = feathers();
   const restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
   const my = await app.service('locate').create({}).then()
 
-  state.geo.center = [my.location.ll[0], my.location.ll[1]]
+  state.viewport.center = [my.location.ll[0], my.location.ll[1]]
 
-  if (zoom) {
-    state.geo.zoom = zoom 
+  if (state.viewport.zoom < 5) {
+    state.viewport.zoom = 7 
+  } else if (state.viewport.zoom >= 5 && state.viewport.zoom < 10) {
+    state.viewport.zoom = 11 
+  } else if (state.viewport.zoom >= 10) {
+    state.viewport.zoom = 3 
   }
+
+  console.log(state.viewport.zoom)
 }
 
 const StatusBanner = observer(() => state.sent ? (
@@ -71,6 +67,14 @@ const StatusBanner = observer(() => state.sent ? (
 
 const Markers = observer(() => state.data.map((mark, i) => { 
   if (!mark.coordinates) { return }
+
+  if (state.viewport.zoom < 4 && mark.state) {
+    return 
+  } 
+  else if (state.viewport.zoom < 6 && mark.county) {
+    return 
+  } 
+
   const coordinates = toJS(mark.coordinates)
   const position = [coordinates[1], coordinates[0]] 
 
@@ -101,12 +105,12 @@ const MapPage = observer((props) => {
   let northEast = L.latLng(90, 180); 
   
   React.useEffect(() => {
-    if(!state.geo.set) {
-      state.geo.set = true
-      setViewport(3)
+    if(!state.set) {
+      state.set = true
+      getMyLocation()
     }
 
-    return () => getMyLocation().then(props.updateViewport(state.geo))
+    return () => getMyLocation().then(props.updateViewport(state.viewport))
   }, [])
 
   return (
@@ -119,7 +123,7 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <div className={m.myLocationCircle}>
-      <a onClick={() => setViewport(10)}>
+      <a onClick={() => getMyLocation()}>
         <MyLocationIcon className={m.myLocationIcon} />
       </a>
     </div>
@@ -128,6 +132,7 @@ const MapPage = observer((props) => {
       viewport={ toJS(state.viewport) } 
       minZoom={3} 
       maxZoom={20} 
+      onZoomEnd={(e) => state.viewport.zoom = e.target.getZoom()}
       maxBounds={L.latLngBounds(southWest, northEast)}
       maxBoundsViscosity={1}
       zoomControl={!L.Browser.mobile ? true : null}
