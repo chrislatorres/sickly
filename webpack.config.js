@@ -1,5 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const ManifestPlugin = require('webpack-manifest-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
+const path = require('path')
 
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./public/index.html",
@@ -9,6 +11,9 @@ const htmlPlugin = new HtmlWebPackPlugin({
 
 
 module.exports = {
+  devServer: {
+    contentBase: path.join(__dirname, 'public')
+  },
   module: {
     rules: [
       {
@@ -54,6 +59,7 @@ module.exports = {
         "display": "fullscreen",
         "theme_color": "#000000"
       }
-    })
+    }),
+    new WorkboxPlugin.GenerateSW()
   ]
 }
