@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import Form from 'mobx-autoform'
 import feathers from "@feathersjs/client"
-import { toJS, observable } from 'mobx'
+import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
   FormContent,

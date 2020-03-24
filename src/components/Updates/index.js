@@ -9,6 +9,7 @@ import { exampleTypes } from 'contexture-client'
 import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
 import s from '../../assets/css/page.css'
+import logo from '../../assets/images/logoIcon.png'
 
 JavascriptTimeAgo.locale(en)
 
@@ -63,10 +64,8 @@ state.tree = Client({
 const Cards = observer(() => state.data.reverse().map((card, i) => 
   ['coronavirus', 'covid'].some(v => card.firstComment.includes(v)) ?
     <div key={i} className={s.card}> 
-      <a href={card.url}>
-        <img className={s.favicon} src={`https://s2.googleusercontent.com/s2/favicons?domain=${card.url}`} />
-        <span className={s.url}>{card.ownerUsername}</span>
-      </a>
+      <img className={s.favicon} src={logo} />
+      <span className={s.url}>{card.ownerUsername}</span>
       <img src={card.imageUrl} className={s.cardImg} />
       <span className={s.url}>{card.ownerUsername}</span>
       {'  '}
