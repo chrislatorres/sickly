@@ -49,7 +49,6 @@ const getMyLocation = async () => {
 
   state.viewport.center = [my.location.ll[0], my.location.ll[1]]
   state.location = my.location
-  console.log("getting location")
 
   if (!state.set) {
     state.set = true

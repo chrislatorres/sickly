@@ -51,7 +51,7 @@ const form = Form({
 
 const StatusBanner = observer(() => state.sent ? (
   <Banner className={s.banner}>
-    You have successfuly submitted {state.numSent} cases.
+    You have successfuly self-reported.
   </Banner>
 ) : null )
 
@@ -66,7 +66,7 @@ const Sick = observer((props) => {
         <div className={s.container}>
             <h1>Sick 😷</h1>
             <p>
-             Self-report feeling sick to Sickly here.<br/>
+             Self-report feeling sick here.<br/>
             </p>
             <p>
               <b>Location: </b> 

@@ -26,7 +26,12 @@ const getData = async () => {
   var app = feathers();
   var restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
-  state.data = await app.service('updates').find()
+  state.data = await app.service('updates').find({ 
+    query: { 
+        $limit: 500,
+        $skip: 0
+    } 
+  })
 }
 getData()
 
@@ -62,26 +67,30 @@ state.tree = Client({
 
 
 
-const Cards = observer(() => state.data.reverse().map((card, i) => 
+const Cards = observer(() => state.data.map((card, i) => 
   ['coronavirus', 'covid'].some(v => card.firstComment.includes(v)) ?
-    <div key={i} className={s.card}> 
-      <img className={s.favicon} src={logo} />
-      <span className={s.url}>{card.ownerUsername}</span>
+    <div key={i} className={[s.card, s.post].join(' ')}> 
+      <div className={s.username}>
+        <img className={s.favicon} src={logo} />
+        <span>{card.ownerUsername}</span>
+      </div>
       <img src={card.imageUrl} className={s.cardImg} />
-      <span>
-        <ShowMoreText
-          /* Default options */
-          lines={3}
-          more='more'
-          less=''
-          anchorClass=''
-          expanded={false}
-          width={280}
-        >
-          <span className={s.url}>{card.ownerUsername} {'   '}</span>
-          {card.firstComment}
-        </ShowMoreText>
-      </span>
+      <div className={s.comments}>
+        <span>
+          <ShowMoreText
+            /* Default options */
+            lines={3}
+            more='more'
+            less=''
+            anchorClass=''
+            expanded={false}
+            width={280}
+          >
+            <span className={s.url}>{card.ownerUsername} {'   '}</span>
+            {card.firstComment}
+          </ShowMoreText>
+        </span>
+      </div>
     </div>
   : null
 ))
@@ -89,12 +98,6 @@ const Cards = observer(() => state.data.reverse().map((card, i) =>
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
 
-  PullToRefresh.init({
-    onRefresh() {
-      getData()
-    }
-  })
-  
   React.useEffect(() => {
     PullToRefresh.init({
       onRefresh() {

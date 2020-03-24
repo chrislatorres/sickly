@@ -58,11 +58,20 @@
     font-size: 10px;
     color: #aaaaaa; 
   }
+  .post {
+    font-size: 0.875em;
+  }
+  .username {
+    margin-bottom: 8px;
+  }
+  .comments {
+    margin-top: 5px;
+    padding: 0 5px;
+  }
 }
 
-/* portrait */
+/* tablet+ */
 @media (min-width: 641px) {
-/* desktop navbar */
   .container {
     display: flex;
     justify-content: center;
@@ -79,8 +88,5 @@
   .card .cardImg {
     max-width: 100%;
     height: auto;
-  }
-  .url {
-    font-size: 10px;
   }
 }
