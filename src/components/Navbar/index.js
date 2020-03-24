@@ -1,5 +1,4 @@
 import React from 'react'
-import feathers from '@feathersjs/client'
 import { Link } from 'react-router-dom'
 import LocationIcon from '@material-ui/icons/LocationOn'
 import PersonIcon from '@material-ui/icons/Person'
