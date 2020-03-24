@@ -56,7 +56,7 @@ module.exports = {
         "short_name": "Sickly",
         "start_url": "/",
         "icons": [{
-                "src": "./public/logo192.png",
+                "src": "https://user-images.githubusercontent.com/29695350/77392644-6f07d780-6d69-11ea-8507-90fb94c92ed5.png",
                 "sizes": "192x192"
             }, 
         ],
