@@ -11,7 +11,7 @@ import s from '../../assets/css/navbar.css'
 import Sick from '../Sick'
 
 let state = observable({
-  open: false
+  open: false,
 }) 
 
 const Navbar = observer((props) => 
@@ -28,7 +28,7 @@ const Navbar = observer((props) =>
               <Link to="/updates"><NotificationsIcon/>Updates</Link>
             </li>
             <li>
-              <a onClick={() => { state.open = !state.open } }><AddCircleIcon/>I{"'"}m Sick</a>
+              <a className={state.open ? 'active' : ' '} onClick={() => { state.open = !state.open } }><AddCircleIcon/>I{"'"}m Sick</a>
             </li>
             <li>
               <Link to="/cases"><PersonIcon/>Cases</Link>

@@ -12,11 +12,13 @@ import {
   Banner
 } from 'grey-vest'
 import MoonLoader from "react-spinners/MoonLoader"
+import MultiSlider, { Progress, Dot } from 'react-multi-bar-slider'
 import s from '../../assets/css/page.css'
 import { Input } from './input.js'
 
 let state = observable({
   location: 0,
+  slide: { progress: 10 },
   viewport: {},
   loading: false,
   sent: false,
@@ -31,18 +33,22 @@ const submit = async (snapshot) => {
   app.configure(restClient.fetch(window.fetch));
   const submit = app.service('cases'); 
   
+  snapshot.intensity = state.slide.progress
+  snapshot.location = state.location
+
   submit.create(snapshot)
   .then(() => {
     state.loading = false
     state.sent = true
     state.numSent++
   })
+  console.log(snapshot)
 }
 
 const form = Form({
   fields: {
     confirmed: { 
-      props: { label: 'Days Of Feeling Sick', type: 'number', required: true }, 
+      props: { label: 'Number of Days Feeling Sick', type: 'number', required: true }, 
       value: '' 
     },
   },
@@ -58,17 +64,18 @@ const StatusBanner = observer(() => state.sent ? (
 const Sick = observer((props) => {
   state.viewport = props.viewport
   state.location = props.location
+ 
+  let handleSlide = newProgress => { state.slide = { progress: newProgress } }
 
   return(
     <div className={s.sickPopup}>
       <StatusBanner /> 
       <Box className={s.box}> 
-        <h1>I{"'"}m Sick 😷</h1>
         <p>
           <b>Location:</b><br/>
             {state.location.city ? `${state.location.city}, ` : null}
             {state.location.region ? `${state.location.region}, ` : null}
-            {state.location.country ? `${state.location.country}.` : null}
+            {state.location.country ? `${state.location.country}` : null}
         <br/>
         </p>
         <div className={s.form}>
@@ -79,8 +86,25 @@ const Sick = observer((props) => {
                 field={field}
               />
             )}
-            </FormContent>
-            <FormFooter>
+          </FormContent>
+          <p><b>Intensity of Symptoms:</b></p>
+          <MultiSlider onSlide={handleSlide}>
+            <Progress 
+              color={state.slide.progress > 70 ? 'red' : state.slide.progress > 40 ? 'yellow' : '#0076de' } 
+              roundedCorners 
+              progress={state.slide.progress}
+           >
+              <Dot 
+                color={'#454545'}
+                width={50}
+                height={50}
+                iconStyle={ { top: -15 } }
+                icon={'https://user-images.githubusercontent.com/29695350/77191664-4a7dd800-6aa9-11ea-9368-9dad0ab6b494.png'}
+              />
+            </Progress>
+          </MultiSlider>
+          <br/>
+          <FormFooter>
             <Button primary onClick={form.submit}>Submit</Button>
             <MoonLoader
               size={20}
