@@ -8,6 +8,7 @@ import {
   Banner
 } from 'grey-vest'
 import { Map, Marker, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
+import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import L from 'leaflet' 
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
@@ -15,6 +16,8 @@ import sickly from '../../assets/images/logo.png'
 
 let state = observable({
   data: null,
+  points: [],
+  pointsLoaded: false,
   maxNumCases: null,
   radius: true,
   loading: false,
@@ -37,6 +40,14 @@ const getData = async () => {
 
   state.data = data 
   let numCases = await data.map(location => location.cases) 
+  const locations = data.map(loc => { 
+    if(loc.coordinates) {
+      state.points.push([loc.coordinates[1], loc.coordinates[0]])
+    }
+  })
+  Promise.all(locations).then(() => {
+    state.pointsLoaded = true
+  })
   state.maxNumCases = Math.max(...numCases) 
 }
 getData()
@@ -143,6 +154,13 @@ const MapPage = observer((props) => {
       zoomControl={!L.Browser.mobile ? true : null}
       className={s.leafletContainer}
     >
+      { state.pointsLoaded ?
+        <HeatmapLayer
+              points={ toJS(state.points) }
+              longitudeExtractor={m => m[1]}
+              latitudeExtractor={m => m[0]}
+              intensityExtractor={m => parseFloat(m[1])} />
+      : null }
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
