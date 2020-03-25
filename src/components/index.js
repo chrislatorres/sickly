@@ -7,7 +7,6 @@ import { observer } from 'mobx-react'
 import ReactGA from 'react-ga'
 import feathers from '@feathersjs/client'
 import io from 'socket.io-client'
-import socketio from '@feathersjs/socketio-client'
 import Navbar from './Navbar'
 import Map from './Map'
 import Updates from './Updates'
@@ -29,19 +28,20 @@ let state = observable({
 })
 
 const addData = (updates) => { 
-  console.log(updates)
   state.data ? state.data = [...state.data, updates] : state.data = [updates]
 }
 
+/*
 const getInitData = async () => {
   const app = feathers();
   const restClient = feathers.rest('https://api.sickly.app')
   app.configure(restClient.fetch(window.fetch));
   const cases = app.service('cases');
 
-  //state.data = await cases.find()
+  state.data = await cases.find()
 }
 getInitData()
+*/
 
 const getData = async () => {
   const app = feathers()
