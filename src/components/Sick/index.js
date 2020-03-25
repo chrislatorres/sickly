@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
+import F from 'futil'
 import Form from 'mobx-autoform'
 import feathers from "@feathersjs/client"
 import { observable } from 'mobx'
@@ -18,11 +19,11 @@ import { Input } from './input.js'
 
 let state = observable({
   location: 0,
+  checked: [false, false, false],
   slide: { progress: 10 },
   viewport: {},
   loading: false,
   sent: false,
-  numSent: 0,
 })
 
 const submit = async (snapshot) => {
@@ -35,20 +36,24 @@ const submit = async (snapshot) => {
   
   snapshot.intensity = state.slide.progress
   snapshot.location = state.location
+  console.log(snapshot)
 
   submit.create(snapshot)
   .then(() => {
     state.loading = false
     state.sent = true
-    state.numSent++
   })
 }
 
 const form = Form({
   fields: {
-    confirmed: { 
-      props: { label: 'Number of Days Feeling Sick', type: 'number', required: true }, 
+    daysSick: { 
+      props: { label: 'Number Of Days Sick', type: 'number', required: true }, 
       value: '' 
+    },
+    symptoms: { 
+      props: { label: 'Symptoms', options: F.autoLabelOptions(['Fever', 'Cough', 'Shortness of Breath']), columnCount: 3, type: 'checkboxList', required: true }, 
+      value: state.checked 
     },
   },
   submit

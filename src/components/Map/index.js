@@ -71,11 +71,12 @@ const StatusBanner = observer(() => state.sent ? (
 const Markers = observer(() => state.data.map((mark, i) => { 
   if (!mark.coordinates) { return }
 
-  if (state.viewport.zoom < 4 && mark.state) {
+  if (state.viewport.zoom < 6 && mark.county) {
     return 
-  } 
-  else if (state.viewport.zoom < 6 && mark.county) {
-    return 
+  } else if (state.viewport.zoom < 4 && mark.state) {
+    if (!['USA', 'CAN'].includes(mark.country)) {
+      return 
+    }
   } 
 
   const coordinates = toJS(mark.coordinates)
