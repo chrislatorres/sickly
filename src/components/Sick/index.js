@@ -34,6 +34,7 @@ const submit = async (snapshot) => {
   const submit = app.service('cases'); 
   
   snapshot.intensity = state.slide.progress
+  snapshot.date = Date.now() 
   snapshot.location = toJS(state.location)
 
   submit.create(snapshot)

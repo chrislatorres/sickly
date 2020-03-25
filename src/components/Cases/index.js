@@ -16,20 +16,11 @@ import s from '../../assets/css/page.css'
 JavascriptTimeAgo.locale(en)
 
 let state = observable({
-  data: null, 
   id: 'null',
   tree: {},
   numOfCases: 0,
   viewport: {} 
 })
-
-const getData = async () => {
-  var app = feathers();
-  var restClient = feathers.rest('https://api.sickly.app')
-  app.configure(restClient.fetch(window.fetch));
-  state.data = await app.service('cases').find()
-}
-getData()
 
 let types = exampleTypes
           
@@ -61,14 +52,12 @@ state.tree = Client({
   ],
 })
 
-
-
-const Cards = observer(() => state.data.reverse().map((card, i) => 
-  card.geo && card.date ? 
+const Cards = observer((props) => props.data.reverse().map((card, i) => 
+  card.location && card.date ? 
   <div key={i} className={s.cases}>
     <Box className={s.card}> 
       Feeling sickly in 
-      <b> {card.geo.city}, {card.geo.region}, {card.geo.country}</b>.<br/>
+      <b> {card.location.city}, {card.location.region}, {card.location.country}</b>.<br/>
       <small className={s.date}><ReactTimeAgo date={card.date}/></small>
     </Box>
   </div>
@@ -78,24 +67,8 @@ const Cards = observer(() => state.data.reverse().map((card, i) =>
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
 
-  PullToRefresh.init({
-    onRefresh() {
-      getData()
-    }
-  })
-  
-  React.useEffect(() => {
-    PullToRefresh.init({
-      onRefresh() {
-        getData()
-      }
-    })
-
-    return () => PullToRefresh.destroyAll()
-  }, []) 
-
-  return ( state.data ? 
-             <div className={s.container}><Cards /></div> 
+  return ( props.data ? 
+             <div className={s.container}><Cards data={props.data} /></div> 
            :   
              <div className={s.container}>
                <div className={s.loader}>
