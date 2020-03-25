@@ -89,7 +89,6 @@ const yourEnhancer = compose(
 )
 
 const Sick = observer((props) => {
-  state.viewport = props.viewport
   state.location = props.location
   state.isOpened = props.isOpened
   state.changeOpened = props.changeOpened

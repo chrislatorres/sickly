@@ -20,7 +20,7 @@ let state = observable({
   loading: false,
   sent: false,
   numSent: 0,
-  set: null,
+  set: false,
   location,
   viewport: { 
     center: [0, 0], 
@@ -42,18 +42,7 @@ const getData = async () => {
 getData()
 
 const getMyLocation = async () => {
-  const app = feathers();
-  const restClient = feathers.rest('https://api.sickly.app')
-  app.configure(restClient.fetch(window.fetch));
-  const my = await app.service('locate').create({}).then()
-
-  state.viewport.center = [my.location.ll[0], my.location.ll[1]]
-  state.location = my.location
-
-  if (!state.set) {
-    state.set = true
-  }
-  else if (state.viewport.zoom < 5) {
+  if (state.viewport.zoom < 5) {
     state.viewport.zoom = 7 
   } else if (state.viewport.zoom >= 5 && state.viewport.zoom < 10) {
     state.viewport.zoom = 11 
@@ -121,14 +110,13 @@ const MapPage = observer((props) => {
   let southWest = L.latLng(-90, -180);
   let northEast = L.latLng(90, 180); 
   
-  React.useEffect(() => {
-    if(!state.set) {
-      getMyLocation().then(() => {
-        props.updateLocation(state.location)
-      })
-    }
-  }, [])
-
+  if (!state.set) {
+    if (props.viewport.center) {
+      state.viewport.center = toJS(props.viewport.center)
+      state.set = true
+    } 
+  }
+  
   return (
   <div className={m.map}>
     <StatusBanner /> 
