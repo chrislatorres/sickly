@@ -49,6 +49,7 @@
     "react-dom": "^16.4.0",
     "react-ga": "^2.7.0",
     "react-geocode": "^0.2.1",
+    "react-infinite-scroller": "^1.2.4",
     "react-leaflet": "^2.6.3",
     "react-multi-bar-slider": "^1.4.0",
     "react-router-dom": "^4.0.0-beta.8",

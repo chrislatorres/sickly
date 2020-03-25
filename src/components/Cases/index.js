@@ -3,78 +3,94 @@ import JavascriptTimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import ReactTimeAgo from 'react-time-ago'
 import MoonLoader from 'react-spinners/MoonLoader'
+import InfiniteScroll from 'react-infinite-scroller'
+import feathers from '@feathersjs/client'
+import io from 'socket.io-client'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { Box } from 'grey-vest'
-import { exampleTypes } from 'contexture-client'
-import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
-import service from './service'
 import s from '../../assets/css/page.css'
 
 JavascriptTimeAgo.locale(en)
 
 let state = observable({
-  id: 'null',
-  tree: {},
-  numOfCases: 0,
+  loading: false,
+  data: [], 
+  hasMoreItems: true,
   viewport: {} 
 })
 
-let types = exampleTypes
-          
+const addData = (newCase) => {
+   state.data.unshift(newCase)
+}
+const getSocketData = async () => {
+  const app = feathers()
+  const socket = io('https://api.sickly.app')
+  app.configure(feathers.socketio(socket))
+  app.service('cases').on('created', addData)
+}
+getSocketData()
 
-let Client = ContextureMobx({
-  types,
-  service,
-})
+const loadItems = (page) => {
+  if (state.loading) { return }
+  state.loading = true
 
-state.tree = Client({
-  key: 'root',
-  type: 'group',
-  join: 'and',
-  schema: 'Test',
-  children: [
-    { key: 'criteria', 
-      type: 'group', 
-      join: 'and', 
-      children: [
-        { key: 'city', type: 'text', field: 'city', },
-        { key: 'currency', type: 'text', field: 'currency', },
-        { key: 'type', type: 'text', field: 'type', },
-        { key: 'fiat_currency', type: 'text', field: 'fiat_currency', },
-        { key: 'fiat_value', type: 'text', field: 'fiat_value', },
-      ], 
-    },
-    { key: 'id', type: 'text', field: 'id', data: { operator: 'is', value: state.id } },
-    { key: 'results', type: 'results' },
-  ],
-})
-
-const Cards = observer((props) => props.data.reverse().map((card, i) => 
-  card.location && card.date ? 
-    card.location.country ?
-      <div key={i} className={s.cases}>
-        <Box className={s.card}> 
-          Feeling sickly in 
-          <b> {card.location.city}, {card.location.region}, {card.location.country}</b>.<br/>
-          <small className={s.date}><ReactTimeAgo date={card.date}/></small>
-        </Box>
-      </div>
-    : null
-  : null
-))
+  const app = feathers();
+  const restClient = feathers.rest('https://api.sickly.app')
+  app.configure(restClient.fetch(window.fetch))
+  const cases = app.service('cases')
+  
+  cases.find({
+    query: {
+      $skip: page*15,
+      $sort: {
+        date: -1
+      }   
+    }   
+  })
+  .then((list) => {
+    list.data.map( (newCase) => state.data.push(newCase) ) 
+    page*15 > list.total ? state.hasMoreItems = false : null 
+    state.loading = false
+  })
+}
+loadItems(0)
 
 let Cases = observer((props) => { 
   state.viewport = props.viewport 
 
-  return ( props.data ? 
-             <div className={s.container}><Cards data={props.data} /></div> 
-           :   
-             <div className={s.container}>
-               <div className={s.loader}>
-                 <MoonLoader size={50}/>
-               </div> 
-             </div> 
+  let items = []
+  state.data.map((card, i) => card.location ? 
+    items.push(
+      <div key={i} className={s.cases}>
+        <Box className={s.card}> 
+          Feeling sickly in{' '}
+          <b>
+              {card.location.city ? `${card.location.city}, ` : null}  
+              {card.location.region ? `${card.location.region}, ` : null}
+              {card.location.country ? card.location.country : null}
+          </b>.<br/>
+          {card.date ? 
+            <small className={s.date}><ReactTimeAgo date={card.date}/></small>
+          : null}
+        </Box>
+      </div>
+    )
+   : null
+  )
+
+  return ( 
+    <div className={s.container}>
+      <InfiniteScroll
+        pageStart={1}
+        initialLoad={false}
+        loadMore={loadItems}
+        hasMore={state.hasMoreItems}
+        loader={<MoonLoader key={0} />}
+       >
+         {items}
+      </InfiniteScroll>
+    </div> 
          )
 })
 
