@@ -30,10 +30,8 @@
     text-decoration: none;
   } 
   .container {
-    height: 100vh;
     text-align: left;
     overflow-anchor: none;
-    padding-bottom: 10px;
   }
   .container .logoImg {
     max-width: 20%;
