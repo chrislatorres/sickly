@@ -10,6 +10,5 @@ export let Input = observer(({ field }) =>
     ...field.props,
     ...!field.isValid && {style: { borderColor: 'red' }},
   }} 
-    key={ field.props.label + Math.random() * 10 }
   />
 )

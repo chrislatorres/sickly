@@ -1,9 +1,8 @@
 import React from 'react'
 import _ from 'lodash'
-import F from 'futil'
 import Form from 'mobx-autoform'
 import feathers from "@feathersjs/client"
-import { observable } from 'mobx'
+import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
   FormContent,
@@ -35,8 +34,7 @@ const submit = async (snapshot) => {
   const submit = app.service('cases'); 
   
   snapshot.intensity = state.slide.progress
-  snapshot.location = state.location
-  console.log(snapshot)
+  snapshot.location = toJS(state.location)
 
   submit.create(snapshot)
   .then(() => {
@@ -48,12 +46,20 @@ const submit = async (snapshot) => {
 const form = Form({
   fields: {
     daysSick: { 
-      props: { label: 'Number Of Days Sick', type: 'number', required: true }, 
-      value: '' 
+      props: { label: 'Number Of Days Sick:', type: 'number', required: true, width: 3 }, 
+      value: '',
     },
-    symptoms: { 
-      props: { label: 'Symptoms', options: F.autoLabelOptions(['Fever', 'Cough', 'Shortness of Breath']), columnCount: 3, type: 'checkboxList', required: true }, 
-      value: state.checked 
+    fever: { 
+      props: { label: 'Fever', type: 'checkbox' }, 
+      value: state.checked[0] 
+    },
+    cough: { 
+      props: { label: 'Cough', type: 'checkbox' }, 
+      value: state.checked[1] 
+    },
+    sob: { 
+      props: { label: 'Breathing', type: 'checkbox' }, 
+      value: state.checked[2] 
     },
   },
   submit
@@ -83,10 +89,9 @@ const Sick = observer((props) => {
         <br/>
         </p>
         <div className={s.form}>
-          <FormContent columns={1}>
-            {_.map(form.fields, (field, i) =>
+          <FormContent columns={3}>
+            {_.map(form.fields, (field) =>
               <Input
-                key={i}
                 field={field}
               />
             )}
@@ -94,6 +99,7 @@ const Sick = observer((props) => {
           <p><b>Intensity of Symptoms:</b></p>
           <MultiSlider onSlide={handleSlide}>
             <Progress 
+              height={14}
               color={state.slide.progress > 70 ? 'red' : state.slide.progress > 40 ? 'yellow' : '#0076de' } 
               roundedCorners 
               progress={state.slide.progress}
