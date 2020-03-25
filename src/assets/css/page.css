@@ -38,6 +38,7 @@
     border-radius: 50%;
   }
   .sickPopup {
+    border: 5px solid #0076de;
     z-index: 999999;
     position: absolute;
     bottom: 50px;
