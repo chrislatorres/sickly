@@ -7,7 +7,7 @@ import { observer } from 'mobx-react'
 import { 
   Banner
 } from 'grey-vest'
-import { Map, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
+import { Map, Marker, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
 import L from 'leaflet' 
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
@@ -71,9 +71,9 @@ const StatusBanner = observer(() => state.sent ? (
 const Markers = observer(() => state.data.map((mark, i) => { 
   if (!mark.coordinates) { return }
 
-  if (state.viewport.zoom < 6 && mark.county) {
+  if (state.viewport.zoom < 8 && mark.county) {
     return 
-  } else if (state.viewport.zoom < 4 && mark.state) {
+  } else if (state.viewport.zoom < 5 && mark.state) {
     if (!['USA', 'CAN'].includes(mark.country)) {
       return 
     }
@@ -87,21 +87,34 @@ const Markers = observer(() => state.data.map((mark, i) => {
   const radius = state.radius ? scaledRadius : 15 
   const color = `rgba(0, 0, 255, ${scale})`
  
-  return (
+  return  state.viewport.zoom < 5 ?
     <div key={i} className={s.markerDiv}>
-      <CircleMarker radius={radius} center={position} color={color} >
-        <Tooltip>
-          <h2><b>
-            {mark.county ? `${mark.county}, ` : null}
-            {mark.state ? `${mark.state}, ` : null}
-            {mark.country}
-          </b></h2>
-          <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
-          { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
-        </Tooltip>
-      </CircleMarker>
+        <Marker position={position} color={color} >
+          <Tooltip>
+            <h2><b>
+              {mark.county ? `${mark.county}, ` : null}
+              {mark.state ? `${mark.state}, ` : null}
+              {mark.country}
+            </b></h2>
+            <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
+            { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
+          </Tooltip>
+        </Marker>
     </div>
-  )
+  : 
+    <div key={i} className={s.markerDiv}>
+        <CircleMarker radius={radius} center={position} color={color} >
+          <Tooltip>
+            <h2><b>
+              {mark.county ? `${mark.county}, ` : null}
+              {mark.state ? `${mark.state}, ` : null}
+              {mark.country}
+            </b></h2>
+            <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
+            { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
+          </Tooltip>
+        </CircleMarker>
+    </div>
 }))
 
 const MapPage = observer((props) => {
