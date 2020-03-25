@@ -28,27 +28,28 @@ let state = observable({
 })
 
 const addData = (updates) => { 
-  state.data ? state.data = [...state.data, updates] : state.data = [updates]
+  state.data ? 
+    state.data = [...state.data, updates] 
+  :
+    state.data = [...updates]
 }
 
-/*
 const getInitData = async () => {
   const app = feathers();
   const restClient = feathers.rest('https://api.sickly.app')
-  app.configure(restClient.fetch(window.fetch));
-  const cases = app.service('cases');
-
-  state.data = await cases.find()
+  app.configure(restClient.fetch(window.fetch))
+  const cases = app.service('cases')
+  
+  const list = await cases.find()
+  addData(list)
 }
 getInitData()
-*/
 
 const getData = async () => {
   const app = feathers()
-
   const socket = io('https://api.sickly.app')
   app.configure(feathers.socketio(socket))
-  app.service('cases').on('created', addData);
+  app.service('cases').on('created', addData)
 }
 getData()
 

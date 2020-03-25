@@ -52,13 +52,15 @@ state.tree = Client({
 
 const Cards = observer((props) => props.data.reverse().map((card, i) => 
   card.location && card.date ? 
-  <div key={i} className={s.cases}>
-    <Box className={s.card}> 
-      Feeling sickly in 
-      <b> {card.location.city}, {card.location.region}, {card.location.country}</b>.<br/>
-      <small className={s.date}><ReactTimeAgo date={card.date}/></small>
-    </Box>
-  </div>
+    card.location.country ?
+      <div key={i} className={s.cases}>
+        <Box className={s.card}> 
+          Feeling sickly in 
+          <b> {card.location.city}, {card.location.region}, {card.location.country}</b>.<br/>
+          <small className={s.date}><ReactTimeAgo date={card.date}/></small>
+        </Box>
+      </div>
+    : null
   : null
 ))
 
