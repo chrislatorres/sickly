@@ -27,8 +27,6 @@ let state = observable({
   set: false
 })
 
-const updateLocation = (location) => { state.location = location }
-
 const getMyLocation = async () => {
   if (!state.set) {
     const app = feathers();
@@ -45,24 +43,22 @@ const getMyLocation = async () => {
 }
 getMyLocation()
 
-const App = observer(() => {
-  return (
-    <Router history={history}>
-      <ThemeProvider theme={ greyVest }>
-          <div className={s.main}>
-            <Navbar location={state.location} />
-            <div className={s.container}>
-              <div className={s.row}>
-                <Route path='/updates' component={() => <Updates location={state.location} />} />
-                <Route path='/cases' component={observer(() => <Cases location={state.location} />)} />
-                <Route path='/about' component={() => <About />} />
-                <Route exact path='/' component={() => <Map viewport={state.viewport} />} />
-             </div>
+const App = observer(() => 
+  <Router history={history}>
+    <ThemeProvider theme={ greyVest }>
+        <div className={s.main}>
+          <Navbar location={state.location} />
+          <div className={s.container}>
+            <div className={s.row}>
+              <Route path='/updates' component={() => <Updates location={state.location} />} />
+              <Route path='/cases' component={observer(() => <Cases location={state.location} />)} />
+              <Route path='/about' component={() => <About />} />
+              <Route exact path='/' component={() => <Map viewport={state.viewport} />} />
            </div>
-          </div>
-      </ThemeProvider>
-    </Router>
-  )
-})
+         </div>
+        </div>
+    </ThemeProvider>
+  </Router>
+)
 
 export default App
