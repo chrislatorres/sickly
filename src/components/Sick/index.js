@@ -2,6 +2,8 @@ import React from 'react'
 import _ from 'lodash'
 import Form from 'mobx-autoform'
 import feathers from "@feathersjs/client"
+import { compose, withHandlers, lifecycle } from 'recompose'
+import withClickOutside from 'react-click-outside'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
@@ -17,6 +19,8 @@ import s from '../../assets/css/page.css'
 import { Input } from './input.js'
 
 let state = observable({
+  isOpened: true,
+  changeOpened: null,
   location: 0,
   checked: [false, false, false],
   slide: { progress: 10 },
@@ -72,13 +76,28 @@ const StatusBanner = observer(() => state.sent ? (
   </Banner>
 ) : null )
 
+const yourEnhancer = compose(
+    withHandlers({
+        someHandler: () => () => { state.isOpened ? state.changeOpened()  : null },
+    }),
+    withClickOutside,
+    lifecycle({
+        handleClickOutside() {
+            this.props.someHandler();
+        },
+    }),
+)
+
 const Sick = observer((props) => {
   state.viewport = props.viewport
   state.location = props.location
+  state.isOpened = props.isOpened
+  state.changeOpened = props.changeOpened
  
   let handleSlide = newProgress => { state.slide = { progress: newProgress } }
 
   return(
+    state.isOpened ? 
     <div className={s.sickPopup}>
       <StatusBanner /> 
       <Box className={s.box}> 
@@ -126,7 +145,8 @@ const Sick = observer((props) => {
         </div>
       </Box>
     </div>
+    : null
   )
 })
 
-export default Sick
+export default yourEnhancer(Sick)

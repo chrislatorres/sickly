@@ -11,12 +11,14 @@ import s from '../../assets/css/navbar.css'
 import Sick from '../Sick'
 
 let state = observable({
-  open: false,
+  isOpened: false,
 }) 
+
+const changeOpened = () => { state.isOpened = !state.isOpened }
 
 const Navbar = observer((props) => 
     <>
-    { state.open ? <Sick location={props.location}/> : null }
+    <Sick isOpened={state.isOpened} changeOpened={changeOpened} location={props.location}/>
     <div className={s.sidenavContainer}>
       <div className={s.sidenav}>
         <div className={s.sidenavTop}>
@@ -28,7 +30,7 @@ const Navbar = observer((props) =>
               <Link to="/updates"><NotificationsIcon/>Updates</Link>
             </li>
             <li>
-              <a className={state.open ? 'active' : ' '} onClick={() => { state.open = !state.open } }><AddCircleIcon/>I{"'"}m Sick</a>
+              <a className={state.isOpened ? 'active' : ' '} onClick={() => { state.isOpened = !state.isOpened } }><AddCircleIcon/>I{"'"}m Sick</a>
             </li>
             <li>
               <Link to="/cases"><PersonIcon/>Cases</Link>
