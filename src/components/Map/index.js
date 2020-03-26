@@ -57,7 +57,7 @@ getData()
 
 const getMyLocation = async () => {
   if (state.viewport.zoom < 5) {
-    state.viewport.zoom = 7 
+    state.viewport.zoom = 8 
   } else if (state.viewport.zoom >= 5 && state.viewport.zoom < 10) {
     state.viewport.zoom = 11 
   } else if (state.viewport.zoom >= 10) {
@@ -111,7 +111,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
             <h2><b>
               {mark.county ? `${mark.county}, ` : null}
               {mark.state ? `${mark.state}, ` : null}
-              {mark.country}
+              {countries.getName(mark.country, "en")}
             </b></h2>
             <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
             { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
