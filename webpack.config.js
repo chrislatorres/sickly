@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const ManifestPlugin = require('webpack-manifest-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const path = require('path')
 
 const htmlPlugin = new HtmlWebPackPlugin({
@@ -11,6 +12,24 @@ const htmlPlugin = new HtmlWebPackPlugin({
 
 
 module.exports = {
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          toplevel: true,
+          compress: {
+            arrows: true,
+            arguments: true,
+            booleans_as_integers: true,
+            dead_code: true, // big one--strip code that will never execute
+            warnings: false, // good for prod apps so users can't peek behind curtain
+            drop_debugger: true,
+            drop_console: true, // strips console statements
+          }
+        }
+      })
+    ],
+  },
   devServer: {
     contentBase: path.join(__dirname, 'public')
   },
