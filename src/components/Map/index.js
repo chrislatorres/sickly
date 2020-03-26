@@ -3,6 +3,7 @@ import feathers from '@feathersjs/client'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
 import LayersIcon from '@material-ui/icons/LayersOutlined'
 import countries from 'i18n-iso-countries'
+import states from './states.json'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
@@ -96,7 +97,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
           <Tooltip>
             <h2><b>
               {mark.county ? `${mark.county}, ` : null}
-              {mark.state ? `${mark.state}, ` : null}
+              {mark.state ? `${states[mark.state]}, ` : null}
               {countries.getName(mark.country, "en")}
             </b></h2>
             <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
@@ -110,7 +111,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
           <Tooltip>
             <h2><b>
               {mark.county ? `${mark.county}, ` : null}
-              {mark.state ? `${mark.state}, ` : null}
+              {mark.state ? `${states[mark.state]}, ` : null}
               {countries.getName(mark.country, "en")}
             </b></h2>
             <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
