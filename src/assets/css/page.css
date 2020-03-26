@@ -48,6 +48,27 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .casesPopup {
+   overflow-x: hidden;
+   overflow-y: scroll;
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    overflow-anchor: none;
+    width: 45%;
+    max-width: 400px;
+    max-height: 80vh;
+    z-index: 999999;
+    position: fixed;
+    right: 0;
+    top: 80px;
+    bottom: 170px;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  .casesPopup::-webkit-scrollbar { /* WebKit */
+      width: 0;
+      height: 0;
+  }
   .form {
     max-width: 750px;
   }
@@ -107,4 +128,8 @@
   .sickPopup {
     width: 350px;
   }
+  .casesPopup {
+    width: 350px;
+  }
+
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import createHistory from 'history/createBrowserHistory'
 import feathers from '@feathersjs/client'
+import Fingerprint2 from 'fingerprintjs2'
+import { Cookies } from 'react-cookie'
 import { Route, Router } from 'react-router-dom'
 import { ThemeProvider, greyVest } from 'contexture-react'
 import { observable } from 'mobx'
@@ -23,25 +25,41 @@ history.listen((location) => {
 
 let state = observable({
   location: {},
-  viewport: {},
   set: false
 })
 
-const getMyLocation = async () => {
+if (window.requestIdleCallback) {
+    requestIdleCallback(() => {
+        Fingerprint2.get((components) => {
+          console.log(components)
+          getMyLocation(components)
+        })
+    })
+} else {
+    setTimeout(() => {
+        Fingerprint2.get((components) => {
+          console.log(components) 
+          getMyLocation(components)
+        })  
+    }, 500)
+}
+
+const getMyLocation = async (fingerprint) => {
   if (!state.set) {
     const app = feathers();
     const restClient = feathers.rest('https://api.sickly.app')
     app.configure(restClient.fetch(window.fetch));
   
-    const my = await app.service('locate').create({}).then()
+
+    fingerprint.push({ ga: new Cookies().get('_ga') })
+    const my = await app.service('locate').create(fingerprint)
+    console.log(my)
   
-    state.viewport.center = [my.location.ll[0], my.location.ll[1]]
-    state.location = my.location
+    state.location = my[31].location
 
     state.set = true
   }
 }
-getMyLocation()
 
 const App = observer(() => 
   <Router history={history}>
@@ -53,7 +71,7 @@ const App = observer(() =>
               <Route path='/updates' component={() => <Updates location={state.location} />} />
               <Route path='/cases' component={observer(() => <Cases location={state.location} />)} />
               <Route path='/about' component={() => <About />} />
-              <Route exact path='/' component={() => <Map viewport={state.viewport} />} />
+              <Route exact path='/' component={() => <Map location={state.location} />} />
            </div>
          </div>
         </div>

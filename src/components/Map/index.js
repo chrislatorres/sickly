@@ -2,6 +2,7 @@ import React from 'react'
 import feathers from '@feathersjs/client'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
 import LayersIcon from '@material-ui/icons/LayersOutlined'
+import FeedIcon from '@material-ui/icons/DynamicFeed'
 import countries from 'i18n-iso-countries'
 import states from './states.json'
 import { toJS, observable } from 'mobx'
@@ -15,10 +16,12 @@ import L from 'leaflet'
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
 import sickly from '../../assets/images/logo.png'
+import Cases from '../Cases'
 
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 let state = observable({
+  isOpened: false,
   data: null,
   points: [],
   pointsLoaded: false,
@@ -35,6 +38,8 @@ let state = observable({
   },
   locating: false,
 })
+
+const changeCasesOpened = () => { state.isOpened = !state.isOpened }
 
 const getData = async () => { 
   let app = feathers(); 
@@ -137,8 +142,8 @@ const MapPage = observer((props) => {
   let northEast = L.latLng(90, 180); 
   
   if (!state.set) {
-    if (props.viewport.center) {
-      state.viewport.center = toJS(props.viewport.center)
+    if (props.location.ll) {
+      state.viewport.center = [props.location.ll[0], props.location.ll[1]]
       state.set = true
     } 
   }
@@ -147,11 +152,18 @@ const MapPage = observer((props) => {
   <div className={m.map}>
     <StatusBanner /> 
     <img src={sickly} className={m.logo} />
+   <Cases isOpened={state.isOpened} changeOpened={changeCasesOpened} />
    <div className={m.layersCircle}>
       <a onClick={() => { state.radius = !state.radius }}>
         <LayersIcon className={m.layersIcon} />
       </a>
     </div>
+   <div className={m.feedCircle}>
+      <a onClick={() => { state.isOpened = !state.isOpened }}>
+        <FeedIcon className={m.feedIcon} />
+      </a>
+    </div>
+
     <div className={m.myLocationCircle}>
       <a onClick={() => getMyLocation()}>
         <MyLocationIcon className={m.myLocationIcon} />
@@ -174,7 +186,10 @@ const MapPage = observer((props) => {
               points={ toJS(state.points) }
               longitudeExtractor={m => m[1]}
               latitudeExtractor={m => m[0]}
-              intensityExtractor={m => parseFloat(m[1])} />
+              radius={30}
+              max={3}
+              blur={15}
+              intensityExtractor={m => 1} />
       : null }
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"

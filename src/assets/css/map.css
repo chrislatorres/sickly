@@ -15,6 +15,24 @@
   display: block;
   margin: 6px;
 }
+.feedCircle {
+  position: fixed;
+  z-index: 99998;
+  bottom: 130px;
+  right: 12.5px;
+  background-color: white;
+  box-shadow: 0 2px 10px 0 rgba(45, 45, 45, 0.5);
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+.map .feedIcon {
+  display: block;
+  margin: 6px;
+}
+
 .myLocationCircle {
   position: fixed;
   z-index: 99998;
