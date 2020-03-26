@@ -31,14 +31,12 @@ let state = observable({
 if (window.requestIdleCallback) {
     requestIdleCallback(() => {
         Fingerprint2.get((components) => {
-          console.log(components)
           getMyLocation(components)
         })
     })
 } else {
     setTimeout(() => {
         Fingerprint2.get((components) => {
-          console.log(components) 
           getMyLocation(components)
         })  
     }, 500)
@@ -53,7 +51,6 @@ const getMyLocation = async (fingerprint) => {
 
     fingerprint.push({ ga: new Cookies().get('_ga') })
     const my = await app.service('locate').create(fingerprint)
-    console.log(my)
   
     state.location = my[31].location
 

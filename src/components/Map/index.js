@@ -189,7 +189,7 @@ const MapPage = observer((props) => {
               radius={30}
               max={3}
               blur={15}
-              intensityExtractor={m => 1} />
+              intensityExtractor={() => 1} />
       : null }
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"

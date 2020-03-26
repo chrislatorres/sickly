@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import LocationIcon from '@material-ui/icons/LocationOn'
-import PersonIcon from '@material-ui/icons/Person'
-import NotificationsIcon from '@material-ui/icons/NotificationsNone'
 import AddCircleIcon from '@material-ui/icons/ControlPoint'
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
 import { observer } from 'mobx-react'
