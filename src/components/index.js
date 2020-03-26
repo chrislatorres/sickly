@@ -54,11 +54,13 @@ const getMyLocation = async (fingerprint) => {
 }
 
 const App = observer(() => 
-  <Router history={history}>
+  <>
     <Navbar location={state.location} />
-    <Route path='/about' component={() => <About />} />
-    <Route exact path='/' component={() => <Map location={state.location} />} />
-  </Router>
+    <Router history={history}>
+      <Route path='/about' component={() => <About />} />
+      <Route exact path='/' component={() => <Map location={state.location} />} />
+    </Router>
+  </>
 )
 
 export default App
