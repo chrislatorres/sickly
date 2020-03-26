@@ -4,7 +4,6 @@ import feathers from '@feathersjs/client'
 import Fingerprint2 from 'fingerprintjs2'
 import { Cookies } from 'react-cookie'
 import { Route, Router } from 'react-router-dom'
-import { ThemeProvider, greyVest } from 'contexture-react'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import ReactGA from 'react-ga'
@@ -58,17 +57,9 @@ const getMyLocation = async (fingerprint) => {
 
 const App = observer(() => 
   <Router history={history}>
-    <ThemeProvider theme={ greyVest }>
-        <div className={s.main}>
-          <Navbar location={state.location} />
-          <div className={s.container}>
-            <div className={s.row}>
-              <Route path='/about' component={() => <About />} />
-              <Route exact path='/' component={() => <Map location={state.location} />} />
-           </div>
-         </div>
-        </div>
-    </ThemeProvider>
+    <Navbar location={state.location} />
+    <Route path='/about' component={() => <About />} />
+    <Route exact path='/' component={() => <Map location={state.location} />} />
   </Router>
 )
 

@@ -10,7 +10,7 @@ import { compose, withHandlers, lifecycle } from 'recompose'
 import withClickOutside from 'react-click-outside'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
-import { Box } from 'grey-vest'
+import Box from 'grey-vest/dist/Box'
 import s from '../../assets/css/page.css'
 
 JavascriptTimeAgo.locale(en)

@@ -1,18 +1,13 @@
 import React from 'react'
-import _ from 'lodash'
 import Form from 'mobx-autoform'
 import feathers from "@feathersjs/client"
 import { compose, withHandlers, lifecycle } from 'recompose'
 import withClickOutside from 'react-click-outside'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
-import { 
-  FormContent,
-  FormFooter,
-  Button,
-  Box,
-  Banner
-} from 'grey-vest'
+import Button from 'grey-vest/dist/Button'
+import Box from 'grey-vest/dist/Box'
+import Banner from 'grey-vest/dist/Banner'
 import MoonLoader from "react-spinners/MoonLoader"
 import MultiSlider, { Progress, Dot } from 'react-multi-bar-slider'
 import s from '../../assets/css/page.css'
@@ -55,15 +50,15 @@ const form = Form({
       value: '',
     },
     fever: { 
-      props: { label: 'Fever', type: 'checkbox' }, 
+      props: { label: 'Fever', type: 'checkbox', native: true }, 
       value: state.checked[0] 
     },
     cough: { 
-      props: { label: 'Cough', type: 'checkbox' }, 
+      props: { label: 'Cough', type: 'checkbox', native: true }, 
       value: state.checked[1] 
     },
     sob: { 
-      props: { label: 'Breathing', type: 'checkbox' }, 
+      props: { label: 'Breathing', type: 'checkbox', native: true }, 
       value: state.checked[2] 
     },
   },
@@ -108,13 +103,11 @@ const Sick = observer((props) => {
         <br/>
         </p>
         <div className={s.form}>
-          <FormContent columns={3}>
-            {_.map(form.fields, (field) =>
+            {form.fields.map((field) =>
               <Input
                 field={field}
               />
             )}
-          </FormContent>
           <p><b>Intensity of Symptoms:</b></p>
           <MultiSlider onSlide={handleSlide}>
             <Progress 
@@ -131,14 +124,12 @@ const Sick = observer((props) => {
             </Progress>
           </MultiSlider>
           <br/>
-          <FormFooter>
             <Button primary onClick={form.submit}>Submit</Button>
             <MoonLoader
               size={20}
               color={"#0076de"}
               loading={state.loading}
             />  
-          </FormFooter>
         </div>
       </Box>
     </div>

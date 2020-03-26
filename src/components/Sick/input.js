@@ -1,7 +1,7 @@
 import React from 'react'
 import {observer} from 'mobx-react'
 import F from 'futil'
-import { FormField } from 'grey-vest'
+import FormField from 'grey-vest/dist/FormField'
 
 export let Input = observer(({ field }) =>
   <FormField {...{

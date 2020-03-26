@@ -7,9 +7,7 @@ import countries from 'i18n-iso-countries'
 import states from './states.json'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
-import { 
-  Banner
-} from 'grey-vest'
+import Banner from 'grey-vest/dist/Banner'
 import { Map, Marker, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import L from 'leaflet' 

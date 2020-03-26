@@ -8,7 +8,6 @@ import PullToRefresh from 'pulltorefreshjs'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { exampleTypes } from 'contexture-client'
-import ContextureMobx from 'contexture-react/dist/utils/contexture-mobx'
 import service from './service'
 import s from '../../assets/css/page.css'
 import logo from '../../assets/images/logoIcon.png'
@@ -35,38 +34,6 @@ const getData = async () => {
   })
 }
 getData()
-
-let types = exampleTypes
-          
-
-let Client = ContextureMobx({
-  types,
-  service,
-})
-
-state.tree = Client({
-  key: 'root',
-  type: 'group',
-  join: 'and',
-  schema: 'Test',
-  children: [
-    { key: 'criteria', 
-      type: 'group', 
-      join: 'and', 
-      children: [
-        { key: 'city', type: 'text', field: 'city', },
-        { key: 'currency', type: 'text', field: 'currency', },
-        { key: 'type', type: 'text', field: 'type', },
-        { key: 'fiat_currency', type: 'text', field: 'fiat_currency', },
-        { key: 'fiat_value', type: 'text', field: 'fiat_value', },
-      ], 
-    },
-    { key: 'id', type: 'text', field: 'id', data: { operator: 'is', value: state.id } },
-    { key: 'results', type: 'results' },
-  ],
-})
-
-
 
 const Cards = observer(() => state.data.map((card, i) => 
   ['coronavirus', 'covid'].some(v => card.firstComment.includes(v)) ?
