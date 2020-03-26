@@ -125,10 +125,8 @@ const Sick = observer((props) => {
            >
               <Dot 
                 color={'#454545'}
-                width={50}
-                height={50}
-                iconStyle={ { top: -15 } }
-                icon={'https://user-images.githubusercontent.com/29695350/77191664-4a7dd800-6aa9-11ea-9368-9dad0ab6b494.png'}
+                width={25}
+                height={25}
               />
             </Progress>
           </MultiSlider>
