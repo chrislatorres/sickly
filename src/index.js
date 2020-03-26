@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components'
 import ReactGA from 'react-ga'
+import App from './components'
 
 ReactGA.initialize('UA-161402140-1')
 

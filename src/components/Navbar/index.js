@@ -18,16 +18,12 @@ const changeSickOpened = () => { state.isOpened.sick = !state.isOpened.sick }
 
 const Navbar = observer((props) => 
     <>
-    <Sick isOpened={state.isOpened.sick} changeOpened={changeSickOpened} location={props.location}/>
     <div className={s.sidenavContainer}>
       <div className={s.sidenav}>
         <div className={s.sidenavTop}>
           <ul>
             <li>
               <Link to="/"><LocationIcon/>Explore</Link>
-            </li>
-            <li>
-              <a onClick={() => { state.isOpened.sick = !state.isOpened.sick } }><AddCircleIcon/>I{"'"}m Sick</a>
             </li>
             <li>
               <Link to="/about"><FavoriteIcon/>About</Link>

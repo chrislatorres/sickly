@@ -2,7 +2,6 @@ import React from 'react'
 import JavascriptTimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import ReactTimeAgo from 'react-time-ago'
-import MoonLoader from 'react-spinners/MoonLoader'
 import InfiniteScroll from 'react-infinite-scroller'
 import feathers from '@feathersjs/client'
 import io from 'socket.io-client'
@@ -107,7 +106,7 @@ let Cases = observer((props) => {
         loadMore={loadItems}
         useWindow={false}
         hasMore={state.hasMoreItems}
-        loader={<MoonLoader key={0} />}
+        loader={<></>}
        >
          {items}
       </InfiniteScroll>

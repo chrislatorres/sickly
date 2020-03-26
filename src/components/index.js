@@ -10,6 +10,7 @@ import ReactGA from 'react-ga'
 import Navbar from './Navbar'
 import Map from './Map'
 import About from './About'
+import s from '../assets/css/app.css'
 
 const history = createHistory()
 
@@ -54,13 +55,13 @@ const getMyLocation = async (fingerprint) => {
 }
 
 const App = observer(() => 
-  <>
-    <Navbar location={state.location} />
-    <Router history={history}>
+  <Router history={history}>
+    <div className={s.container}>
+      <Navbar location={state.location} />
       <Route path='/about' component={() => <About />} />
       <Route exact path='/' component={() => <Map location={state.location} />} />
-    </Router>
-  </>
+   </div>
+  </Router>
 )
 
 export default App

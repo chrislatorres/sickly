@@ -179,7 +179,7 @@ const MapPage = observer((props) => {
       zoomControl={!L.Browser.mobile ? true : null}
       className={s.leafletContainer}
     >
-      { state.pointsLoaded ?
+      { state.pointsLoaded === 'xxx' ?
         <HeatmapLayer
               points={ toJS(state.points) }
               longitudeExtractor={m => m[1]}
