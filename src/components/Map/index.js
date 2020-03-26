@@ -91,7 +91,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
   const radius = state.radius ? scaledRadius : 15 
   const color = `rgba(0, 0, 255, ${scale})`
  
-  return  state.viewport.zoom < 5 ?
+  return  state.viewport.zoom < 6 ?
     <div key={i} className={s.markerDiv}>
         <Marker position={position} color={color} >
           <Tooltip>
