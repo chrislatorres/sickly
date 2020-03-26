@@ -75,8 +75,7 @@ let Cases = observer((props) => {
              <div className={s.container}><Cards /></div> 
            : 
              <div className={s.container}>
-               <div className={s.loader}>
-               </div> 
+               <h1>Loading...</h1>
              </div> 
          )
 
