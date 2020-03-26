@@ -97,7 +97,12 @@ const Markers = observer(() => state.data.map((mark, i) => {
           <Tooltip>
             <h2><b>
               {mark.county ? `${mark.county}, ` : null}
-              {mark.state ? `${states[mark.state]}, ` : null}
+              {mark.state ? 
+                mark.country === "USA" ? 
+                  `${states[mark.state]}, ` 
+                :
+                  `${mark.state}, ` 
+              : null}
               {countries.getName(mark.country, "en")}
             </b></h2>
             <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
@@ -111,7 +116,13 @@ const Markers = observer(() => state.data.map((mark, i) => {
           <Tooltip>
             <h2><b>
               {mark.county ? `${mark.county}, ` : null}
-              {mark.state ? `${states[mark.state]}, ` : null}
+              {mark.state ? 
+                mark.country === "USA" ? 
+                  `${states[mark.state]}, ` 
+                :
+                  `${mark.state}, ` 
+              : null}
+
               {countries.getName(mark.country, "en")}
             </b></h2>
             <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
