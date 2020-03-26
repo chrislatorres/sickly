@@ -80,7 +80,6 @@ module.exports = {
   },
   plugins: [
     htmlPlugin,
-    new BundleAnalyzerPlugin(),
     new BrotliPlugin({
       asset: '[path].br[query]',
       test: /\.(js|css|html|svg)$/,
