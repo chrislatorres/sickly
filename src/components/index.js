@@ -10,8 +10,6 @@ import { observer } from 'mobx-react'
 import ReactGA from 'react-ga'
 import Navbar from './Navbar'
 import Map from './Map'
-import Updates from './Updates'
-import Cases from './Cases'
 import About from './About'
 
 import s from '../assets/css/app.css'
@@ -65,8 +63,6 @@ const App = observer(() =>
           <Navbar location={state.location} />
           <div className={s.container}>
             <div className={s.row}>
-              <Route path='/updates' component={() => <Updates location={state.location} />} />
-              <Route path='/cases' component={observer(() => <Cases location={state.location} />)} />
               <Route path='/about' component={() => <About />} />
               <Route exact path='/' component={() => <Map location={state.location} />} />
            </div>
