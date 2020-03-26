@@ -2,6 +2,7 @@ import React from 'react'
 import feathers from '@feathersjs/client'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
 import LayersIcon from '@material-ui/icons/LayersOutlined'
+import countries from 'i18n-iso-countries'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { 
@@ -13,6 +14,8 @@ import L from 'leaflet'
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
 import sickly from '../../assets/images/logo.png'
+
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 let state = observable({
   data: null,
@@ -94,7 +97,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
             <h2><b>
               {mark.county ? `${mark.county}, ` : null}
               {mark.state ? `${mark.state}, ` : null}
-              {mark.country}
+              {countries.getName(mark.country, "en")}
             </b></h2>
             <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
             { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}

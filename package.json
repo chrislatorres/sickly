@@ -38,6 +38,7 @@
     "futil": "^1.67.0",
     "futil-js": "^1.66.2",
     "grey-vest": "^3.0.0-alpha.25",
+    "i18n-iso-countries": "^5.1.0",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.15",
     "mobx": "^4.15.4",
