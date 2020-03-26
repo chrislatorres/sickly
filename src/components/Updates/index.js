@@ -7,8 +7,6 @@ import MoonLoader from 'react-spinners/MoonLoader'
 import PullToRefresh from 'pulltorefreshjs'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
-import { exampleTypes } from 'contexture-client'
-import service from './service'
 import s from '../../assets/css/page.css'
 import logo from '../../assets/images/logoIcon.png'
 

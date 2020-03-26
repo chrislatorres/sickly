@@ -11,8 +11,6 @@ import Navbar from './Navbar'
 import Map from './Map'
 import About from './About'
 
-import s from '../assets/css/app.css'
-
 const history = createHistory()
 
 history.listen((location) => {
