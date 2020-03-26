@@ -40,7 +40,7 @@
   .sickPopup {
     border: 3.5px solid #0076de;
     z-index: 999999;
-    position: absolute;
+    position: fixed;
     bottom: 50px;
     left: 0;
     right: 0;
