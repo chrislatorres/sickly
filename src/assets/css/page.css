@@ -1,5 +1,12 @@
 /* desktop navbar */
 @media (min-width: 0px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+  }
   .card {
     border-radius: 4px;
     background-color: #fff;
@@ -108,13 +115,6 @@
 
 /* tablet+ */
 @media (min-width: 641px) {
-  .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 50%;
-    margin: auto;
-  }
   .card {
     width: 100%;
     max-width: 700px;
