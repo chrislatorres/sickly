@@ -2,6 +2,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 const ManifestPlugin = require('webpack-manifest-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BrotliPlugin = require('brotli-webpack-plugin')
 const path = require('path')
 
 const htmlPlugin = new HtmlWebPackPlugin({
@@ -13,6 +15,15 @@ const htmlPlugin = new HtmlWebPackPlugin({
 
 module.exports = {
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        common: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    },
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -69,6 +80,13 @@ module.exports = {
   },
   plugins: [
     htmlPlugin,
+    new BundleAnalyzerPlugin(),
+    new BrotliPlugin({
+      asset: '[path].br[query]',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
     new ManifestPlugin({
       seed: {
         "name": "Sickly",
