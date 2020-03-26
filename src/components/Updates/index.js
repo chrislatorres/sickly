@@ -3,7 +3,6 @@ import feathers from '@feathersjs/client'
 import JavascriptTimeAgo from 'javascript-time-ago'
 import ShowMoreText from 'react-show-more-text'
 import en from 'javascript-time-ago/locale/en'
-import MoonLoader from 'react-spinners/MoonLoader'
 import PullToRefresh from 'pulltorefreshjs'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
@@ -77,7 +76,6 @@ let Cases = observer((props) => {
            : 
              <div className={s.container}>
                <div className={s.loader}>
-                 <MoonLoader size={50}/>
                </div> 
              </div> 
          )

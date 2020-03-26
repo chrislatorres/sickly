@@ -8,7 +8,6 @@ import { observer } from 'mobx-react'
 import Button from 'grey-vest/dist/Button'
 import Box from 'grey-vest/dist/Box'
 import Banner from 'grey-vest/dist/Banner'
-import MoonLoader from "react-spinners/MoonLoader"
 import MultiSlider, { Progress, Dot } from 'react-multi-bar-slider'
 import s from '../../assets/css/page.css'
 import { Input } from './input.js'
@@ -125,11 +124,6 @@ const Sick = observer((props) => {
           </MultiSlider>
           <br/>
             <Button primary onClick={form.submit}>Submit</Button>
-            <MoonLoader
-              size={20}
-              color={"#0076de"}
-              loading={state.loading}
-            />  
         </div>
       </Box>
     </div>

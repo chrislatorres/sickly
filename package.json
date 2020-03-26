@@ -58,7 +58,6 @@
     "react-router-ga": "^1.2.2",
     "react-select": "^3.1.0",
     "react-show-more-text": "^1.4.0",
-    "react-spinners": "^0.8.1",
     "react-time-ago": "^5.0.7",
     "recompose": "^0.30.0",
     "socket.io-client": "^2.3.0",
