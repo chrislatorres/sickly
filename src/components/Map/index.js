@@ -43,21 +43,21 @@ const changeCasesOpened = () => { state.isOpened = !state.isOpened }
 
 const getData = async () => { 
   let app = feathers(); 
-  let restClient = feathers.rest('https://api.sickly.app') 
+  let restClient = feathers.rest('https://coronadatascraper.com/') 
   app.configure(restClient.fetch(window.fetch)); 
-  let data = await app.service('data').find() 
-
-  state.data = data 
-  let numCases = await data.map(location => location.cases) 
+  let data = await app.service('data.json').find() 
+  
+  state.data = data
+  const numCases = data.map(location => location.cases ? location.cases : 0 ) 
   const locations = data.map(loc => { 
     if(loc.coordinates) {
       state.points.push([loc.coordinates[1], loc.coordinates[0]])
     }
   })
-  Promise.all(locations).then(() => {
+  Promise.all([locations, numCases].flat()).then(() => {
     state.pointsLoaded = true
+    state.maxNumCases = Math.max( ...numCases ) 
   })
-  state.maxNumCases = Math.max(...numCases) 
 }
 getData()
 
