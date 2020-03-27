@@ -62,7 +62,7 @@ const StatusBanner = observer(() => state.sent ? (
 ) : null )
 
 const Markers = observer(() => state.data.map((mark, i) => { 
-  if (!mark.coordinates) { return }
+  if (!mark.coordinates || mark.cases < 1) { return }
 
   const coordinates = toJS(mark.coordinates)
   const position = [coordinates[1], coordinates[0]] 
@@ -116,7 +116,7 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <Map 
-      preferCanvas={false}
+      preferCanvas={true}
       onViewportChanged={(viewport) => { state.viewport = viewport } } 
       viewport={ toJS(state.viewport) } 
       minZoom={3} 
