@@ -1,13 +1,12 @@
 import React from 'react'
 import feathers from '@feathersjs/client'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
-import LayersIcon from '@material-ui/icons/LayersOutlined'
 import countries from 'i18n-iso-countries'
 import states from './states.json'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import Banner from 'grey-vest/dist/Banner'
-import { Map, Marker, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
+import { Map, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import L from 'leaflet' 
 import s from '../../assets/css/page.css'
@@ -90,26 +89,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
   const radius = state.radius ? scaledRadius : 15 
   const color = `rgba(0, 0, 255, ${scale})`
  
-  return  state.viewport.zoom < 6 ?
-    <div key={i} className={s.markerDiv}>
-        <Marker position={position} color={color} >
-          <Tooltip>
-            <h2><b>
-              {mark.county ? `${mark.county}, ` : null}
-              {mark.state ? 
-                mark.country === "USA" ? 
-                  `${states[mark.state]}, ` 
-                :
-                  `${mark.state}, ` 
-              : null}
-              {countries.getName(mark.country, "en")}
-            </b></h2>
-            <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
-            { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
-          </Tooltip>
-        </Marker>
-    </div>
-  : 
+  return ( 
     <div key={i} className={s.markerDiv}>
         <CircleMarker radius={radius} center={position} color={color} >
           <Tooltip>
@@ -129,6 +109,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
           </Tooltip>
         </CircleMarker>
     </div>
+  )
 }))
 
 const MapPage = observer((props) => {
@@ -146,12 +127,6 @@ const MapPage = observer((props) => {
   <div className={m.map}>
     <StatusBanner /> 
     <img src={sickly} className={m.logo} />
-   <div className={m.layersCircle}>
-      <a onClick={() => { state.radius = !state.radius }}>
-        <LayersIcon className={m.layersIcon} />
-      </a>
-    </div>
-
     <div className={m.myLocationCircle}>
       <a onClick={() => getMyLocation()}>
         <MyLocationIcon className={m.myLocationIcon} />
