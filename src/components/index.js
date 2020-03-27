@@ -1,7 +1,6 @@
 import React from 'react'
 import createHistory from 'history/createBrowserHistory'
 import feathers from '@feathersjs/client'
-import Fingerprint2 from 'fingerprintjs2'
 import { Cookies } from 'react-cookie'
 import { Route, Router } from 'react-router-dom'
 import { observable } from 'mobx'
@@ -24,35 +23,20 @@ let state = observable({
   set: false
 })
 
-if (window.requestIdleCallback) {
-    requestIdleCallback(() => {
-        Fingerprint2.get((components) => {
-          getMyLocation(components)
-        })
-    })
-} else {
-    setTimeout(() => {
-        Fingerprint2.get((components) => {
-          getMyLocation(components)
-        })  
-    }, 500)
-}
-
-const getMyLocation = async (fingerprint) => {
+const getMyLocation = async () => {
   if (!state.set) {
     const app = feathers();
     const restClient = feathers.rest('https://api.sickly.app')
     app.configure(restClient.fetch(window.fetch));
   
-
-    fingerprint.push({ ga: new Cookies().get('_ga') })
-    const my = await app.service('locate').create(fingerprint)
+    const my = await app.service('locate').create().then()
   
-    state.location = my[31].location
+    state.location = my.location
 
     state.set = true
   }
 }
+getMyLocation
 
 const App = observer(() => 
   <Router history={history}>
