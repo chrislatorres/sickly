@@ -29,7 +29,7 @@ let state = observable({
   location,
   viewport: { 
     center: [0, 0], 
-    zoom: 3 
+    zoom: 3.5 
   },
   locating: false,
 })
