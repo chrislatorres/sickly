@@ -1,7 +1,6 @@
 import React from 'react'
 import createHistory from 'history/createBrowserHistory'
 import feathers from '@feathersjs/client'
-import { Cookies } from 'react-cookie'
 import { Route, Router } from 'react-router-dom'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
