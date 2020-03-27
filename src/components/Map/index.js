@@ -7,7 +7,6 @@ import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
 import Banner from 'grey-vest/dist/Banner'
 import { Map, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
-import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import L from 'leaflet' 
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
@@ -18,8 +17,6 @@ countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 let state = observable({
   isOpened: false,
   data: null,
-  points: [],
-  pointsLoaded: false,
   maxNumCases: null,
   radius: true,
   loading: false,
@@ -42,13 +39,7 @@ const getData = async () => {
   
   state.data = data
   const numCases = data.map(location => location.cases ? location.cases : 0 ) 
-  const locations = data.map(loc => { 
-    if(loc.coordinates) {
-      state.points.push([loc.coordinates[1], loc.coordinates[0]])
-    }
-  })
-  Promise.all([locations, numCases].flat()).then(() => {
-    state.pointsLoaded = true
+  Promise.all([numCases].flat()).then(() => {
     state.maxNumCases = Math.max( ...numCases ) 
   })
 }
@@ -72,14 +63,6 @@ const StatusBanner = observer(() => state.sent ? (
 
 const Markers = observer(() => state.data.map((mark, i) => { 
   if (!mark.coordinates) { return }
-
-  if (state.viewport.zoom < 8 && mark.county) {
-    return 
-  } else if (state.viewport.zoom < 5 && mark.state) {
-    if (!['USA', 'CAN'].includes(mark.country)) {
-      return 
-    }
-  } 
 
   const coordinates = toJS(mark.coordinates)
   const position = [coordinates[1], coordinates[0]] 
@@ -115,7 +98,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
 const MapPage = observer((props) => {
   let southWest = L.latLng(-90, -180);
   let northEast = L.latLng(90, 180); 
-  
+
   if (!state.set) {
     if (props.location.ll) {
       state.viewport.center = [props.location.ll[0], props.location.ll[1]]
@@ -144,16 +127,6 @@ const MapPage = observer((props) => {
       zoomControl={!L.Browser.mobile ? true : null}
       className={s.leafletContainer}
     >
-      { state.pointsLoaded === 'xxx' ?
-        <HeatmapLayer
-              points={ toJS(state.points) }
-              longitudeExtractor={m => m[1]}
-              latitudeExtractor={m => m[0]}
-              radius={30}
-              max={3}
-              blur={15}
-              intensityExtractor={() => 1} />
-      : null }
       <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
