@@ -66,7 +66,7 @@
     "workbox-webpack-plugin": "^5.1.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode production --open --hot --port 8081",
+    "start": "webpack-dev-server --mode development --open --hot --port 8081",
     "prebuild": "webpack --mode production",
     "build": "npm run prebuild && cp CNAME ./dist/ && cp dist/index.html dist/404.html",
     "deploy": "npm run build && gh-pages -d dist",

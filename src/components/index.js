@@ -22,20 +22,19 @@ let state = observable({
   set: false
 })
 
-const getMyLocation = async () => {
+const getMyLocation = () => {
   if (!state.set) {
     const app = feathers();
     const restClient = feathers.rest('https://api.sickly.app')
     app.configure(restClient.fetch(window.fetch));
   
-    const my = await app.service('locate').create().then()
-  
-    state.location = my.location
-
-    state.set = true
+    app.service('locate').create({}).then(my => {
+      state.location = my.location
+      state.set = true
+    })
   }
 }
-getMyLocation
+getMyLocation()
 
 const App = observer(() => 
   <Router history={history}>
