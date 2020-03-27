@@ -62,3 +62,10 @@
   width: 50px;
   opacity: 70%;
 }
+.map .tooltip {
+  max-width: 200px;
+}
+.map .tooltip h2 {
+  font-size: 1em;
+  white-space: normal;
+}

@@ -75,7 +75,7 @@ const Markers = observer(() => state.data.map((mark, i) => {
   return ( 
     <div key={i} className={s.markerDiv}>
         <CircleMarker radius={radius} center={position} color={color} >
-          <Tooltip>
+          <Tooltip className={m.tooltip}>
             <h2><b>
               {mark.county ? `${mark.county}, ` : null}
               {mark.state ? 
@@ -116,7 +116,7 @@ const MapPage = observer((props) => {
       </a>
     </div>
     <Map 
-      preferCanvas={true}
+      preferCanvas={false}
       onViewportChanged={(viewport) => { state.viewport = viewport } } 
       viewport={ toJS(state.viewport) } 
       minZoom={3} 
