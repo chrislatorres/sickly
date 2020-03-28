@@ -1,5 +1,4 @@
 import React from 'react'
-import feathers from '@feathersjs/client'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
 import countries from 'i18n-iso-countries'
 import states from './states.json'
@@ -30,20 +29,6 @@ let state = observable({
   },
   locating: false,
 })
-
-const getData = async () => { 
-  let app = feathers(); 
-  let restClient = feathers.rest('https://coronadatascraper.com/') 
-  app.configure(restClient.fetch(window.fetch)); 
-  let data = await app.service('data.json').find() 
-  
-  state.data = data
-  const numCases = data.map(location => location.cases ? location.cases : 0 ) 
-  Promise.all([numCases].flat()).then(() => {
-    state.maxNumCases = Math.max( ...numCases ) 
-  })
-}
-getData()
 
 const getMyLocation = async () => {
   if (state.viewport.zoom < 5) {
@@ -100,6 +85,8 @@ const MapPage = observer((props) => {
   let northEast = L.latLng(90, 180); 
 
   if (!state.set) {
+    state.data = props.data 
+    state.maxNumCases = props.maxNumCases
     if (props.location.ll) {
       state.viewport.center = [props.location.ll[0], props.location.ll[1]]
       state.set = true
