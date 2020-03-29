@@ -5,6 +5,7 @@ import ShowMoreText from 'react-show-more-text'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import countries from 'i18n-iso-countries'
 import states from '../Map/states.json'
+import germany from '../Map/germany.json'
 import { Line } from 'react-chartjs-2'
 import en from 'javascript-time-ago/locale/en'
 import { observer } from 'mobx-react'
@@ -77,16 +78,24 @@ let Chart = observer((props) => {
 
         if (state.timeData && state.timeData[state.date][i]) { 
           const county = county ? card.county : null
-          const stateName = card.state ? states[card.state] : null
+
+          if (country === "USA" && card.state ) {
+            const stateName = states[card.state] 
+          } else if (country === "DEU" && card.state) {
+            const stateName = germany[card.state] 
+          } else if (country && card.state) {
+            const stateName = card.state 
+          }
+
           const country = card.country ? countries.getName(card.country, "en") : null
     
           let locationName = "no location name"
     
-          if (card.county) {
+          if (county) {
             locationName = `${county}, ${stateName}, ${country}` 
-          } else if (card.state) {
+          } else if (state) {
             locationName = `${stateName}, ${country}` 
-          } else if (card.country) {
+          } else if (country) {
             locationName = `${country}` 
           }
 
