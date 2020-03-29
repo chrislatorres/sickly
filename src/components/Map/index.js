@@ -1,126 +1,81 @@
 import React from 'react'
-import MyLocationIcon from '@material-ui/icons/MyLocation'
 import countries from 'i18n-iso-countries'
-import states from './states.json'
 import { toJS, observable } from 'mobx'
 import { observer } from 'mobx-react'
-import Banner from 'grey-vest/dist/Banner'
 import { Map, CircleMarker, Tooltip, TileLayer } from 'react-leaflet'
 import L from 'leaflet' 
 import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
 import sickly from '../../assets/images/logo.png'
+import states from './states.json'
 
-countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 
 let state = observable({
-  isOpened: false,
-  data: null,
-  maxNumCases: null,
-  radius: true,
-  loading: false,
-  sent: false,
-  numSent: 0,
-  set: false,
-  location,
   viewport: { 
-    center: [0, 0], 
-    zoom: 3.5 
+    center: [31.35, -53.10], 
+    zoom: 3 
   },
-  locating: false,
 })
-
-const getMyLocation = async () => {
-  if (state.viewport.zoom < 5) {
-    state.viewport.zoom = 8 
-  } else if (state.viewport.zoom >= 5 && state.viewport.zoom < 10) {
-    state.viewport.zoom = 11 
-  } else if (state.viewport.zoom >= 10) {
-    state.viewport.zoom = 3 
-  }
-}
-
-const StatusBanner = observer(() => state.sent ? (
-  <Banner className={s.banner}>
-    You have successfuly submitted {state.numSent} cases.
-  </Banner>
-) : null )
-
-const Markers = observer(() => state.data.map((mark, i) => { 
-  if (!mark.coordinates || mark.cases < 1) { return }
-
-  const coordinates = toJS(mark.coordinates)
-  const position = [coordinates[1], coordinates[0]] 
-
-  const scale = Math.log10(mark.cases) / Math.log10(state.maxNumCases) 
-  const scaledRadius = 35 * ( Math.log10(mark.cases) / Math.log10(state.maxNumCases) )
-  const radius = state.radius ? scaledRadius : 15 
-  const color = `rgba(0, 0, 255, ${scale})`
- 
-  return ( 
-    <div key={i} className={s.markerDiv}>
-        <CircleMarker radius={radius} center={position} color={color} >
-          <Tooltip className={m.tooltip}>
-            <h2><b>
-              {mark.county ? `${mark.county}, ` : null}
-              {mark.state ? 
-                mark.country === "USA" ? 
-                  `${states[mark.state]}, ` 
-                :
-                  `${mark.state}, ` 
-              : null}
-
-              {countries.getName(mark.country, "en")}
-            </b></h2>
-            <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
-            { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
-          </Tooltip>
-        </CircleMarker>
-    </div>
-  )
-}))
 
 const MapPage = observer((props) => {
   let southWest = L.latLng(-90, -180);
   let northEast = L.latLng(90, 180); 
 
-  if (!state.set) {
-    state.data = props.data 
-    state.maxNumCases = props.maxNumCases
-    if (props.location.ll) {
-      state.viewport.center = [props.location.ll[0], props.location.ll[1]]
-      state.set = true
-    } 
-  }
-  
-  return (
-  <div className={m.map}>
-    <StatusBanner /> 
-    <img src={sickly} className={m.logo} />
-    <div className={m.myLocationCircle}>
-      <a onClick={() => getMyLocation()}>
-        <MyLocationIcon className={m.myLocationIcon} />
-      </a>
+  return ( 
+    <div className={m.map}>
+      <img src={sickly} className={m.logo} />
+      <Map 
+        preferCanvas={true}
+        viewport={ toJS(state.viewport) } 
+        minZoom={3} 
+        maxZoom={20} 
+        onZoomEnd={(e) => { state.viewport.zoom = e.target.getZoom() }}
+        maxBounds={L.latLngBounds(southWest, northEast)}
+        maxBoundsViscosity={1}
+        zoomControl={!L.Browser.mobile ? true : null}
+        className={s.leafletContainer}
+      >
+        <TileLayer
+          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+          attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        />
+        {props.data && props.maxNumCases ? 
+          props.data.map((mark, i) => { 
+            if (!mark.coordinates || !mark.cases || mark.cases < 1) { return }
+        
+            const coordinates = toJS(mark.coordinates)
+            const position = [parseFloat(coordinates[1]), parseFloat(coordinates[0])] 
+          
+            const scale = Math.log10(mark.cases) / Math.log10(props.maxNumCases) 
+            const radius = 35 * ( Math.log10(mark.cases) / Math.log10(props.maxNumCases) )
+            const color = `rgba(0, 0, 255, ${scale})`
+           
+            return ( 
+              <div key={i} className={s.markerDiv}>
+                  <CircleMarker radius={radius} position={position} center={position} color={color} >
+                    <Tooltip className={m.tooltip}>
+                      <h2><b>
+                        {mark.county ? `${mark.county}, ` : null}
+                        {mark.state ? 
+                          mark.country === "USA" ? 
+                            `${states[mark.state]}, ` 
+                          :
+                            `${mark.state}, ` 
+                        : null}
+          
+                        {countries.getName(mark.country, "en")}
+                      </b></h2>
+                      <p>Total Confirmed Cases: <b>{mark.cases}</b></p>
+                      { mark.deaths ? <p>Total Deaths: <b>{mark.deaths}</b></p> : null}
+                    </Tooltip>
+                  </CircleMarker>
+              </div>
+            )
+          })
+        : null }
+      </Map>
     </div>
-    <Map 
-      preferCanvas={true}
-      onViewportChanged={(viewport) => { state.viewport = viewport } } 
-      viewport={ toJS(state.viewport) } 
-      minZoom={3} 
-      maxZoom={20} 
-      onZoomEnd={(e) => { state.viewport.zoom = e.target.getZoom() }}
-      maxBounds={L.latLngBounds(southWest, northEast)}
-      maxBoundsViscosity={1}
-      zoomControl={!L.Browser.mobile ? true : null}
-      className={s.leafletContainer}
-    >
-      <TileLayer
-        url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-        attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-      />
-      { state.data && state.maxNumCases ? <Markers /> : null }
-    </Map>
-  </div>
   )
 })
 
