@@ -28,9 +28,13 @@ const MapPage = observer((props) => {
       <Map 
         preferCanvas={true}
         viewport={ toJS(state.viewport) } 
+        onViewportChanged={(viewport) => { 
+          if (viewport.center && viewport.zoom) {
+            state.viewport = viewport 
+          } 
+        }} 
         minZoom={3} 
         maxZoom={20} 
-        onZoomEnd={(e) => { state.viewport.zoom = e.target.getZoom() }}
         maxBounds={L.latLngBounds(southWest, northEast)}
         maxBoundsViscosity={1}
         zoomControl={!L.Browser.mobile ? true : null}
