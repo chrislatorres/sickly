@@ -79,13 +79,12 @@ let Chart = observer((props) => {
         if (state.timeData && state.timeData[state.date][i]) { 
           const county = county ? card.county : null
 
+          let stateName = card.state ? card.state : null
           if (country === "USA" && card.state ) {
-            const stateName = states[card.state] 
+            stateName = states[card.state] 
           } else if (country === "DEU" && card.state) {
-            const stateName = germany[card.state] 
-          } else if (country && card.state) {
-            const stateName = card.state 
-          }
+            stateName = germany[card.state] 
+          } 
 
           const country = card.country ? countries.getName(card.country, "en") : null
     
@@ -93,7 +92,7 @@ let Chart = observer((props) => {
     
           if (county) {
             locationName = `${county}, ${stateName}, ${country}` 
-          } else if (state) {
+          } else if (stateName) {
             locationName = `${stateName}, ${country}` 
           } else if (country) {
             locationName = `${country}` 
