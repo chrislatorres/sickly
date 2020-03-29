@@ -8,6 +8,7 @@ import s from '../../assets/css/page.css'
 import m from '../../assets/css/map.css'
 import sickly from '../../assets/images/logo.png'
 import states from './states.json'
+import germany from './germany.json'
 
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 
@@ -64,6 +65,8 @@ const MapPage = observer((props) => {
                         {mark.state ? 
                           mark.country === "USA" ? 
                             `${states[mark.state]}, ` 
+                          : mark.country === "DEU" ?
+                            `${germany[mark.state]}, ` 
                           :
                             `${mark.state}, ` 
                         : null}
