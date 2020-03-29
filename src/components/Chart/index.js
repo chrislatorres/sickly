@@ -18,6 +18,7 @@ JavascriptTimeAgo.locale(en)
 let state = observable({
   date: '2020-3-26',
   timeData: null,
+  timeLocationData: null,
   items: Array.from({ length: 20 }),
   id: 'null',
   tree: {},
@@ -52,14 +53,12 @@ let Chart = observer((props) => {
   }, []) 
   
   const fetchMoreData = () => {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
     setTimeout(() => {
       state.items = state.items.concat(Array.from({ length: 20 }))
-    }, 500)
+    }, 50)
   }
   
-  return ( state.timeData && state.timeLocationData ? 
+  return (
     <InfiniteScroll
       dataLength={state.items.length} //This is important field to render the next data
       next={fetchMoreData}
@@ -71,8 +70,9 @@ let Chart = observer((props) => {
         </p>
       }
     >
-    {
+    { 
       state.items.map((index, i) => { 
+        if (!state.timeData || !state.timeLocationData) { return }
         const card = props.data[i]
 
         if (state.timeData && state.timeData[state.date][i]) { 
@@ -137,7 +137,7 @@ let Chart = observer((props) => {
       })                   
     }
     </InfiniteScroll>
-  : <h1>Loading...</h1> )
+  )
 })
 
 export default Chart
