@@ -5,7 +5,7 @@ let About = () =>
   <div className={s.container}>
       <h1>Welcome to Sickly</h1>
       <p>
-       Sickly was built by <b>2</b> humans from <b>Dallas, TX</b>.<br/>
+       Sickly was built by <b>2</b> humans.<br/>
       </p>
       <p>
        Sickly uses data from <b>Corona Data Scraper</b>.<br/> 
