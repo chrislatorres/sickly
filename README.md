@@ -1,29 +1,20 @@
 # Sickly Application 
 <img src="https://user-images.githubusercontent.com/29695350/77191664-4a7dd800-6aa9-11ea-9368-9dad0ab6b494.png" width="200" height="200" align="right">
 
-
-
-
-
-
-1. Ensure API URL is correct in `src/components/Home/service.js`
-```js
-  var restClient = feathers.rest('http://localhost:8080')
+1. Clone and cd into
+```
+https://github.com/ltchris/sickly-app.git
+cd sickly-app
 ```
 
-2. Add your schema and field names in `src/components/Home/index.js`
-```js
-schema: 'Test',
-
-...
-
-{ key: 'text', type: 'text', field: 'text', },
-{ key: 'number', type: 'text', field: 'number', },
+2. Install
+```
+npm i
 ```
 
-3. Start 
+3. Run and try it in your browser!
 ```
 npm start
 ```
 
-4. Visit http://localhost:8081/ 
+Which should open up in your default browser: http://localhost:8081/
