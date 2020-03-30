@@ -1,6 +1,7 @@
 import React from 'react'
 import createHistory from 'history/createBrowserHistory'
 import feathers from '@feathersjs/client'
+import BounceLoader from "react-spinners/BounceLoader"
 import { Route, Router } from 'react-router-dom'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
@@ -15,23 +16,7 @@ const history = createHistory()
 let state = observable({
   data: null,
   maxNumCases: null,
-  location: {},
-  set: false
 })
-
-const getMyLocation = () => {
-  if (!state.set) {
-    const app = feathers();
-    const restClient = feathers.rest('https://api.sickly.app')
-    app.configure(restClient.fetch(window.fetch));
-  
-    app.service('locate').create({}).then(my => {
-      state.location = my.location
-      state.set = true
-    })
-  }
-}
-getMyLocation()
 
 const getData = async () => { 
   let app = feathers(); 
@@ -50,10 +35,12 @@ getData()
 const App = observer(() => 
   <Router history={history}>
     <div className={s.container}>
-      <Navbar location={state.location} />
-      <Route path='/chart' component={() => <Chart data={state.data} />} />
+      <Navbar />
       <Route path='/about' component={() => <About />} />
-      <Route exact path='/' component={() => <Map data={state.data} maxNumCases={state.maxNumCases} location={state.location} />} />
+      {state.data && state.maxNumCases ? (<>
+        <Route path='/chart' component={() => <Chart data={state.data} />} />
+        <Route exact path='/' component={() => <Map data={state.data} maxNumCases={state.maxNumCases} /> } />
+      </>) : ( <div className={s.loader}><BounceLoader color={"#0076de"}/></div> )}
    </div>
   </Router>
 )

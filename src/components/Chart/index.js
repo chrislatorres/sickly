@@ -2,7 +2,7 @@ import React from 'react'
 import feathers from '@feathersjs/client'
 import JavascriptTimeAgo from 'javascript-time-ago'
 import ShowMoreText from 'react-show-more-text'
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroll-component'
 import countries from 'i18n-iso-countries'
 import states from '../Map/states.json'
 import germany from '../Map/germany.json'
@@ -17,7 +17,8 @@ countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 JavascriptTimeAgo.locale(en)
 
 let state = observable({
-  date: '2020-3-26',
+  //date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+  date: '2020-3-26', 
   timeData: null,
   timeLocationData: null,
   items: Array.from({ length: 20 }),

@@ -13,6 +13,7 @@ import germany from './germany.json'
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 
 let state = observable({
+  set: false,
   viewport: { 
     center: [31.35, -53.10], 
     zoom: 3 
@@ -45,7 +46,7 @@ const MapPage = observer((props) => {
           url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
           attribution='https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
-        {props.data && props.maxNumCases ? 
+        {
           props.data.map((mark, i) => { 
             if (!mark.coordinates || !mark.cases || mark.cases < 1) { return }
         
@@ -80,7 +81,7 @@ const MapPage = observer((props) => {
               </div>
             )
           })
-        : null }
+        }
       </Map>
     </div>
   )
