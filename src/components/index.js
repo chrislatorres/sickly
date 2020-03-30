@@ -4,7 +4,6 @@ import feathers from '@feathersjs/client'
 import { Route, Router } from 'react-router-dom'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
-import ReactGA from 'react-ga'
 import Navbar from './Navbar'
 import Chart from './Chart'
 import About from './About'
@@ -12,11 +11,6 @@ import Map from './Map'
 import s from '../assets/css/app.css'
 
 const history = createHistory()
-
-history.listen((location) => {
-  ReactGA.set({ page: location.pathname });
-  ReactGA.pageview(location.pathname);
-});
 
 let state = observable({
   data: null,
