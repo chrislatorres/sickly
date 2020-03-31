@@ -16,6 +16,9 @@ let About = () =>
       <p>
        <a href="mailto:sickly@hideaddress.net?subject=Sickly&body=Hi">Click here to email us.</a><br/>
       </p>
+      <p>
+       <a href="https://github.com/ltchris/sickly-app/">Sickly is open source on GitHub.</a><br/>
+      </p>
   </div>
 
 export default () => <About />
