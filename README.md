@@ -6,7 +6,7 @@
 
 1. Clone and cd into
 ```
-https://github.com/ltchris/sickly-app.git
+https://github.com/softwarebycl/sickly-app.git
 cd sickly-app
 ```
 
