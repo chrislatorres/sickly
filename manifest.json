@@ -1,0 +1,24 @@
+{
+  "name": "Sickly",
+  "short_name": "Sickly",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "https://user-images.githubusercontent.com/29695350/77392644-6f07d780-6d69-11ea-8507-90fb94c92ed5.png",
+      "sizes": "192x192"
+    }
+  ],
+  "background_color": "#000000",
+  "display": "fullscreen",
+  "theme_color": "#000000",
+  "main.js": "main.js",
+  "vendors.js": "vendors.js",
+  "./index.html": "./index.html",
+  "favicon.ico": "favicon.ico",
+  "fde668ccab183bb902a3a0d676270536.png": "fde668ccab183bb902a3a0d676270536.png",
+  "main.js.br": "main.js.br",
+  "service-worker.js": "service-worker.js",
+  "vendors.js.LICENSE.txt": "vendors.js.LICENSE.txt",
+  "vendors.js.br": "vendors.js.br",
+  "workbox-ec4d79a7.js": "workbox-ec4d79a7.js"
+}
